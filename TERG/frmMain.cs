@@ -9,17 +9,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
+using TERGEngine;
 
 namespace TERG
 {
     public partial class frmMain : Form
     {
-        private Dictionary<String, List<string>> Pools;
+        // private Dictionary<String, List<string>> Pools;
+
+        private Engine engine;
 
         public frmMain()
         {
             InitializeComponent();
-            Pools = new Dictionary<string, List<string>>();
+            //Pools = new Dictionary<string, List<string>>();
+            engine = new Engine()
         }
 
         private void frmMain_Load(object sender, EventArgs e)
