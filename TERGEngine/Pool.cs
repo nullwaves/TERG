@@ -20,5 +20,10 @@ namespace TERGEngine
             ParentID = 0;
             List = new string[0];
         }
+
+        public string Pull()
+        {
+            return List[new Random().Next(0, List.Length)];
+        }
     }
 }

@@ -15,43 +15,23 @@ namespace TERG
 {
     public partial class frmMain : Form
     {
-        // private Dictionary<String, List<string>> Pools;
-
         private Engine engine;
+        private int IndexInPoolEditor = -1;
 
         public frmMain()
         {
             InitializeComponent();
-            //Pools = new Dictionary<string, List<string>>();
-            engine = new Engine()
+            engine = new Engine();
         }
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            if(File.Exists("./terg.db"))
+            if (File.Exists("./terg.db"))
             {
                 PushDatabaseStatus("Database exists; Attempting to parse");
-                try {
-                    Pools = JsonConvert.DeserializeObject<Dictionary<String, List<string>>>(File.ReadAllText("./terg.db"));
-                    PushDatabaseStatus("Database loaded");
-                } catch(Exception ex)
-                {
-                    
-                    MessageBox.Show(ex.Message);
-                }
-            }
 
-            if(Pools.Count < 1)
-            {
-                PushDatabaseStatus("Database empty; Adding default pool");
-                List<string> debug = new List<string>();
-                debug.Add("Red");
-                debug.Add("Green");
-                debug.Add("Blue");
-                debug.Add("Black");
-                debug.Add("White");
-                Pools.Add("Colors", debug);
-                SaveDatabase();
+                engine.Load("./terg.db");
+                PushDatabaseStatus("Database loaded. Pools: " + engine.Pools.Count + " Patterns: " + engine.Patterns.Count);
             }
 
             /* Load Lists */
@@ -60,60 +40,38 @@ namespace TERG
 
         private void LoadListBoxes()
         {
-            int index = listPools.SelectedIndex;
-
             // Load Pool Names
             listPools.Items.Clear();
-            listPools.Items.AddRange(Pools.Keys.ToArray<string>());
+            foreach(Pool pool in engine.Pools)
+            {
+                listPools.Items.Add(pool.Name);
+            }
             listPools.ClearSelected();
-
-            listPools.SelectedIndex = index;
         }
 
         private void SaveDatabase()
         {
             PushDatabaseStatus("Preparing to save database");
 
-            FileStream fs;
-
-            if(!File.Exists("./terg.db"))
+            if (!File.Exists("./terg.db"))
             {
                 PushDatabaseStatus("Database does not exist; Attempting to create");
                 try
                 {
-                    fs = File.Create("./terg.db");
+                    File.Create("./terg.db");
                     PushDatabaseStatus("Database created");
-                } catch (Exception e)
+                }
+                catch (Exception e)
                 {
                     PushDatabaseStatus("Error Creating Database: " + e.Message);
                     MessageBox.Show(e.Message);
                     return;
                 }
-            } else
-            {
-                PushDatabaseStatus("Database exists; attempting to open");
-                try
-                {
-                    fs = File.OpenWrite("./terg.db");
-                } catch (Exception e)
-                {
-                    PushDatabaseStatus("Error Opening Database: " + e.Message);
-                    MessageBox.Show(e.Message);
-                    return;
-                }
             }
-
-            try
+            else
             {
-                StreamWriter writer = new StreamWriter(fs);
-                writer.Write(JsonConvert.SerializeObject(Pools));
-                writer.Dispose();
-                writer.Close();
+                engine.Save("./terg.db");
                 PushDatabaseStatus("Database saved");
-            } catch (Exception e)
-            {
-                PushDatabaseStatus("Error Writing Database: " + e.Message);
-                MessageBox.Show(e.Message);
             }
         }
 
@@ -126,11 +84,41 @@ namespace TERG
 
         private void listPools_SelectedIndexChanged(object sender, EventArgs e)
         {
-            listPoolItems.Items.Clear();
-            if (listPools.SelectedIndex == -1) return;
-            List<string> tmp;
-            Pools.TryGetValue(listPools.SelectedItem.ToString(), out tmp);
-            listPoolItems.Items.AddRange(tmp.ToArray<string>());
+            if(IndexInPoolEditor != -1)
+            {
+                //Pool is selected already, fetch and clean data to check for updates
+                string[] update = textBoxPoolEditor.Lines;
+                for (int i = 0; i < update.Length; i++)
+                {
+                    update[i] = update[i].Trim();
+                }
+
+                //If the pool has been modified we want to check to see if changes should be saved
+                if (engine.Pools[IndexInPoolEditor].List != update)
+                {
+                    DialogResult result = MessageBox.Show("You have unsaved changes to a pool. Would you like to save these before continuing?", Text, MessageBoxButtons.YesNoCancel,MessageBoxIcon.Exclamation);
+                    switch(result)
+                    {
+                        case DialogResult.Yes:
+                            //Save Changes
+                            engine.Pools[IndexInPoolEditor].List = update;
+                            PushDatabaseStatus("Pool [" + engine.Pools.[IndexInPoolEditor].Name + "] has been updated");
+                            break;
+                        case DialogResult.No:
+                            //Don't Save Changes, just skip to loading the next pool
+                            break;
+                        default:
+                            //Neither, reset the index back to the previous and abort mission
+                            listPools.SelectedIndex = IndexInPoolEditor;
+                            return;
+                    }
+                }
+            }
+
+            //Should now be able to load data
+            textBoxPoolEditor.Clear();
+            textBoxPoolEditor.Lines = engine.Pools[listPools.SelectedIndex].List;
+            IndexInPoolEditor = listPools.SelectedIndex;
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -146,13 +134,14 @@ namespace TERG
         private void addNewPoolToolStripMenuItem_Click(object sender, EventArgs e)
         {
             InputBoxResult result = InputBox.Show("New Pool name:", this.Text);
-            if(result.OK)
+            if (result.OK)
             {
                 if (Pools.ContainsKey(result.Text))
                 {
                     MessageBox.Show("That pool already exists.");
                     return;
-                } else
+                }
+                else
                 {
                     Pools.Add(result.Text, new List<string>());
                     PushDatabaseStatus("Added pool \"" + result.Text + "\"");

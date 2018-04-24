@@ -15,7 +15,8 @@ namespace TERGEngine
 
         public Engine()
         {
-            
+            Pools = new List<Pool>();
+            Patterns = new List<Pattern>();
         }
 
         public Engine Load(string file)

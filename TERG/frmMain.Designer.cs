@@ -31,31 +31,34 @@
             this.listPools = new System.Windows.Forms.ListBox();
             this.mainStatusStrip = new System.Windows.Forms.StatusStrip();
             this.statusDatabase = new System.Windows.Forms.ToolStripStatusLabel();
-            this.listPoolItems = new System.Windows.Forms.ListBox();
             this.groupPoolBrowser = new System.Windows.Forms.GroupBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.databseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tERGToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPoolEditor = new System.Windows.Forms.TabPage();
-            this.tabEventLog = new System.Windows.Forms.TabPage();
-            this.txtEventLog = new System.Windows.Forms.TextBox();
-            this.btnDeletePool = new System.Windows.Forms.Button();
-            this.txtNewItem = new System.Windows.Forms.TextBox();
-            this.btnAddToPool = new System.Windows.Forms.Button();
-            this.btnRemoveItems = new System.Windows.Forms.Button();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.addNewPoolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addItemToPoolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addMultipleToPoolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tERGToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabEventLog = new System.Windows.Forms.TabPage();
+            this.txtEventLog = new System.Windows.Forms.TextBox();
+            this.tabPoolEditor = new System.Windows.Forms.TabPage();
+            this.btnRemoveItems = new System.Windows.Forms.Button();
+            this.btnAddToPool = new System.Windows.Forms.Button();
+            this.txtNewItem = new System.Windows.Forms.TextBox();
+            this.btnDeletePool = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBoxPoolEditor = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.mainStatusStrip.SuspendLayout();
             this.groupPoolBrowser.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
-            this.tabPoolEditor.SuspendLayout();
             this.tabEventLog.SuspendLayout();
+            this.tabPoolEditor.SuspendLayout();
             this.SuspendLayout();
             // 
             // listPools
@@ -84,18 +87,13 @@
             this.statusDatabase.Size = new System.Drawing.Size(119, 17);
             this.statusDatabase.Text = "7/23/2017 5:26:22 PM";
             // 
-            // listPoolItems
-            // 
-            this.listPoolItems.FormattingEnabled = true;
-            this.listPoolItems.Location = new System.Drawing.Point(185, 19);
-            this.listPoolItems.Name = "listPoolItems";
-            this.listPoolItems.Size = new System.Drawing.Size(173, 277);
-            this.listPoolItems.TabIndex = 3;
-            // 
             // groupPoolBrowser
             // 
+            this.groupPoolBrowser.Controls.Add(this.button2);
+            this.groupPoolBrowser.Controls.Add(this.button1);
+            this.groupPoolBrowser.Controls.Add(this.textBoxPoolEditor);
+            this.groupPoolBrowser.Controls.Add(this.label1);
             this.groupPoolBrowser.Controls.Add(this.listPools);
-            this.groupPoolBrowser.Controls.Add(this.listPoolItems);
             this.groupPoolBrowser.Location = new System.Drawing.Point(0, 27);
             this.groupPoolBrowser.Name = "groupPoolBrowser";
             this.groupPoolBrowser.Size = new System.Drawing.Size(364, 303);
@@ -130,9 +128,39 @@
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(253, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(250, 6);
+            // 
+            // addNewPoolToolStripMenuItem
+            // 
+            this.addNewPoolToolStripMenuItem.Name = "addNewPoolToolStripMenuItem";
+            this.addNewPoolToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.addNewPoolToolStripMenuItem.Size = new System.Drawing.Size(253, 22);
+            this.addNewPoolToolStripMenuItem.Text = "Add New Pool";
+            this.addNewPoolToolStripMenuItem.Click += new System.EventHandler(this.addNewPoolToolStripMenuItem_Click);
+            // 
+            // addItemToPoolToolStripMenuItem
+            // 
+            this.addItemToPoolToolStripMenuItem.Name = "addItemToPoolToolStripMenuItem";
+            this.addItemToPoolToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
+            this.addItemToPoolToolStripMenuItem.Size = new System.Drawing.Size(253, 22);
+            this.addItemToPoolToolStripMenuItem.Text = "Add Item To Pool";
+            this.addItemToPoolToolStripMenuItem.Click += new System.EventHandler(this.addItemToPoolToolStripMenuItem_Click);
+            // 
+            // addMultipleToPoolToolStripMenuItem
+            // 
+            this.addMultipleToPoolToolStripMenuItem.Name = "addMultipleToPoolToolStripMenuItem";
+            this.addMultipleToPoolToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.I)));
+            this.addMultipleToPoolToolStripMenuItem.Size = new System.Drawing.Size(253, 22);
+            this.addMultipleToPoolToolStripMenuItem.Text = "Add Multiple to Pool";
+            this.addMultipleToPoolToolStripMenuItem.Click += new System.EventHandler(this.addMultipleToPoolToolStripMenuItem_Click);
             // 
             // tERGToolStripMenuItem
             // 
@@ -146,7 +174,7 @@
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -159,20 +187,6 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(294, 303);
             this.tabControl1.TabIndex = 6;
-            // 
-            // tabPoolEditor
-            // 
-            this.tabPoolEditor.Controls.Add(this.btnRemoveItems);
-            this.tabPoolEditor.Controls.Add(this.btnAddToPool);
-            this.tabPoolEditor.Controls.Add(this.txtNewItem);
-            this.tabPoolEditor.Controls.Add(this.btnDeletePool);
-            this.tabPoolEditor.Location = new System.Drawing.Point(4, 22);
-            this.tabPoolEditor.Name = "tabPoolEditor";
-            this.tabPoolEditor.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPoolEditor.Size = new System.Drawing.Size(286, 277);
-            this.tabPoolEditor.TabIndex = 0;
-            this.tabPoolEditor.Text = "Pool Editor";
-            this.tabPoolEditor.UseVisualStyleBackColor = true;
             // 
             // tabEventLog
             // 
@@ -195,30 +209,19 @@
             this.txtEventLog.Size = new System.Drawing.Size(286, 277);
             this.txtEventLog.TabIndex = 1;
             // 
-            // btnDeletePool
+            // tabPoolEditor
             // 
-            this.btnDeletePool.Location = new System.Drawing.Point(149, 6);
-            this.btnDeletePool.Name = "btnDeletePool";
-            this.btnDeletePool.Size = new System.Drawing.Size(131, 23);
-            this.btnDeletePool.TabIndex = 1;
-            this.btnDeletePool.Text = "Delete Selected Pool(s)";
-            this.btnDeletePool.UseVisualStyleBackColor = true;
-            // 
-            // txtNewItem
-            // 
-            this.txtNewItem.Location = new System.Drawing.Point(7, 36);
-            this.txtNewItem.Name = "txtNewItem";
-            this.txtNewItem.Size = new System.Drawing.Size(180, 20);
-            this.txtNewItem.TabIndex = 2;
-            // 
-            // btnAddToPool
-            // 
-            this.btnAddToPool.Location = new System.Drawing.Point(193, 34);
-            this.btnAddToPool.Name = "btnAddToPool";
-            this.btnAddToPool.Size = new System.Drawing.Size(87, 23);
-            this.btnAddToPool.TabIndex = 3;
-            this.btnAddToPool.Text = "Add To Pool";
-            this.btnAddToPool.UseVisualStyleBackColor = true;
+            this.tabPoolEditor.Controls.Add(this.btnRemoveItems);
+            this.tabPoolEditor.Controls.Add(this.btnAddToPool);
+            this.tabPoolEditor.Controls.Add(this.txtNewItem);
+            this.tabPoolEditor.Controls.Add(this.btnDeletePool);
+            this.tabPoolEditor.Location = new System.Drawing.Point(4, 22);
+            this.tabPoolEditor.Name = "tabPoolEditor";
+            this.tabPoolEditor.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPoolEditor.Size = new System.Drawing.Size(286, 277);
+            this.tabPoolEditor.TabIndex = 0;
+            this.tabPoolEditor.Text = "Pool Editor";
+            this.tabPoolEditor.UseVisualStyleBackColor = true;
             // 
             // btnRemoveItems
             // 
@@ -229,35 +232,65 @@
             this.btnRemoveItems.Text = "Delete Selected Items From Pool";
             this.btnRemoveItems.UseVisualStyleBackColor = true;
             // 
-            // toolStripSeparator1
+            // btnAddToPool
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(190, 6);
+            this.btnAddToPool.Location = new System.Drawing.Point(193, 34);
+            this.btnAddToPool.Name = "btnAddToPool";
+            this.btnAddToPool.Size = new System.Drawing.Size(87, 23);
+            this.btnAddToPool.TabIndex = 3;
+            this.btnAddToPool.Text = "Add To Pool";
+            this.btnAddToPool.UseVisualStyleBackColor = true;
             // 
-            // addNewPoolToolStripMenuItem
+            // txtNewItem
             // 
-            this.addNewPoolToolStripMenuItem.Name = "addNewPoolToolStripMenuItem";
-            this.addNewPoolToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.addNewPoolToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.addNewPoolToolStripMenuItem.Text = "Add New Pool";
-            this.addNewPoolToolStripMenuItem.Click += new System.EventHandler(this.addNewPoolToolStripMenuItem_Click);
+            this.txtNewItem.Location = new System.Drawing.Point(7, 36);
+            this.txtNewItem.Name = "txtNewItem";
+            this.txtNewItem.Size = new System.Drawing.Size(180, 20);
+            this.txtNewItem.TabIndex = 2;
             // 
-            // addItemToPoolToolStripMenuItem
+            // btnDeletePool
             // 
-            this.addItemToPoolToolStripMenuItem.Name = "addItemToPoolToolStripMenuItem";
-            this.addItemToPoolToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
-            this.addItemToPoolToolStripMenuItem.Size = new System.Drawing.Size(253, 22);
-            this.addItemToPoolToolStripMenuItem.Text = "Add Item To Pool";
-            this.addItemToPoolToolStripMenuItem.Click += new System.EventHandler(this.addItemToPoolToolStripMenuItem_Click);
+            this.btnDeletePool.Location = new System.Drawing.Point(149, 6);
+            this.btnDeletePool.Name = "btnDeletePool";
+            this.btnDeletePool.Size = new System.Drawing.Size(131, 23);
+            this.btnDeletePool.TabIndex = 1;
+            this.btnDeletePool.Text = "Delete Selected Pool(s)";
+            this.btnDeletePool.UseVisualStyleBackColor = true;
             // 
-            // addMultipleToPoolToolStripMenuItem
+            // label1
             // 
-            this.addMultipleToPoolToolStripMenuItem.Name = "addMultipleToPoolToolStripMenuItem";
-            this.addMultipleToPoolToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.I)));
-            this.addMultipleToPoolToolStripMenuItem.Size = new System.Drawing.Size(253, 22);
-            this.addMultipleToPoolToolStripMenuItem.Text = "Add Multiple to Pool";
-            this.addMultipleToPoolToolStripMenuItem.Click += new System.EventHandler(this.addMultipleToPoolToolStripMenuItem_Click);
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(186, 19);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(32, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Items";
+            // 
+            // textBoxPoolEditor
+            // 
+            this.textBoxPoolEditor.Location = new System.Drawing.Point(186, 36);
+            this.textBoxPoolEditor.Multiline = true;
+            this.textBoxPoolEditor.Name = "textBoxPoolEditor";
+            this.textBoxPoolEditor.Size = new System.Drawing.Size(172, 260);
+            this.textBoxPoolEditor.TabIndex = 2;
+            // 
+            // button1
+            // 
+            this.button1.Image = global::TERG.Properties.Resources.action_save;
+            this.button1.Location = new System.Drawing.Point(329, 9);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(29, 23);
+            this.button1.TabIndex = 3;
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Image = global::TERG.Properties.Resources.action_refresh;
+            this.button2.Location = new System.Drawing.Point(294, 9);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(29, 23);
+            this.button2.TabIndex = 4;
+            this.button2.UseVisualStyleBackColor = true;
             // 
             // frmMain
             // 
@@ -278,13 +311,14 @@
             this.mainStatusStrip.ResumeLayout(false);
             this.mainStatusStrip.PerformLayout();
             this.groupPoolBrowser.ResumeLayout(false);
+            this.groupPoolBrowser.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
-            this.tabPoolEditor.ResumeLayout(false);
-            this.tabPoolEditor.PerformLayout();
             this.tabEventLog.ResumeLayout(false);
             this.tabEventLog.PerformLayout();
+            this.tabPoolEditor.ResumeLayout(false);
+            this.tabPoolEditor.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -295,7 +329,6 @@
         private System.Windows.Forms.ListBox listPools;
         private System.Windows.Forms.StatusStrip mainStatusStrip;
         private System.Windows.Forms.ToolStripStatusLabel statusDatabase;
-        private System.Windows.Forms.ListBox listPoolItems;
         private System.Windows.Forms.GroupBox groupPoolBrowser;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem databseToolStripMenuItem;
@@ -314,6 +347,10 @@
         private System.Windows.Forms.Button btnDeletePool;
         private System.Windows.Forms.ToolStripMenuItem addItemToPoolToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addMultipleToPoolToolStripMenuItem;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox textBoxPoolEditor;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button button2;
     }
 }
 
