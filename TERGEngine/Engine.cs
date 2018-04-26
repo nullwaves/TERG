@@ -36,5 +36,26 @@ namespace TERGEngine
                 writer.Close();
             }
         }
+
+        public int GetNextPoolID()
+        {
+            //Find the pool with the highest ID number and return the next.
+            int i = 0;
+            foreach(Pool p in Pools)
+            {
+                if (p.ID >= i) i = p.ID;
+            }
+
+            return i + 1;
+        }
+
+        public Pool FindPoolById(int id)
+        {
+            foreach(Pool p in Pools)
+            {
+                if (p.ID == id) return p;
+            }
+            throw new Exception("Pool with that ID does not exist.");
+        }
     }
 }

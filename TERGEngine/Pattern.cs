@@ -3,29 +3,47 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TERGEngine.Reference;
 
 namespace TERGEngine
 {
     public class Pattern
     {
+        public int ID;
         public string Name;
         public string Desc;
-        public string[] References;
+        private IReference[] references;
         public string Base;
+
+        internal IReference[] References
+        {
+            get
+            {
+                return references;
+            }
+
+            set
+            {
+                references = value;
+            }
+        }
 
         public Pattern(string name)
         {
             Name = name;
             Desc = String.Empty;
-            References = new string[0];
+            References = new IReference[0];
             Base = String.Empty;
         }
 
-        public string Fill(string[] data)
+        public string Fill(Engine e)
         {
-            if(data.Length != References.Length)
+            //Time to draw straws
+            string[] data = new string[References.Length];
+
+            for(int i = 0; i < References.Length; i++)
             {
-                return "Data payload does not match references.";
+                data[i] = References[i].Pull(e);
             }
 
             string output = Base;

@@ -53,8 +53,10 @@ namespace TERG
         {
             PushDatabaseStatus("Preparing to save database");
 
+            //Check to see if database exists
             if (!File.Exists("./terg.db"))
             {
+                //It doesn't exist, so we make one
                 PushDatabaseStatus("Database does not exist; Attempting to create");
                 try
                 {
@@ -63,6 +65,7 @@ namespace TERG
                 }
                 catch (Exception e)
                 {
+                    //Unless we don't.
                     PushDatabaseStatus("Error Creating Database: " + e.Message);
                     MessageBox.Show(e.Message);
                     return;
@@ -70,6 +73,7 @@ namespace TERG
             }
             else
             {
+                //Save the data to the file.
                 engine.Save("./terg.db");
                 PushDatabaseStatus("Database saved");
             }
