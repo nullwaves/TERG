@@ -32,13 +32,15 @@
             this.mainStatusStrip = new System.Windows.Forms.StatusStrip();
             this.statusDatabase = new System.Windows.Forms.ToolStripStatusLabel();
             this.groupPoolBrowser = new System.Windows.Forms.GroupBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.textBoxPoolEditor = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.databseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.addNewPoolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addItemToPoolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addMultipleToPoolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tERGToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -49,10 +51,6 @@
             this.btnAddToPool = new System.Windows.Forms.Button();
             this.txtNewItem = new System.Windows.Forms.TextBox();
             this.btnDeletePool = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBoxPoolEditor = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.mainStatusStrip.SuspendLayout();
             this.groupPoolBrowser.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -101,6 +99,41 @@
             this.groupPoolBrowser.TabStop = false;
             this.groupPoolBrowser.Text = "Pool Browser";
             // 
+            // button2
+            // 
+            this.button2.Image = global::TERG.Properties.Resources.action_refresh;
+            this.button2.Location = new System.Drawing.Point(294, 9);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(29, 23);
+            this.button2.TabIndex = 4;
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Image = global::TERG.Properties.Resources.action_save;
+            this.button1.Location = new System.Drawing.Point(329, 9);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(29, 23);
+            this.button1.TabIndex = 3;
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // textBoxPoolEditor
+            // 
+            this.textBoxPoolEditor.Location = new System.Drawing.Point(186, 36);
+            this.textBoxPoolEditor.Multiline = true;
+            this.textBoxPoolEditor.Name = "textBoxPoolEditor";
+            this.textBoxPoolEditor.Size = new System.Drawing.Size(172, 260);
+            this.textBoxPoolEditor.TabIndex = 2;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(186, 19);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(32, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Items";
+            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -117,9 +150,7 @@
             this.databseToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.saveToolStripMenuItem,
             this.toolStripSeparator1,
-            this.addNewPoolToolStripMenuItem,
-            this.addItemToPoolToolStripMenuItem,
-            this.addMultipleToPoolToolStripMenuItem});
+            this.addNewPoolToolStripMenuItem});
             this.databseToolStripMenuItem.Name = "databseToolStripMenuItem";
             this.databseToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.databseToolStripMenuItem.Text = "Databse";
@@ -128,39 +159,22 @@
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(253, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(250, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(190, 6);
             // 
             // addNewPoolToolStripMenuItem
             // 
             this.addNewPoolToolStripMenuItem.Name = "addNewPoolToolStripMenuItem";
             this.addNewPoolToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.addNewPoolToolStripMenuItem.Size = new System.Drawing.Size(253, 22);
+            this.addNewPoolToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.addNewPoolToolStripMenuItem.Text = "Add New Pool";
             this.addNewPoolToolStripMenuItem.Click += new System.EventHandler(this.addNewPoolToolStripMenuItem_Click);
-            // 
-            // addItemToPoolToolStripMenuItem
-            // 
-            this.addItemToPoolToolStripMenuItem.Name = "addItemToPoolToolStripMenuItem";
-            this.addItemToPoolToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
-            this.addItemToPoolToolStripMenuItem.Size = new System.Drawing.Size(253, 22);
-            this.addItemToPoolToolStripMenuItem.Text = "Add Item To Pool";
-            this.addItemToPoolToolStripMenuItem.Click += new System.EventHandler(this.addItemToPoolToolStripMenuItem_Click);
-            // 
-            // addMultipleToPoolToolStripMenuItem
-            // 
-            this.addMultipleToPoolToolStripMenuItem.Name = "addMultipleToPoolToolStripMenuItem";
-            this.addMultipleToPoolToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.I)));
-            this.addMultipleToPoolToolStripMenuItem.Size = new System.Drawing.Size(253, 22);
-            this.addMultipleToPoolToolStripMenuItem.Text = "Add Multiple to Pool";
-            this.addMultipleToPoolToolStripMenuItem.Click += new System.EventHandler(this.addMultipleToPoolToolStripMenuItem_Click);
             // 
             // tERGToolStripMenuItem
             // 
@@ -257,41 +271,6 @@
             this.btnDeletePool.Text = "Delete Selected Pool(s)";
             this.btnDeletePool.UseVisualStyleBackColor = true;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(186, 19);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(32, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Items";
-            // 
-            // textBoxPoolEditor
-            // 
-            this.textBoxPoolEditor.Location = new System.Drawing.Point(186, 36);
-            this.textBoxPoolEditor.Multiline = true;
-            this.textBoxPoolEditor.Name = "textBoxPoolEditor";
-            this.textBoxPoolEditor.Size = new System.Drawing.Size(172, 260);
-            this.textBoxPoolEditor.TabIndex = 2;
-            // 
-            // button1
-            // 
-            this.button1.Image = global::TERG.Properties.Resources.action_save;
-            this.button1.Location = new System.Drawing.Point(329, 9);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(29, 23);
-            this.button1.TabIndex = 3;
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Image = global::TERG.Properties.Resources.action_refresh;
-            this.button2.Location = new System.Drawing.Point(294, 9);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(29, 23);
-            this.button2.TabIndex = 4;
-            this.button2.UseVisualStyleBackColor = true;
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -345,8 +324,6 @@
         private System.Windows.Forms.Button btnAddToPool;
         private System.Windows.Forms.TextBox txtNewItem;
         private System.Windows.Forms.Button btnDeletePool;
-        private System.Windows.Forms.ToolStripMenuItem addItemToPoolToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem addMultipleToPoolToolStripMenuItem;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox textBoxPoolEditor;
         private System.Windows.Forms.Label label1;

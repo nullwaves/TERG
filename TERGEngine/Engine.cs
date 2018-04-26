@@ -13,18 +13,14 @@ namespace TERGEngine
         public List<Pool> Pools;
         public List<Pattern> Patterns;
 
-        public Engine()
-        {
-            Pools = new List<Pool>();
-            Patterns = new List<Pattern>();
-        }
-
         public Engine Load(string file)
         {
-                StreamReader reader = new StreamReader(file);
-                Engine retval = JsonConvert.DeserializeObject<Engine>(reader.ReadToEnd());
+            StreamReader reader = new StreamReader(file);
+            string json = reader.ReadToEnd();
+            Engine retval = JsonConvert.DeserializeObject<Engine>(json);
+            reader.Close();
 
-                return retval;
+            return retval;
         }
 
         public void Save(string file)
@@ -41,7 +37,7 @@ namespace TERGEngine
         {
             //Find the pool with the highest ID number and return the next.
             int i = 0;
-            foreach(Pool p in Pools)
+            foreach (Pool p in Pools)
             {
                 if (p.ID >= i) i = p.ID;
             }
@@ -51,11 +47,32 @@ namespace TERGEngine
 
         public Pool FindPoolById(int id)
         {
-            foreach(Pool p in Pools)
+            foreach (Pool p in Pools)
             {
                 if (p.ID == id) return p;
             }
             throw new Exception("Pool with that ID does not exist.");
+        }
+
+        public int GetNextPatternID()
+        {
+            //Find the Pattern with the highest ID number and return the next.
+            int i = 0;
+            foreach (Pattern p in Patterns)
+            {
+                if (p.ID >= i) i = p.ID;
+            }
+
+            return i + 1;
+        }
+
+        public Pattern FindPatternById(int id)
+        {
+            foreach (Pattern p in Patterns)
+            {
+                if (p.ID == id) return p;
+            }
+            throw new Exception("Pattern with that ID does not exist.");
         }
     }
 }

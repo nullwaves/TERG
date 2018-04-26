@@ -12,7 +12,7 @@ namespace TERGEngine.Reference
 
         public string Pull(Engine e)
         {
-            throw new NotImplementedException();
+            return e.FindPatternById(PatternID).Fill(e);
         }
     }
 }
