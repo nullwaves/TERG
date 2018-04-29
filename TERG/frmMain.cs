@@ -17,6 +17,7 @@ namespace TERG
     {
         private Engine engine;
         private int IndexInPoolEditor = -1;
+        private bool FlagPoolChanged = false;
 
         public frmMain()
         {
@@ -42,11 +43,100 @@ namespace TERG
         {
             // Load Pool Names
             listPools.Items.Clear();
+            comboPoolParent.Items.Clear();
+            comboPoolParent.Items.Add("None");
             foreach (Pool pool in engine.Pools)
             {
                 listPools.Items.Add(pool.Name);
+                comboPoolParent.Items.Add(pool.Name);
             }
             listPools.ClearSelected();
+        }
+
+        private void LoadPool()
+        {
+            if (IndexInPoolEditor != -1)
+            {
+                Pool p = engine.Pools[IndexInPoolEditor];
+
+                textBoxPoolEditor.Clear();
+                textBoxPoolEditor.Lines = p.List;
+
+                textPoolName.Clear();
+                textPoolName.Text = p.Name;
+
+                if (p.ParentID == -1)
+                {
+                    comboPoolParent.SelectedIndex = 0;
+                }
+                else
+                {
+                    comboPoolParent.SelectedIndex = comboPoolParent.Items.IndexOf(engine.FindPoolById(p.ParentID).Name);
+                }
+
+                FlagPoolChanged = false;
+            }
+        }
+
+        private void SavePool()
+        {
+            // Save Pool Items
+            string[] update = textBoxPoolEditor.Lines;
+            for (int i = 0; i < update.Length; i++)
+            {
+                update[i] = update[i].Trim();
+            }
+            engine.Pools[IndexInPoolEditor].List = update;
+            PushDatabaseStatus("Pool [" + engine.Pools[IndexInPoolEditor].Name + "] has been updated");
+
+            // Save Pool Name
+            string name = textPoolName.Text.Trim();
+            if (!engine.Pools[IndexInPoolEditor].Name.Equals(name))
+            {
+                string oldName = engine.Pools[IndexInPoolEditor].Name;
+                engine.Pools[IndexInPoolEditor].Name = name;
+                PushDatabaseStatus("Updated pool name from [" + oldName + "] to [" + name + "]");
+            }
+
+            // Save Parent Pool
+            
+            int newParentID;
+            if (comboPoolParent.SelectedIndex == -1 || comboPoolParent.SelectedIndex == 0)
+            {
+                newParentID = -1;
+            }
+            else
+            {
+                newParentID = engine.Pools[comboPoolParent.SelectedIndex - 1].ID;
+            }
+            if (engine.Pools[IndexInPoolEditor].ParentID != newParentID)
+            {
+                string oldParent;
+                if (engine.Pools[IndexInPoolEditor].ParentID != -1)
+                {
+                    oldParent = engine.FindPoolById(engine.Pools[IndexInPoolEditor].ParentID).Name;
+                }
+                else
+                {
+                    oldParent = "None";
+                }
+                string newParent;
+                if (newParentID == -1)
+                {
+                    newParent = "None";
+                }
+                else
+                {
+                    newParent = engine.FindPoolById(newParentID).Name;
+                }
+                engine.Pools[IndexInPoolEditor].ParentID = newParentID;
+                PushDatabaseStatus("Updated [" + engine.Pools[IndexInPoolEditor].Name + "] Parent from [" + oldParent + "] to [" + newParent + "]");
+            }
+
+            SaveDatabase();
+            LoadListBoxes();
+            listPools.SelectedIndex = IndexInPoolEditor;
+            FlagPoolChanged = false;
         }
 
         private void SaveDatabase()
@@ -88,26 +178,21 @@ namespace TERG
 
         private void listPools_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (IndexInPoolEditor == listPools.SelectedIndex) return;
+
+            int newIndex = listPools.SelectedIndex;
+
             if (IndexInPoolEditor != -1)
             {
-                //Pool is selected already, fetch and clean data to check for updates
-                string[] update = textBoxPoolEditor.Lines;
-                for (int i = 0; i < update.Length; i++)
-                {
-                    update[i] = update[i].Trim();
-                }
-
                 //If the pool has been modified we want to check to see if changes should be saved
-                if (!engine.Pools[IndexInPoolEditor].List.Equals(update))
+                if (FlagPoolChanged)
                 {
                     DialogResult result = MessageBox.Show("You have unsaved changes to a pool. Would you like to save these before continuing?", Text, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
                     switch (result)
                     {
                         case DialogResult.Yes:
                             //Save Changes
-                            engine.Pools[IndexInPoolEditor].List = update;
-                            SaveDatabase();
-                            PushDatabaseStatus("Pool [" + engine.Pools[IndexInPoolEditor].Name + "] has been updated");
+                            SavePool();                        
                             break;
                         case DialogResult.No:
                             //Don't Save Changes, just skip to loading the next pool
@@ -120,10 +205,9 @@ namespace TERG
                 }
             }
 
-            //Should now be able to load data
-            textBoxPoolEditor.Clear();
-            textBoxPoolEditor.Lines = engine.Pools[listPools.SelectedIndex].List;
+            listPools.SelectedIndex = newIndex;
             IndexInPoolEditor = listPools.SelectedIndex;
+            LoadPool();
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -149,6 +233,41 @@ namespace TERG
                     LoadListBoxes();
                 }
             }
+        }
+
+        private void textBoxPoolEditor_TextChanged(object sender, EventArgs e)
+        {
+            FlagPoolChanged = true;
+        }
+
+        private void textPoolName_TextChanged(object sender, EventArgs e)
+        {
+            if (IndexInPoolEditor != -1)
+            {
+                FlagPoolChanged = true;
+            }
+        }
+
+        private void comboPoolParent_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (IndexInPoolEditor != -1)
+            {
+                FlagPoolChanged = true;
+                if (comboPoolParent.SelectedIndex == 0)
+                {
+                    comboPoolParent.SelectedIndex = -1;
+                }
+            }
+        }
+
+        private void btnSavePool_Click(object sender, EventArgs e)
+        {
+            SavePool();
+        }
+
+        private void btnRefreshPool_Click(object sender, EventArgs e)
+        {
+            LoadPool();
         }
     }
 }

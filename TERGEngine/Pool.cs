@@ -17,7 +17,7 @@ namespace TERGEngine
         {
             ID = i;
             Name = n;
-            ParentID = 0;
+            ParentID = -1;
             List = new string[0];
         }
 
