@@ -16,13 +16,19 @@ namespace TERG
     public partial class frmMain : Form
     {
         private Engine engine;
+
+        // Variables for Pool Editor
         private int IndexInPoolEditor = -1;
         private bool FlagPoolChanged = false;
+
+        //Variables for Pattern Editor
+        private int IndexInPatternEditor = -1;
+        private bool FlagPatternChanged = false;
+
 
         public frmMain()
         {
             InitializeComponent();
-            engine = new Engine();
         }
 
         private void frmMain_Load(object sender, EventArgs e)
@@ -31,15 +37,54 @@ namespace TERG
             {
                 PushDatabaseStatus("Database exists; Attempting to parse");
 
-                engine = engine.Load("terg.db");
-                PushDatabaseStatus("Database loaded. Pools: " + engine.Pools.Count + " Patterns: " + engine.Patterns.Count);
+                try
+                {
+                    engine = Engine.Load("terg.db");
+                    PushDatabaseStatus("Database loaded. Pools: " + engine.Pools.Count + " Patterns: " + engine.Patterns.Count);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                    this.Close();
+                }
+            }
+            else
+            {
+
+                engine = new Engine();
+                SaveDatabase();
             }
 
             /* Load Lists */
-            LoadListBoxes();
+            LoadPoolLists();
+            LoadPatternLists();
         }
 
-        private void LoadListBoxes()
+        private void LoadPatternLists()
+        {
+            listPatterns.Items.Clear();
+            foreach (Pattern p in engine.Patterns)
+            {
+                listPatterns.Items.Add(p.Name);
+            }
+            listPatterns.ClearSelected();
+        }
+
+        private void LoadPattern()
+        {
+            if(IndexInPatternEditor != -1)
+            {
+                Pattern p = engine.Patterns[IndexInPatternEditor];
+
+                textPatternName.Clear();
+                textPatternName.Text = p.Name;
+
+                listPatternReferences.Items.Clear();
+                //Need to finish
+            }
+        }
+
+        private void LoadPoolLists()
         {
             // Load Pool Names
             listPools.Items.Clear();
@@ -76,6 +121,12 @@ namespace TERG
 
                 FlagPoolChanged = false;
             }
+            else
+            {
+                textBoxPoolEditor.Clear();
+                textPoolName.Clear();
+                comboPoolParent.SelectedIndex = 0;
+            }
         }
 
         private void SavePool()
@@ -99,7 +150,7 @@ namespace TERG
             }
 
             // Save Parent Pool
-            
+
             int newParentID;
             if (comboPoolParent.SelectedIndex == -1 || comboPoolParent.SelectedIndex == 0)
             {
@@ -134,7 +185,7 @@ namespace TERG
             }
 
             SaveDatabase();
-            LoadListBoxes();
+            LoadPoolLists();
             listPools.SelectedIndex = IndexInPoolEditor;
             FlagPoolChanged = false;
         }
@@ -150,7 +201,7 @@ namespace TERG
                 PushDatabaseStatus("Database does not exist; Attempting to create");
                 try
                 {
-                    File.Create("terg.db");
+                    File.Create("terg.db").Close();
                     PushDatabaseStatus("Database created");
                 }
                 catch (Exception e)
@@ -161,12 +212,11 @@ namespace TERG
                     return;
                 }
             }
-            else
-            {
-                //Save the data to the file.
-                engine.Save("terg.db");
-                PushDatabaseStatus("Database saved");
-            }
+
+            //Save the data to the file.
+            engine.Save("terg.db");
+            PushDatabaseStatus("Database saved");
+
         }
 
         private void PushDatabaseStatus(string Status)
@@ -192,7 +242,7 @@ namespace TERG
                     {
                         case DialogResult.Yes:
                             //Save Changes
-                            SavePool();                        
+                            SavePool();
                             break;
                         case DialogResult.No:
                             //Don't Save Changes, just skip to loading the next pool
@@ -230,14 +280,17 @@ namespace TERG
                     engine.Pools.Add(new Pool(engine.GetNextPoolID(), result.Text));
                     PushDatabaseStatus("Added pool \"" + result.Text + "\"");
                     SaveDatabase();
-                    LoadListBoxes();
+                    LoadPoolLists();
                 }
             }
         }
 
         private void textBoxPoolEditor_TextChanged(object sender, EventArgs e)
         {
-            FlagPoolChanged = true;
+            if (IndexInPoolEditor != -1)
+            {
+                FlagPoolChanged = true;
+            }
         }
 
         private void textPoolName_TextChanged(object sender, EventArgs e)
@@ -268,6 +321,11 @@ namespace TERG
         private void btnRefreshPool_Click(object sender, EventArgs e)
         {
             LoadPool();
+        }
+
+        private void listPatterns_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -50,6 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseEditor.Designer.cs">
+      <DependentUpon>BaseEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -70,6 +76,9 @@
     <Compile Include="TERGAboutBox.Designer.cs">
       <DependentUpon>TERGAboutBox.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="BaseEditor.resx">
+      <DependentUpon>BaseEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -110,13 +119,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\SaveIcon.gif" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\action_save.gif" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\action_refresh.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\page_code.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

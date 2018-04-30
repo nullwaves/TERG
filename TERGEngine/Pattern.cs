@@ -13,7 +13,7 @@ namespace TERGEngine
         public string Name;
         public string Desc;
         private IReference[] references;
-        public string Base;
+        public string[] Base;
 
         internal IReference[] References
         {
@@ -33,7 +33,7 @@ namespace TERGEngine
             Name = name;
             Desc = String.Empty;
             References = new IReference[0];
-            Base = String.Empty;
+            Base = new string[0];
         }
 
         public string Fill(Engine e)
@@ -46,7 +46,7 @@ namespace TERGEngine
                 data[i] = References[i].Pull(e);
             }
 
-            string output = Base;
+            string output = Base.ToString();
 
             for(int i = 0; i < References.Length; i++)
             {

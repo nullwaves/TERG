@@ -33,10 +33,7 @@ namespace TERG
             this.listPools = new System.Windows.Forms.ListBox();
             this.mainStatusStrip = new System.Windows.Forms.StatusStrip();
             this.statusDatabase = new System.Windows.Forms.ToolStripStatusLabel();
-            this.groupPoolBrowser = new System.Windows.Forms.GroupBox();
             this.comboPoolParent = new System.Windows.Forms.ComboBox();
-            this.btnRefreshPool = new System.Windows.Forms.Button();
-            this.btnSavePool = new System.Windows.Forms.Button();
             this.textPoolName = new System.Windows.Forms.TextBox();
             this.textBoxPoolEditor = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -52,17 +49,30 @@ namespace TERG
             this.tabEventLog = new System.Windows.Forms.TabPage();
             this.txtEventLog = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabControlEditors = new System.Windows.Forms.TabControl();
+            this.tabPoolEditor = new System.Windows.Forms.TabPage();
+            this.btnRefreshPool = new System.Windows.Forms.Button();
+            this.btnSavePool = new System.Windows.Forms.Button();
+            this.tabPatternEditor = new System.Windows.Forms.TabPage();
+            this.btnOpenTemplateEditor = new System.Windows.Forms.Button();
+            this.listPatterns = new System.Windows.Forms.ListBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.textPatternName = new System.Windows.Forms.TextBox();
+            this.listPatternReferences = new System.Windows.Forms.ListBox();
             this.mainStatusStrip.SuspendLayout();
-            this.groupPoolBrowser.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tabEventLog.SuspendLayout();
             this.tabControl1.SuspendLayout();
+            this.tabControlEditors.SuspendLayout();
+            this.tabPoolEditor.SuspendLayout();
+            this.tabPatternEditor.SuspendLayout();
             this.SuspendLayout();
             // 
             // listPools
             // 
             this.listPools.FormattingEnabled = true;
-            this.listPools.Location = new System.Drawing.Point(6, 19);
+            this.listPools.Location = new System.Drawing.Point(0, 0);
             this.listPools.Name = "listPools";
             this.listPools.ScrollAlwaysVisible = true;
             this.listPools.Size = new System.Drawing.Size(173, 277);
@@ -75,7 +85,7 @@ namespace TERG
             this.statusDatabase});
             this.mainStatusStrip.Location = new System.Drawing.Point(0, 481);
             this.mainStatusStrip.Name = "mainStatusStrip";
-            this.mainStatusStrip.Size = new System.Drawing.Size(666, 22);
+            this.mainStatusStrip.Size = new System.Drawing.Size(565, 22);
             this.mainStatusStrip.SizingGrip = false;
             this.mainStatusStrip.TabIndex = 2;
             this.mainStatusStrip.Text = "statusStrip1";
@@ -86,56 +96,18 @@ namespace TERG
             this.statusDatabase.Size = new System.Drawing.Size(119, 17);
             this.statusDatabase.Text = "7/23/2017 5:26:22 PM";
             // 
-            // groupPoolBrowser
-            // 
-            this.groupPoolBrowser.Controls.Add(this.comboPoolParent);
-            this.groupPoolBrowser.Controls.Add(this.btnRefreshPool);
-            this.groupPoolBrowser.Controls.Add(this.btnSavePool);
-            this.groupPoolBrowser.Controls.Add(this.textPoolName);
-            this.groupPoolBrowser.Controls.Add(this.textBoxPoolEditor);
-            this.groupPoolBrowser.Controls.Add(this.label3);
-            this.groupPoolBrowser.Controls.Add(this.label2);
-            this.groupPoolBrowser.Controls.Add(this.label1);
-            this.groupPoolBrowser.Controls.Add(this.listPools);
-            this.groupPoolBrowser.Location = new System.Drawing.Point(0, 27);
-            this.groupPoolBrowser.Name = "groupPoolBrowser";
-            this.groupPoolBrowser.Size = new System.Drawing.Size(546, 303);
-            this.groupPoolBrowser.TabIndex = 4;
-            this.groupPoolBrowser.TabStop = false;
-            this.groupPoolBrowser.Text = "Pool Browser";
-            // 
             // comboPoolParent
             // 
             this.comboPoolParent.FormattingEnabled = true;
-            this.comboPoolParent.Location = new System.Drawing.Point(366, 86);
+            this.comboPoolParent.Location = new System.Drawing.Point(360, 75);
             this.comboPoolParent.Name = "comboPoolParent";
             this.comboPoolParent.Size = new System.Drawing.Size(172, 21);
             this.comboPoolParent.TabIndex = 5;
             this.comboPoolParent.SelectedIndexChanged += new System.EventHandler(this.comboPoolParent_SelectedIndexChanged);
             // 
-            // btnRefreshPool
-            // 
-            this.btnRefreshPool.Image = global::TERG.Properties.Resources.action_refresh;
-            this.btnRefreshPool.Location = new System.Drawing.Point(474, 17);
-            this.btnRefreshPool.Name = "btnRefreshPool";
-            this.btnRefreshPool.Size = new System.Drawing.Size(29, 23);
-            this.btnRefreshPool.TabIndex = 4;
-            this.btnRefreshPool.UseVisualStyleBackColor = true;
-            this.btnRefreshPool.Click += new System.EventHandler(this.btnRefreshPool_Click);
-            // 
-            // btnSavePool
-            // 
-            this.btnSavePool.Image = global::TERG.Properties.Resources.action_save;
-            this.btnSavePool.Location = new System.Drawing.Point(509, 17);
-            this.btnSavePool.Name = "btnSavePool";
-            this.btnSavePool.Size = new System.Drawing.Size(29, 23);
-            this.btnSavePool.TabIndex = 3;
-            this.btnSavePool.UseVisualStyleBackColor = true;
-            this.btnSavePool.Click += new System.EventHandler(this.btnSavePool_Click);
-            // 
             // textPoolName
             // 
-            this.textPoolName.Location = new System.Drawing.Point(366, 46);
+            this.textPoolName.Location = new System.Drawing.Point(360, 35);
             this.textPoolName.Name = "textPoolName";
             this.textPoolName.Size = new System.Drawing.Size(172, 20);
             this.textPoolName.TabIndex = 2;
@@ -143,18 +115,18 @@ namespace TERG
             // 
             // textBoxPoolEditor
             // 
-            this.textBoxPoolEditor.Location = new System.Drawing.Point(185, 47);
+            this.textBoxPoolEditor.Location = new System.Drawing.Point(179, 28);
             this.textBoxPoolEditor.Multiline = true;
             this.textBoxPoolEditor.Name = "textBoxPoolEditor";
             this.textBoxPoolEditor.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxPoolEditor.Size = new System.Drawing.Size(172, 249);
+            this.textBoxPoolEditor.Size = new System.Drawing.Size(172, 242);
             this.textBoxPoolEditor.TabIndex = 2;
             this.textBoxPoolEditor.TextChanged += new System.EventHandler(this.textBoxPoolEditor_TextChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(363, 70);
+            this.label3.Location = new System.Drawing.Point(357, 59);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(65, 13);
             this.label3.TabIndex = 1;
@@ -163,7 +135,7 @@ namespace TERG
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(363, 30);
+            this.label2.Location = new System.Drawing.Point(357, 19);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(38, 13);
             this.label2.TabIndex = 1;
@@ -172,7 +144,7 @@ namespace TERG
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(185, 30);
+            this.label1.Location = new System.Drawing.Point(179, 11);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(32, 13);
             this.label1.TabIndex = 1;
@@ -185,7 +157,7 @@ namespace TERG
             this.tERGToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(666, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(565, 24);
             this.menuStrip1.TabIndex = 5;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -242,7 +214,7 @@ namespace TERG
             this.tabEventLog.Location = new System.Drawing.Point(4, 22);
             this.tabEventLog.Name = "tabEventLog";
             this.tabEventLog.Padding = new System.Windows.Forms.Padding(3);
-            this.tabEventLog.Size = new System.Drawing.Size(634, 116);
+            this.tabEventLog.Size = new System.Drawing.Size(538, 116);
             this.tabEventLog.TabIndex = 1;
             this.tabEventLog.Text = "Event Log";
             this.tabEventLog.UseVisualStyleBackColor = true;
@@ -254,7 +226,7 @@ namespace TERG
             this.txtEventLog.Name = "txtEventLog";
             this.txtEventLog.ReadOnly = true;
             this.txtEventLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtEventLog.Size = new System.Drawing.Size(631, 113);
+            this.txtEventLog.Size = new System.Drawing.Size(538, 113);
             this.txtEventLog.TabIndex = 1;
             // 
             // tabControl1
@@ -263,16 +235,134 @@ namespace TERG
             this.tabControl1.Location = new System.Drawing.Point(12, 336);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(642, 142);
+            this.tabControl1.Size = new System.Drawing.Size(546, 142);
             this.tabControl1.TabIndex = 6;
+            // 
+            // tabControlEditors
+            // 
+            this.tabControlEditors.Controls.Add(this.tabPoolEditor);
+            this.tabControlEditors.Controls.Add(this.tabPatternEditor);
+            this.tabControlEditors.Location = new System.Drawing.Point(12, 27);
+            this.tabControlEditors.Name = "tabControlEditors";
+            this.tabControlEditors.SelectedIndex = 0;
+            this.tabControlEditors.Size = new System.Drawing.Size(546, 302);
+            this.tabControlEditors.TabIndex = 7;
+            // 
+            // tabPoolEditor
+            // 
+            this.tabPoolEditor.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPoolEditor.Controls.Add(this.comboPoolParent);
+            this.tabPoolEditor.Controls.Add(this.listPools);
+            this.tabPoolEditor.Controls.Add(this.btnRefreshPool);
+            this.tabPoolEditor.Controls.Add(this.label1);
+            this.tabPoolEditor.Controls.Add(this.btnSavePool);
+            this.tabPoolEditor.Controls.Add(this.label2);
+            this.tabPoolEditor.Controls.Add(this.textPoolName);
+            this.tabPoolEditor.Controls.Add(this.label3);
+            this.tabPoolEditor.Controls.Add(this.textBoxPoolEditor);
+            this.tabPoolEditor.Location = new System.Drawing.Point(4, 22);
+            this.tabPoolEditor.Name = "tabPoolEditor";
+            this.tabPoolEditor.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPoolEditor.Size = new System.Drawing.Size(538, 276);
+            this.tabPoolEditor.TabIndex = 0;
+            this.tabPoolEditor.Text = "Pools";
+            // 
+            // btnRefreshPool
+            // 
+            this.btnRefreshPool.Image = global::TERG.Properties.Resources.action_refresh;
+            this.btnRefreshPool.Location = new System.Drawing.Point(463, 6);
+            this.btnRefreshPool.Name = "btnRefreshPool";
+            this.btnRefreshPool.Size = new System.Drawing.Size(29, 23);
+            this.btnRefreshPool.TabIndex = 4;
+            this.btnRefreshPool.UseVisualStyleBackColor = true;
+            this.btnRefreshPool.Click += new System.EventHandler(this.btnRefreshPool_Click);
+            // 
+            // btnSavePool
+            // 
+            this.btnSavePool.Image = global::TERG.Properties.Resources.action_save;
+            this.btnSavePool.Location = new System.Drawing.Point(498, 6);
+            this.btnSavePool.Name = "btnSavePool";
+            this.btnSavePool.Size = new System.Drawing.Size(29, 23);
+            this.btnSavePool.TabIndex = 3;
+            this.btnSavePool.UseVisualStyleBackColor = true;
+            this.btnSavePool.Click += new System.EventHandler(this.btnSavePool_Click);
+            // 
+            // tabPatternEditor
+            // 
+            this.tabPatternEditor.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPatternEditor.Controls.Add(this.listPatternReferences);
+            this.tabPatternEditor.Controls.Add(this.btnOpenTemplateEditor);
+            this.tabPatternEditor.Controls.Add(this.listPatterns);
+            this.tabPatternEditor.Controls.Add(this.label6);
+            this.tabPatternEditor.Controls.Add(this.label5);
+            this.tabPatternEditor.Controls.Add(this.textPatternName);
+            this.tabPatternEditor.Location = new System.Drawing.Point(4, 22);
+            this.tabPatternEditor.Name = "tabPatternEditor";
+            this.tabPatternEditor.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPatternEditor.Size = new System.Drawing.Size(538, 276);
+            this.tabPatternEditor.TabIndex = 1;
+            this.tabPatternEditor.Text = "Patterns";
+            // 
+            // btnOpenTemplateEditor
+            // 
+            this.btnOpenTemplateEditor.Location = new System.Drawing.Point(356, 64);
+            this.btnOpenTemplateEditor.Name = "btnOpenTemplateEditor";
+            this.btnOpenTemplateEditor.Size = new System.Drawing.Size(171, 24);
+            this.btnOpenTemplateEditor.TabIndex = 8;
+            this.btnOpenTemplateEditor.Text = "Edit Base Template";
+            this.btnOpenTemplateEditor.UseVisualStyleBackColor = true;
+            // 
+            // listPatterns
+            // 
+            this.listPatterns.FormattingEnabled = true;
+            this.listPatterns.Location = new System.Drawing.Point(-4, 0);
+            this.listPatterns.Name = "listPatterns";
+            this.listPatterns.ScrollAlwaysVisible = true;
+            this.listPatterns.Size = new System.Drawing.Size(173, 277);
+            this.listPatterns.TabIndex = 3;
+            this.listPatterns.SelectedIndexChanged += new System.EventHandler(this.listPatterns_SelectedIndexChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(175, 11);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(62, 13);
+            this.label6.TabIndex = 4;
+            this.label6.Text = "References";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(353, 19);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(38, 13);
+            this.label5.TabIndex = 5;
+            this.label5.Text = "Name:";
+            // 
+            // textPatternName
+            // 
+            this.textPatternName.Location = new System.Drawing.Point(356, 35);
+            this.textPatternName.Name = "textPatternName";
+            this.textPatternName.Size = new System.Drawing.Size(172, 20);
+            this.textPatternName.TabIndex = 6;
+            // 
+            // listPatternReferences
+            // 
+            this.listPatternReferences.FormattingEnabled = true;
+            this.listPatternReferences.Location = new System.Drawing.Point(175, 28);
+            this.listPatternReferences.Name = "listPatternReferences";
+            this.listPatternReferences.ScrollAlwaysVisible = true;
+            this.listPatternReferences.Size = new System.Drawing.Size(172, 238);
+            this.listPatternReferences.TabIndex = 9;
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(666, 503);
+            this.ClientSize = new System.Drawing.Size(565, 503);
+            this.Controls.Add(this.tabControlEditors);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.groupPoolBrowser);
             this.Controls.Add(this.mainStatusStrip);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -284,13 +374,16 @@ namespace TERG
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.mainStatusStrip.ResumeLayout(false);
             this.mainStatusStrip.PerformLayout();
-            this.groupPoolBrowser.ResumeLayout(false);
-            this.groupPoolBrowser.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.tabEventLog.ResumeLayout(false);
             this.tabEventLog.PerformLayout();
             this.tabControl1.ResumeLayout(false);
+            this.tabControlEditors.ResumeLayout(false);
+            this.tabPoolEditor.ResumeLayout(false);
+            this.tabPoolEditor.PerformLayout();
+            this.tabPatternEditor.ResumeLayout(false);
+            this.tabPatternEditor.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -301,7 +394,6 @@ namespace TERG
         private System.Windows.Forms.ListBox listPools;
         private System.Windows.Forms.StatusStrip mainStatusStrip;
         private System.Windows.Forms.ToolStripStatusLabel statusDatabase;
-        private System.Windows.Forms.GroupBox groupPoolBrowser;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem databseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
@@ -320,6 +412,15 @@ namespace TERG
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboPoolParent;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TabControl tabControlEditors;
+        private System.Windows.Forms.TabPage tabPoolEditor;
+        private System.Windows.Forms.TabPage tabPatternEditor;
+        private System.Windows.Forms.Button btnOpenTemplateEditor;
+        private System.Windows.Forms.ListBox listPatterns;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox textPatternName;
+        private System.Windows.Forms.ListBox listPatternReferences;
     }
 }
 

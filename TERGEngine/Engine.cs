@@ -13,13 +13,19 @@ namespace TERGEngine
         public List<Pool> Pools;
         public List<Pattern> Patterns;
 
-        public Engine Load(string file)
+        public Engine()
+        {
+            Pools = new List<Pool>();
+            Patterns = new List<Pattern>();
+        }
+
+        public static Engine Load(string file)
         {
             StreamReader reader = new StreamReader(file);
             string json = reader.ReadToEnd();
             Engine retval = JsonConvert.DeserializeObject<Engine>(json);
             reader.Close();
-
+            if (retval == null) throw new Exception("Corrupted Database. Please backup and delete file.");
             return retval;
         }
 
