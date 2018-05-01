@@ -12,21 +12,8 @@ namespace TERGEngine
         public int ID;
         public string Name;
         public string Desc;
-        private IReference[] references;
+        public IReference[] References;
         public string[] Base;
-
-        internal IReference[] References
-        {
-            get
-            {
-                return references;
-            }
-
-            set
-            {
-                references = value;
-            }
-        }
 
         public Pattern(string name)
         {

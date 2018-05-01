@@ -14,5 +14,10 @@ namespace TERGEngine.Reference
         {
             return e.FindPoolById(PoolID).Pull();
         }
+
+        public string ToString(Engine e)
+        {
+            return "POOL: " + e.FindPoolById(PoolID);
+        }
     }
 }

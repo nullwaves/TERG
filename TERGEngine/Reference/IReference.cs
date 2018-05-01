@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 namespace TERGEngine.Reference
 {
     // find a way to add global variables for reference types.
-    interface IReference
+    public interface IReference
     {
         string Pull(Engine e);
+        string ToString(Engine e);
     }
 }

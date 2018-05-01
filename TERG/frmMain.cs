@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using TERGEngine;
+using TERGEngine.Reference;
 
 namespace TERG
 {
@@ -72,15 +73,21 @@ namespace TERG
 
         private void LoadPattern()
         {
-            if(IndexInPatternEditor != -1)
+            // Clean up first.
+            btnOpenTemplateEditor.Enabled = false;
+            textPatternName.Clear();
+            listPatternReferences.Items.Clear();
+
+            if (IndexInPatternEditor != -1)
             {
-                Pattern p = engine.Patterns[IndexInPatternEditor];
+                Pattern p = engine.Patterns[IndexInPatternEditor];          // Fetch pattern for easy reference
+                textPatternName.Text = p.Name;                              // Fill TextBox textPatternName
+                foreach (IReference r in p.References)
+                {
+                    listPatternReferences.Items.Add(r.ToString());          // Add Each Reference to the ListBox for References
+                }
 
-                textPatternName.Clear();
-                textPatternName.Text = p.Name;
-
-                listPatternReferences.Items.Clear();
-                //Need to finish
+                btnOpenTemplateEditor.Enabled = true;                       // Enable access to the Template Editor
             }
         }
 
