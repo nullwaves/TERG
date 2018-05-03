@@ -54,12 +54,13 @@ namespace TERG
             this.btnRefreshPool = new System.Windows.Forms.Button();
             this.btnSavePool = new System.Windows.Forms.Button();
             this.tabPatternEditor = new System.Windows.Forms.TabPage();
+            this.listPatternReferences = new System.Windows.Forms.ListBox();
             this.btnOpenTemplateEditor = new System.Windows.Forms.Button();
             this.listPatterns = new System.Windows.Forms.ListBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.textPatternName = new System.Windows.Forms.TextBox();
-            this.listPatternReferences = new System.Windows.Forms.ListBox();
+            this.addNewPatternToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainStatusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tabEventLog.SuspendLayout();
@@ -166,7 +167,8 @@ namespace TERG
             this.databseToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.saveToolStripMenuItem,
             this.toolStripSeparator1,
-            this.addNewPoolToolStripMenuItem});
+            this.addNewPoolToolStripMenuItem,
+            this.addNewPatternToolStripMenuItem});
             this.databseToolStripMenuItem.Name = "databseToolStripMenuItem";
             this.databseToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.databseToolStripMenuItem.Text = "Databse";
@@ -175,20 +177,20 @@ namespace TERG
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(190, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(202, 6);
             // 
             // addNewPoolToolStripMenuItem
             // 
             this.addNewPoolToolStripMenuItem.Name = "addNewPoolToolStripMenuItem";
             this.addNewPoolToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.addNewPoolToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.addNewPoolToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.addNewPoolToolStripMenuItem.Text = "Add New Pool";
             this.addNewPoolToolStripMenuItem.Click += new System.EventHandler(this.addNewPoolToolStripMenuItem_Click);
             // 
@@ -303,6 +305,15 @@ namespace TERG
             this.tabPatternEditor.TabIndex = 1;
             this.tabPatternEditor.Text = "Patterns";
             // 
+            // listPatternReferences
+            // 
+            this.listPatternReferences.FormattingEnabled = true;
+            this.listPatternReferences.Location = new System.Drawing.Point(175, 28);
+            this.listPatternReferences.Name = "listPatternReferences";
+            this.listPatternReferences.ScrollAlwaysVisible = true;
+            this.listPatternReferences.Size = new System.Drawing.Size(172, 238);
+            this.listPatternReferences.TabIndex = 9;
+            // 
             // btnOpenTemplateEditor
             // 
             this.btnOpenTemplateEditor.Location = new System.Drawing.Point(356, 64);
@@ -347,14 +358,13 @@ namespace TERG
             this.textPatternName.Size = new System.Drawing.Size(172, 20);
             this.textPatternName.TabIndex = 6;
             // 
-            // listPatternReferences
+            // addNewPatternToolStripMenuItem
             // 
-            this.listPatternReferences.FormattingEnabled = true;
-            this.listPatternReferences.Location = new System.Drawing.Point(175, 28);
-            this.listPatternReferences.Name = "listPatternReferences";
-            this.listPatternReferences.ScrollAlwaysVisible = true;
-            this.listPatternReferences.Size = new System.Drawing.Size(172, 238);
-            this.listPatternReferences.TabIndex = 9;
+            this.addNewPatternToolStripMenuItem.Name = "addNewPatternToolStripMenuItem";
+            this.addNewPatternToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
+            this.addNewPatternToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.addNewPatternToolStripMenuItem.Text = "Add New Pattern";
+            this.addNewPatternToolStripMenuItem.Click += new System.EventHandler(this.addNewPatternToolStripMenuItem_Click);
             // 
             // frmMain
             // 
@@ -421,6 +431,7 @@ namespace TERG
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textPatternName;
         private System.Windows.Forms.ListBox listPatternReferences;
+        private System.Windows.Forms.ToolStripMenuItem addNewPatternToolStripMenuItem;
     }
 }
 

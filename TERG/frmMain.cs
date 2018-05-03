@@ -63,22 +63,21 @@ namespace TERG
 
         private void LoadPatternLists()
         {
-            listPatterns.Items.Clear();
+            listPatterns.Items.Clear();                                    // Clear Patterns list
             foreach (Pattern p in engine.Patterns)
             {
-                listPatterns.Items.Add(p.Name);
+                listPatterns.Items.Add(p.Name);                             // Add each Pattern back to the list
             }
-            listPatterns.ClearSelected();
+            listPatterns.ClearSelected();                                   // Unload any Pattern's that could've been leftover
         }
 
         private void LoadPattern()
         {
-            // Clean up first.
-            btnOpenTemplateEditor.Enabled = false;
-            textPatternName.Clear();
-            listPatternReferences.Items.Clear();
+            btnOpenTemplateEditor.Enabled = false;                          // Disable Template editor while we're loading
+            textPatternName.Clear();                                        // Clear Name field
+            listPatternReferences.Items.Clear();                            // Clear Reference list
 
-            if (IndexInPatternEditor != -1)
+            if (IndexInPatternEditor != -1)                                 // 3, 2, 1, Let's Jam!
             {
                 Pattern p = engine.Patterns[IndexInPatternEditor];          // Fetch pattern for easy reference
                 textPatternName.Text = p.Name;                              // Fill TextBox textPatternName
@@ -134,6 +133,23 @@ namespace TERG
                 textPoolName.Clear();
                 comboPoolParent.SelectedIndex = 0;
             }
+        }
+
+        private void SavePattern()
+        {
+            // Save Pattern Name
+            string name = textPatternName.Text.Trim();
+            if(!engine.Patterns[IndexInPatternEditor].Name.Equals(name))
+            {
+                string oldName = engine.Patterns[IndexInPatternEditor].Name;
+                engine.Patterns[IndexInPatternEditor].Name = name;
+                PushDatabaseStatus("Updated pattern name from [" + oldName + "] to [" + name + "]");
+            }
+
+            SaveDatabase();
+            LoadPatternLists();
+            listPatterns.SelectedIndex = IndexInPatternEditor;
+            FlagPatternChanged = false;
         }
 
         private void SavePool()
@@ -244,18 +260,19 @@ namespace TERG
                 //If the pool has been modified we want to check to see if changes should be saved
                 if (FlagPoolChanged)
                 {
-                    DialogResult result = MessageBox.Show("You have unsaved changes to a pool. Would you like to save these before continuing?", Text, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
+                    DialogResult result = MessageBox.Show(
+                        "You have unsaved changes to a pool. Would you like to save these before continuing?",
+                        Text,
+                        MessageBoxButtons.YesNoCancel,
+                        MessageBoxIcon.Exclamation);
                     switch (result)
                     {
-                        case DialogResult.Yes:
-                            //Save Changes
+                        case DialogResult.Yes:                              // Save changes and proceed
                             SavePool();
                             break;
-                        case DialogResult.No:
-                            //Don't Save Changes, just skip to loading the next pool
+                        case DialogResult.No:                               //Don't Save Changes, just skip to loading the next pool
                             break;
-                        default:
-                            //Neither, reset the index back to the previous and abort mission
+                        default:                                            //Neither, reset the index back to the previous and abort mission
                             listPools.SelectedIndex = IndexInPoolEditor;
                             return;
                     }
@@ -282,9 +299,10 @@ namespace TERG
             InputBoxResult result = InputBox.Show("New Pool name:", this.Text);
             if (result.OK)
             {
-                if (result.Text.Trim().Length > 0)
+                string name = result.Text.Trim();
+                if (name.Length > 0)
                 {
-                    engine.Pools.Add(new Pool(engine.GetNextPoolID(), result.Text));
+                    engine.Pools.Add(new Pool(engine.GetNextPoolID(), name));
                     PushDatabaseStatus("Added pool \"" + result.Text + "\"");
                     SaveDatabase();
                     LoadPoolLists();
@@ -332,7 +350,53 @@ namespace TERG
 
         private void listPatterns_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (IndexInPatternEditor == listPatterns.SelectedIndex) return;
 
+            int newIndex = listPatterns.SelectedIndex;
+
+            if (IndexInPatternEditor != -1)
+            {
+                //If the pool has been modified we want to check to see if changes should be saved
+                if (FlagPatternChanged)
+                {
+                    DialogResult result = MessageBox.Show(
+                        "You have unsaved changes to a pattern. Would you like to save these before continuing?",
+                        Text,
+                        MessageBoxButtons.YesNoCancel,
+                        MessageBoxIcon.Exclamation);
+                    switch (result)
+                    {
+                        case DialogResult.Yes:                              // Save changes and proceed
+                            SavePattern();
+                            break;
+                        case DialogResult.No:                               //Don't Save Changes, just skip to loading the next pool
+                            break;
+                        default:                                            //Neither, reset the index back to the previous and abort mission
+                            listPatterns.SelectedIndex = IndexInPatternEditor;
+                            return;
+                    }
+                }
+            }
+
+            listPatterns.SelectedIndex = newIndex;
+            IndexInPatternEditor = listPatterns.SelectedIndex;
+            LoadPattern();
+        }
+
+        private void addNewPatternToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            InputBoxResult result = InputBox.Show("New Pattern Name:", this.Text);
+            if(result.OK)
+            {
+                string name = result.Text.Trim();
+                if (name.Length > 0)
+                {
+                    engine.Patterns.Add(new Pattern(engine.GetNextPatternID(), name));
+                    PushDatabaseStatus("Added pattern \"" + name + "\"");
+                    SaveDatabase();
+                    LoadPatternLists();
+                }
+            }
         }
     }
 }

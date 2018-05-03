@@ -15,8 +15,9 @@ namespace TERGEngine
         public IReference[] References;
         public string[] Base;
 
-        public Pattern(string name)
+        public Pattern(int i, string name)
         {
+            ID = i;
             Name = name;
             Desc = String.Empty;
             References = new IReference[0];
