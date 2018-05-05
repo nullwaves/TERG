@@ -6,8 +6,16 @@ using System.Threading.Tasks;
 
 namespace TERGEngine.Reference
 {
-    class PatternReference : IReference
+    public class PatternReference : IReference
     {
+        public string Type
+        {
+            get
+            {
+                return "PATT";
+            }
+        }
+
         public int PatternID;
 
         public string Pull(Engine e)

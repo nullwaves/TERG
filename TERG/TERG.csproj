@@ -70,6 +70,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReferenceEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReferenceEditor.Designer.cs">
+      <DependentUpon>ReferenceEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="TERGAboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,6 +101,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="ReferenceEditor.resx">
+      <DependentUpon>ReferenceEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TERGAboutBox.resx">
       <DependentUpon>TERGAboutBox.cs</DependentUpon>
     </EmbeddedResource>

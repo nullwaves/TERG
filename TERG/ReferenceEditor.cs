@@ -1,0 +1,123 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using TERGEngine;
+using TERGEngine.Reference;
+using static System.Windows.Forms.TabControl;
+
+namespace TERG
+{
+    public partial class ReferenceEditor : Form
+    {
+        public const int POOL = 10;
+        public const int PATT = 20;
+
+        private TabPageCollection Tabs;
+
+        public ReferenceEditor()
+        {
+            InitializeComponent();
+        }
+
+        /* 
+         * Show(
+         *      bool        n:  A New reference
+         *      int         t:  Reference Type
+         *      Engine      e:  TERGEngine loaded
+         *      Reference   r:  Reference to be edited
+        */
+        public static IReference Show(bool n, int t, Engine e, IReference r)
+        {
+            using (ReferenceEditor form = new ReferenceEditor())
+            {
+                DialogResult result;
+                switch (t)
+                {
+                    case POOL:
+
+                        // Convert to type
+                        PoolReference poolr = (PoolReference)r;
+
+                        // Setup form
+                        form.SetPage("POOL");
+                        foreach (Pool p in e.Pools)
+                        {
+                            form.POOLcomboPool.Items.Add(p.Name);
+                        }
+                        if (!n)
+                        {
+                            form.POOLcomboPool.SelectedIndex = form.POOLcomboPool.Items.IndexOf(e.FindPoolById(poolr.PoolID).Name);
+                        }
+
+                        // Show Form and return results
+                        result = form.ShowDialog();
+
+                        if (result == DialogResult.OK)
+                        {
+                            // All's good return the new reference
+                            poolr.PoolID = e.Pools[form.POOLcomboPool.SelectedIndex].ID;
+                        }
+
+                        return poolr;
+
+                    case PATT:
+
+                        // Convert to type
+                        PatternReference pattr = (PatternReference)r;
+
+                        // Setup form
+                        form.SetPage("PATT");
+                        foreach (Pattern p in e.Patterns)
+                        {
+                            form.PATTcomboPattern.Items.Add(p.Name);
+                        }
+                        if (!n)
+                        {
+                            form.PATTcomboPattern.SelectedIndex = form.POOLcomboPool.Items.IndexOf(e.FindPatternById(pattr.PatternID).Name);
+                        }
+
+                        // Show form and return results
+                        result = form.ShowDialog();
+
+                        if (result == DialogResult.OK)
+                        {
+                            pattr.PatternID = e.Patterns[form.PATTcomboPattern.SelectedIndex].ID;
+                        }
+
+                        return pattr;
+                }
+
+                throw new Exception("Invalid Reference Type: " + t);
+            }
+        }
+
+        private void SetPage(string type)
+        {
+            tabControl.TabPages.Clear();
+            tabControl.TabPages.Add(Tabs[Tabs.IndexOfKey(type.ToUpper())]);
+        }
+
+        private void ReferenceEditor_Load(object sender, EventArgs e)
+        {
+            Tabs = tabControl.TabPages;
+        }
+
+        private void PATTbtnOK_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
+
+        private void POOLbtnOK_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
+    }
+}

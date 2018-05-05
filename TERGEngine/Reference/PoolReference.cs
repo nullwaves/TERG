@@ -6,8 +6,16 @@ using System.Threading.Tasks;
 
 namespace TERGEngine.Reference
 {
-    class PoolReference : IReference
+    public class PoolReference : IReference
     {
+        public string Type
+        {
+            get
+            {
+                return "POOL";
+            }
+        }
+
         public int PoolID;
         
         public string Pull(Engine e)
