@@ -25,7 +25,7 @@ namespace TERGEngine.Reference
 
         public string ToString(Engine e)
         {
-            return "PATTERN: " + e.FindPatternById(PatternID);
+            return "PATTERN: " + e.FindPatternById(PatternID).Name;
         }
     }
 }

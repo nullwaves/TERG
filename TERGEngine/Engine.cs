@@ -13,6 +13,11 @@ namespace TERGEngine
         public List<Pool> Pools;
         public List<Pattern> Patterns;
 
+        private static JsonSerializerSettings SerializerSettings = new JsonSerializerSettings()
+        {
+            TypeNameHandling = TypeNameHandling.All
+        };
+
         public Engine()
         {
             Pools = new List<Pool>();
@@ -23,7 +28,8 @@ namespace TERGEngine
         {
             StreamReader reader = new StreamReader(file);
             string json = reader.ReadToEnd();
-            Engine retval = JsonConvert.DeserializeObject<Engine>(json);
+            // Engine retval = JsonConvert.DeserializeObject<Engine>(json); //old
+            Engine retval = JsonConvert.DeserializeObject<Engine>(json, SerializerSettings); // new
             reader.Close();
             if (retval == null) throw new Exception("Corrupted Database. Please backup and delete file.");
             return retval;
@@ -33,7 +39,7 @@ namespace TERGEngine
         {
             using (StreamWriter writer = new StreamWriter(file))
             {
-                writer.Write(JsonConvert.SerializeObject(this));
+                writer.Write(JsonConvert.SerializeObject(this, Formatting.Indented, SerializerSettings));
                 writer.Flush();
                 writer.Close();
             }

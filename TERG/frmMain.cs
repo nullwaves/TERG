@@ -25,8 +25,7 @@ namespace TERG
         //Variables for Pattern Editor
         private int IndexInPatternEditor = -1;
         private bool FlagPatternChanged = false;
-
-
+        
         public frmMain()
         {
             InitializeComponent();
@@ -51,10 +50,12 @@ namespace TERG
             }
             else
             {
-
                 engine = new Engine();
                 SaveDatabase();
             }
+
+            comboAddReferenceType.Items.Add("POOL");
+            comboAddReferenceType.Items.Add("PATT");
 
             /* Load Lists */
             LoadPoolLists();
@@ -74,6 +75,7 @@ namespace TERG
         private void LoadPattern()
         {
             btnOpenTemplateEditor.Enabled = false;                          // Disable Template editor while we're loading
+            btnAddReference.Enabled = false;                                // And any other buttons that modify the pattern
             textPatternName.Clear();                                        // Clear Name field
             listPatternReferences.Items.Clear();                            // Clear Reference list
 
@@ -83,10 +85,11 @@ namespace TERG
                 textPatternName.Text = p.Name;                              // Fill TextBox textPatternName
                 foreach (IReference r in p.References)
                 {
-                    listPatternReferences.Items.Add(r.ToString());          // Add Each Reference to the ListBox for References
+                    listPatternReferences.Items.Add(r.ToString(engine));          // Add Each Reference to the ListBox for References
                 }
 
                 btnOpenTemplateEditor.Enabled = true;                       // Enable access to the Template Editor
+                btnAddReference.Enabled = true;
             }
         }
 
@@ -139,7 +142,7 @@ namespace TERG
         {
             // Save Pattern Name
             string name = textPatternName.Text.Trim();
-            if(!engine.Patterns[IndexInPatternEditor].Name.Equals(name))
+            if (!engine.Patterns[IndexInPatternEditor].Name.Equals(name))
             {
                 string oldName = engine.Patterns[IndexInPatternEditor].Name;
                 engine.Patterns[IndexInPatternEditor].Name = name;
@@ -386,7 +389,7 @@ namespace TERG
         private void addNewPatternToolStripMenuItem_Click(object sender, EventArgs e)
         {
             InputBoxResult result = InputBox.Show("New Pattern Name:", this.Text);
-            if(result.OK)
+            if (result.OK)
             {
                 string name = result.Text.Trim();
                 if (name.Length > 0)
@@ -396,6 +399,54 @@ namespace TERG
                     SaveDatabase();
                     LoadPatternLists();
                 }
+            }
+        }
+
+        private void btnOpenTemplateEditor_Click(object sender, EventArgs e)
+        {
+            if (IndexInPatternEditor != -1)
+            {
+                Pattern patt = engine.Patterns[IndexInPatternEditor];
+                BaseEditorResult result = BaseEditor.Show(patt.Name, patt.Base);
+
+                if (result.OK)
+                {
+                    engine.Patterns[IndexInPatternEditor].Base = result.Text;
+                    PushDatabaseStatus("Updated template for [" + patt.Name + "]");
+                    SaveDatabase();
+                }
+            }
+        }
+
+        private void btnAddReference_Click(object sender, EventArgs e)
+        {
+            if(IndexInPatternEditor != -1 && comboAddReferenceType.Text.Length == 4)
+            {
+                string s = comboAddReferenceType.Items[comboAddReferenceType.SelectedIndex].ToString();
+                switch (s)
+                {
+                    case "POOL":
+                        PoolReference pool = (PoolReference)ReferenceEditor.Show(true, ReferenceEditor.POOL, engine, new PoolReference());
+                        engine.Patterns[IndexInPatternEditor].References.Add(pool);
+                        break;
+                    case "PATT":
+                        PatternReference patt = (PatternReference)ReferenceEditor.Show(true, ReferenceEditor.PATT, engine, new PatternReference());
+                        engine.Patterns[IndexInPatternEditor].References.Add(patt);
+                        break;
+                    default:
+                        return;
+                }
+                PushDatabaseStatus("Added Reference of type [" + s + "] to pattern [" + engine.Patterns[IndexInPatternEditor].Name + "]");
+                SaveDatabase();
+                LoadPattern();
+            }
+        }
+
+        private void patternRunToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(IndexInPatternEditor != -1)
+            {
+                MessageBox.Show(engine.Patterns[IndexInPatternEditor].Fill(engine));
             }
         }
     }

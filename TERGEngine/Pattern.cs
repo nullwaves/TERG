@@ -12,7 +12,7 @@ namespace TERGEngine
         public int ID;
         public string Name;
         public string Desc;
-        public IReference[] References;
+        public List<IReference> References;
         public string[] Base;
 
         public Pattern(int i, string name)
@@ -20,28 +20,32 @@ namespace TERGEngine
             ID = i;
             Name = name;
             Desc = String.Empty;
-            References = new IReference[0];
+            References = new List<IReference>();
             Base = new string[0];
         }
 
         public string Fill(Engine e)
         {
             //Time to draw straws
-            string[] data = new string[References.Length];
+            string[] data = new string[References.Count];
 
-            for(int i = 0; i < References.Length; i++)
+            for (int i = 0; i < References.Count; i++)
             {
                 data[i] = References[i].Pull(e);
             }
 
-            string output = Base.ToString();
+            StringBuilder output = new StringBuilder();
+            foreach (string s in Base)
+            {
+                output.AppendLine(s);
+            }
 
-            for(int i = 0; i < References.Length; i++)
+            for (int i = 0; i < References.Count; i++)
             {
                 output.Replace("[@" + i + "]", data[i]);
             }
 
-            return output;
+            return output.ToString();
         }
     }
 }

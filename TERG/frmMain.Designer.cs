@@ -44,6 +44,7 @@ namespace TERG
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.addNewPoolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addNewPatternToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tERGToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabEventLog = new System.Windows.Forms.TabPage();
@@ -54,13 +55,16 @@ namespace TERG
             this.btnRefreshPool = new System.Windows.Forms.Button();
             this.btnSavePool = new System.Windows.Forms.Button();
             this.tabPatternEditor = new System.Windows.Forms.TabPage();
+            this.comboAddReferenceType = new System.Windows.Forms.ComboBox();
             this.listPatternReferences = new System.Windows.Forms.ListBox();
+            this.btnAddReference = new System.Windows.Forms.Button();
             this.btnOpenTemplateEditor = new System.Windows.Forms.Button();
             this.listPatterns = new System.Windows.Forms.ListBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.textPatternName = new System.Windows.Forms.TextBox();
-            this.addNewPatternToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.runToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.patternRunToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainStatusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tabEventLog.SuspendLayout();
@@ -155,6 +159,7 @@ namespace TERG
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.databseToolStripMenuItem,
+            this.runToolStripMenuItem,
             this.tERGToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -194,6 +199,14 @@ namespace TERG
             this.addNewPoolToolStripMenuItem.Text = "Add New Pool";
             this.addNewPoolToolStripMenuItem.Click += new System.EventHandler(this.addNewPoolToolStripMenuItem_Click);
             // 
+            // addNewPatternToolStripMenuItem
+            // 
+            this.addNewPatternToolStripMenuItem.Name = "addNewPatternToolStripMenuItem";
+            this.addNewPatternToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
+            this.addNewPatternToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.addNewPatternToolStripMenuItem.Text = "Add New Pattern";
+            this.addNewPatternToolStripMenuItem.Click += new System.EventHandler(this.addNewPatternToolStripMenuItem_Click);
+            // 
             // tERGToolStripMenuItem
             // 
             this.tERGToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -206,7 +219,7 @@ namespace TERG
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -292,7 +305,9 @@ namespace TERG
             // tabPatternEditor
             // 
             this.tabPatternEditor.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPatternEditor.Controls.Add(this.comboAddReferenceType);
             this.tabPatternEditor.Controls.Add(this.listPatternReferences);
+            this.tabPatternEditor.Controls.Add(this.btnAddReference);
             this.tabPatternEditor.Controls.Add(this.btnOpenTemplateEditor);
             this.tabPatternEditor.Controls.Add(this.listPatterns);
             this.tabPatternEditor.Controls.Add(this.label6);
@@ -305,6 +320,14 @@ namespace TERG
             this.tabPatternEditor.TabIndex = 1;
             this.tabPatternEditor.Text = "Patterns";
             // 
+            // comboAddReferenceType
+            // 
+            this.comboAddReferenceType.FormattingEnabled = true;
+            this.comboAddReferenceType.Location = new System.Drawing.Point(406, 94);
+            this.comboAddReferenceType.Name = "comboAddReferenceType";
+            this.comboAddReferenceType.Size = new System.Drawing.Size(121, 21);
+            this.comboAddReferenceType.TabIndex = 10;
+            // 
             // listPatternReferences
             // 
             this.listPatternReferences.FormattingEnabled = true;
@@ -314,14 +337,25 @@ namespace TERG
             this.listPatternReferences.Size = new System.Drawing.Size(172, 238);
             this.listPatternReferences.TabIndex = 9;
             // 
+            // btnAddReference
+            // 
+            this.btnAddReference.Location = new System.Drawing.Point(357, 91);
+            this.btnAddReference.Name = "btnAddReference";
+            this.btnAddReference.Size = new System.Drawing.Size(43, 24);
+            this.btnAddReference.TabIndex = 8;
+            this.btnAddReference.Text = "+ Ref";
+            this.btnAddReference.UseVisualStyleBackColor = true;
+            this.btnAddReference.Click += new System.EventHandler(this.btnAddReference_Click);
+            // 
             // btnOpenTemplateEditor
             // 
-            this.btnOpenTemplateEditor.Location = new System.Drawing.Point(356, 64);
+            this.btnOpenTemplateEditor.Location = new System.Drawing.Point(357, 64);
             this.btnOpenTemplateEditor.Name = "btnOpenTemplateEditor";
             this.btnOpenTemplateEditor.Size = new System.Drawing.Size(171, 24);
             this.btnOpenTemplateEditor.TabIndex = 8;
             this.btnOpenTemplateEditor.Text = "Edit Base Template";
             this.btnOpenTemplateEditor.UseVisualStyleBackColor = true;
+            this.btnOpenTemplateEditor.Click += new System.EventHandler(this.btnOpenTemplateEditor_Click);
             // 
             // listPatterns
             // 
@@ -358,13 +392,21 @@ namespace TERG
             this.textPatternName.Size = new System.Drawing.Size(172, 20);
             this.textPatternName.TabIndex = 6;
             // 
-            // addNewPatternToolStripMenuItem
+            // runToolStripMenuItem
             // 
-            this.addNewPatternToolStripMenuItem.Name = "addNewPatternToolStripMenuItem";
-            this.addNewPatternToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
-            this.addNewPatternToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
-            this.addNewPatternToolStripMenuItem.Text = "Add New Pattern";
-            this.addNewPatternToolStripMenuItem.Click += new System.EventHandler(this.addNewPatternToolStripMenuItem_Click);
+            this.runToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.patternRunToolStripMenuItem});
+            this.runToolStripMenuItem.Name = "runToolStripMenuItem";
+            this.runToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
+            this.runToolStripMenuItem.Text = "Run";
+            // 
+            // patternRunToolStripMenuItem
+            // 
+            this.patternRunToolStripMenuItem.Name = "patternRunToolStripMenuItem";
+            this.patternRunToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
+            this.patternRunToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.patternRunToolStripMenuItem.Text = "Pattern";
+            this.patternRunToolStripMenuItem.Click += new System.EventHandler(this.patternRunToolStripMenuItem_Click);
             // 
             // frmMain
             // 
@@ -432,6 +474,10 @@ namespace TERG
         private System.Windows.Forms.TextBox textPatternName;
         private System.Windows.Forms.ListBox listPatternReferences;
         private System.Windows.Forms.ToolStripMenuItem addNewPatternToolStripMenuItem;
+        private System.Windows.Forms.ComboBox comboAddReferenceType;
+        private System.Windows.Forms.Button btnAddReference;
+        private System.Windows.Forms.ToolStripMenuItem runToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem patternRunToolStripMenuItem;
     }
 }
 

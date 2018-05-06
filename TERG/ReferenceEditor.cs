@@ -18,8 +18,6 @@ namespace TERG
         public const int POOL = 10;
         public const int PATT = 20;
 
-        private TabPageCollection Tabs;
-
         public ReferenceEditor()
         {
             InitializeComponent();
@@ -39,6 +37,7 @@ namespace TERG
                 DialogResult result;
                 switch (t)
                 {
+                    #region PoolRef
                     case POOL:
 
                         // Convert to type
@@ -65,7 +64,8 @@ namespace TERG
                         }
 
                         return poolr;
-
+                    #endregion
+                    #region PatternRef
                     case PATT:
 
                         // Convert to type
@@ -91,6 +91,7 @@ namespace TERG
                         }
 
                         return pattr;
+                        #endregion
                 }
 
                 throw new Exception("Invalid Reference Type: " + t);
@@ -99,13 +100,22 @@ namespace TERG
 
         private void SetPage(string type)
         {
-            tabControl.TabPages.Clear();
-            tabControl.TabPages.Add(Tabs[Tabs.IndexOfKey(type.ToUpper())]);
+            // tabControl.TabPages.Clear();
+            // tabControl.TabPages.Add(Tabs[Tabs.IndexOfKey(type.ToUpper())]);
+            for(int i = 0; i < tabControl.TabPages.Count; i++)
+            {
+                if(tabControl.TabPages[i].Name == type)
+                {
+                    TabPage use = tabControl.TabPages[i];
+                    tabControl.TabPages.Clear();
+                    tabControl.TabPages.Add(use);
+                    return;
+                }
+            }
         }
 
         private void ReferenceEditor_Load(object sender, EventArgs e)
         {
-            Tabs = tabControl.TabPages;
         }
 
         private void PATTbtnOK_Click(object sender, EventArgs e)

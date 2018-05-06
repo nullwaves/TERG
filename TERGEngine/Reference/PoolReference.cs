@@ -25,7 +25,7 @@ namespace TERGEngine.Reference
 
         public string ToString(Engine e)
         {
-            return "POOL: " + e.FindPoolById(PoolID);
+            return "POOL: " + e.FindPoolById(PoolID).Name;
         }
     }
 }

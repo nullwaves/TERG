@@ -45,6 +45,7 @@ namespace TERG
 
         private void btnSavePool_Click(object sender, EventArgs e)
         {
+            this.DialogResult = DialogResult.OK;
             this.Close();
         }
 
