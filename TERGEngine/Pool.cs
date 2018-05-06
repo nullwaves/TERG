@@ -23,7 +23,7 @@ namespace TERGEngine
 
         public string Pull()
         {
-            return List[new Random().Next(0, List.Length)];
+            return List[Engine.RNG.Next(0, List.Length)];
         }
     }
 }

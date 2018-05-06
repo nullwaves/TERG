@@ -13,6 +13,8 @@ namespace TERGEngine
         public List<Pool> Pools;
         public List<Pattern> Patterns;
 
+        public static Random RNG = new Random();
+
         private static JsonSerializerSettings SerializerSettings = new JsonSerializerSettings()
         {
             TypeNameHandling = TypeNameHandling.All
