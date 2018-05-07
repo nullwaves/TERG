@@ -76,6 +76,7 @@
     <Compile Include="ReferenceEditor.Designer.cs">
       <DependentUpon>ReferenceEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Settings.cs" />
     <Compile Include="TERGAboutBox.cs">
       <SubType>Form</SubType>
     </Compile>

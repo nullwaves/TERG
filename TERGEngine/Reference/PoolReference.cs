@@ -20,7 +20,7 @@ namespace TERGEngine.Reference
         
         public string Pull(Engine e)
         {
-            return e.FindPoolById(PoolID).Pull();
+            return e.FindPoolById(PoolID).Pull(e);
         }
 
         public string ToString(Engine e)

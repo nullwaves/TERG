@@ -21,9 +21,19 @@ namespace TERGEngine
             List = new string[0];
         }
 
-        public string Pull()
+        public string Pull(Engine e)
         {
-            return List[Engine.RNG.Next(0, List.Length)];
+            // Fetch any children
+            List<string> full = List.ToList();
+            foreach (Pool p in e.Pools)
+            {
+                if(p.ParentID == this.ID)
+                {
+                    full.AddRange(p.List);
+                }
+            }
+
+            return full[Engine.RNG.Next(0, full.Count)];
         }
     }
 }

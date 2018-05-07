@@ -25,7 +25,9 @@ namespace TERG
         //Variables for Pattern Editor
         private int IndexInPatternEditor = -1;
         private bool FlagPatternChanged = false;
-        
+
+        private string DBFileLocation = (string)Properties.Settings.Default["DatabaseFileLocation"];
+
         public frmMain()
         {
             InitializeComponent();
@@ -33,13 +35,13 @@ namespace TERG
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            if (File.Exists("terg.db"))
+            if (File.Exists(DBFileLocation))
             {
                 PushDatabaseStatus("Database exists; Attempting to parse");
 
                 try
                 {
-                    engine = Engine.Load("terg.db");
+                    engine = Engine.Load(DBFileLocation);
                     PushDatabaseStatus("Database loaded. Pools: " + engine.Pools.Count + " Patterns: " + engine.Patterns.Count);
                 }
                 catch (Exception ex)
@@ -70,12 +72,15 @@ namespace TERG
                 listPatterns.Items.Add(p.Name);                             // Add each Pattern back to the list
             }
             listPatterns.ClearSelected();                                   // Unload any Pattern's that could've been leftover
+
+            LoadPattern();
         }
 
         private void LoadPattern()
         {
             btnOpenTemplateEditor.Enabled = false;                          // Disable Template editor while we're loading
             btnAddReference.Enabled = false;                                // And any other buttons that modify the pattern
+            btnDeletePattern.Enabled = false;
             textPatternName.Clear();                                        // Clear Name field
             listPatternReferences.Items.Clear();                            // Clear Reference list
 
@@ -88,6 +93,7 @@ namespace TERG
                     listPatternReferences.Items.Add(r.ToString(engine));          // Add Each Reference to the ListBox for References
                 }
 
+                btnDeletePattern.Enabled = true;
                 btnOpenTemplateEditor.Enabled = true;                       // Enable access to the Template Editor
                 btnAddReference.Enabled = true;
             }
@@ -105,10 +111,18 @@ namespace TERG
                 comboPoolParent.Items.Add(pool.Name);
             }
             listPools.ClearSelected();
+
+            LoadPool();
         }
 
         private void LoadPool()
         {
+            // Disable everything
+            btnDeletePool.Enabled = false;
+            textPoolName.Enabled = false;
+            textBoxPoolEditor.Enabled = false;
+            comboPoolParent.Enabled = false;
+
             if (IndexInPoolEditor != -1)
             {
                 Pool p = engine.Pools[IndexInPoolEditor];
@@ -128,6 +142,11 @@ namespace TERG
                     comboPoolParent.SelectedIndex = comboPoolParent.Items.IndexOf(engine.FindPoolById(p.ParentID).Name);
                 }
 
+                // Enable everything
+                btnDeletePool.Enabled = true;
+                textPoolName.Enabled = true;
+                textBoxPoolEditor.Enabled = true;
+                comboPoolParent.Enabled = true;
                 FlagPoolChanged = false;
             }
             else
@@ -221,13 +240,13 @@ namespace TERG
             PushDatabaseStatus("Preparing to save database");
 
             //Check to see if database exists
-            if (!File.Exists("terg.db"))
+            if (!File.Exists(DBFileLocation))
             {
                 //It doesn't exist, so we make one
                 PushDatabaseStatus("Database does not exist; Attempting to create");
                 try
                 {
-                    File.Create("terg.db").Close();
+                    File.Create(DBFileLocation).Close();
                     PushDatabaseStatus("Database created");
                 }
                 catch (Exception e)
@@ -240,7 +259,7 @@ namespace TERG
             }
 
             //Save the data to the file.
-            engine.Save("terg.db");
+            engine.Save(DBFileLocation);
             PushDatabaseStatus("Database saved");
 
         }
@@ -420,7 +439,7 @@ namespace TERG
 
         private void btnAddReference_Click(object sender, EventArgs e)
         {
-            if(IndexInPatternEditor != -1 && comboAddReferenceType.Text.Length == 4)
+            if (IndexInPatternEditor != -1 && comboAddReferenceType.Text.Length == 4)
             {
                 string s = comboAddReferenceType.Items[comboAddReferenceType.SelectedIndex].ToString();
                 switch (s)
@@ -444,9 +463,155 @@ namespace TERG
 
         private void patternRunToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(IndexInPatternEditor != -1)
+            if (IndexInPatternEditor != -1)
             {
                 MessageBox.Show(engine.Patterns[IndexInPatternEditor].Fill(engine));
+            }
+        }
+
+        private void btnDeletePool_Click(object sender, EventArgs e)
+        {
+            if (IndexInPoolEditor != -1)
+            {
+                int PoolID = engine.Pools[IndexInPoolEditor].ID;
+
+                int pattConflicts = 0;
+                int poolConflicts = 0;
+
+                // Check how many patterns reference this pool
+                foreach (Pattern p in engine.Patterns)
+                {
+                    foreach (IReference r in p.References)
+                    {
+                        if (r.Type == "POOL")
+                        {
+                            if (((PoolReference)r).PoolID == PoolID)
+                            {
+                                pattConflicts++;
+                            }
+                        }
+                    }
+                }
+
+                // Check how many children this pool has
+                foreach (Pool p in engine.Pools)
+                {
+                    if (p.ParentID == PoolID)
+                    {
+                        poolConflicts++;
+                    }
+                }
+
+                MessageBox.Show("Deleting this pool will affect and possibly break " + pattConflicts + " Patterns and will clear the parent property of " + poolConflicts + " Pools.");
+                InputBoxResult result = InputBox.Show("Type the pool name to confirm deletion.", this.Text);
+                if (result.OK && result.Text == engine.Pools[IndexInPoolEditor].Name)
+                {
+                    // Delete any patterns references to this pool
+                    foreach (Pattern p in engine.Patterns)
+                    {
+                        List<IReference> removal = new List<IReference>();
+                        foreach (IReference r in p.References)
+                        {
+                            if (r.Type == "POOL")
+                            {
+                                if (((PoolReference)r).PoolID == PoolID)
+                                {
+                                    removal.Add(r);
+                                }
+                            }
+                        }
+                        foreach (IReference r in removal)
+                        {
+                            p.References.Remove(r);
+                        }
+                    }
+
+                    // Clear parentids for any former children
+                    foreach (Pool p in engine.Pools)
+                    {
+                        if (p.ParentID == PoolID)
+                        {
+                            p.ParentID = -1;
+                        }
+                    }
+
+                    string oldName = engine.Pools[IndexInPoolEditor].Name;
+
+                    engine.Pools.RemoveAt(IndexInPoolEditor);
+                    IndexInPoolEditor = -1;
+                    PushDatabaseStatus("Deleted Pool [" + oldName + "]");
+                    SaveDatabase();
+                    LoadPoolLists();
+                }
+            }
+        }
+
+        private void btnDeletePattern_Click(object sender, EventArgs e)
+        {
+            if (IndexInPatternEditor != -1)
+            {
+                int PatternID = engine.Patterns[IndexInPatternEditor].ID;
+
+                int pattConflicts = 0;
+
+                // Check for any patterns that reference this pattern
+                foreach(Pattern p in engine.Patterns)
+                {
+                    for (int i = 0; i < p.References.Count; i++)
+                    {
+                        if(p.References[i].Type == "PATT")
+                        {
+                            PatternReference r = (PatternReference)p.References[i];
+                            if(r.PatternID == PatternID)
+                            {
+                                pattConflicts++;
+                            }
+                        }
+                    }
+                }
+
+                MessageBox.Show("Deleting this pattern will affect " + pattConflicts + " Patterns.");
+                InputBoxResult result = InputBox.Show("Type the pattern name to continue with deletion.", this.Text);
+                if(result.OK && result.Text == engine.Patterns[IndexInPatternEditor].Name)
+                {
+                    foreach (Pattern p in engine.Patterns)
+                    {
+                        for (int i = 0; i < p.References.Count; i++)
+                        {
+                            if (p.References[i].Type == "PATT")
+                            {
+                                PatternReference r = (PatternReference)p.References[i];
+                                if (r.PatternID == PatternID)
+                                {
+                                    p.References.RemoveAt(i);
+                                    i--;
+                                }
+                            }
+                        }
+                    }
+
+                    string oldName = engine.Patterns[IndexInPatternEditor].Name;
+
+                    engine.Patterns.RemoveAt(IndexInPatternEditor);
+                    IndexInPatternEditor = -1;
+                    PushDatabaseStatus("Deleted Pattern [" + oldName + "]");
+                    SaveDatabase();
+                    LoadPatternLists();
+                }
+            }
+        }
+
+        private void changeDatabaseLocationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog dialog = new SaveFileDialog();
+            dialog.AddExtension = true;
+            dialog.DefaultExt = ".db";
+            dialog.FileName = DBFileLocation;
+            DialogResult result = dialog.ShowDialog();
+
+            if(result == DialogResult.OK)
+            {
+                // Implement
             }
         }
     }
