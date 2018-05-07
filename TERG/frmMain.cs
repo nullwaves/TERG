@@ -42,7 +42,7 @@ namespace TERG
                 try
                 {
                     engine = Engine.Load(DBFileLocation);
-                    PushDatabaseStatus("Database loaded. Pools: " + engine.Pools.Count + " Patterns: " + engine.Patterns.Count);
+                    PushDatabaseStatus("Database loaded from [" + Path.GetFullPath(DBFileLocation) + "]. Pools: " + engine.Pools.Count + " Patterns: " + engine.Patterns.Count);
                 }
                 catch (Exception ex)
                 {
@@ -237,16 +237,21 @@ namespace TERG
 
         private void SaveDatabase()
         {
+            SaveDatabase(DBFileLocation);
+        }
+
+        private bool SaveDatabase(string file)
+        {
             PushDatabaseStatus("Preparing to save database");
 
             //Check to see if database exists
-            if (!File.Exists(DBFileLocation))
+            if (!File.Exists(file))
             {
                 //It doesn't exist, so we make one
                 PushDatabaseStatus("Database does not exist; Attempting to create");
                 try
                 {
-                    File.Create(DBFileLocation).Close();
+                    File.Create(file).Close();
                     PushDatabaseStatus("Database created");
                 }
                 catch (Exception e)
@@ -254,14 +259,14 @@ namespace TERG
                     //Unless we don't.
                     PushDatabaseStatus("Error Creating Database: " + e.Message);
                     MessageBox.Show(e.Message);
-                    return;
+                    return false;
                 }
             }
 
             //Save the data to the file.
-            engine.Save(DBFileLocation);
+            engine.Save(file);
             PushDatabaseStatus("Database saved");
-
+            return true;
         }
 
         private void PushDatabaseStatus(string Status)
@@ -555,14 +560,14 @@ namespace TERG
                 int pattConflicts = 0;
 
                 // Check for any patterns that reference this pattern
-                foreach(Pattern p in engine.Patterns)
+                foreach (Pattern p in engine.Patterns)
                 {
                     for (int i = 0; i < p.References.Count; i++)
                     {
-                        if(p.References[i].Type == "PATT")
+                        if (p.References[i].Type == "PATT")
                         {
                             PatternReference r = (PatternReference)p.References[i];
-                            if(r.PatternID == PatternID)
+                            if (r.PatternID == PatternID)
                             {
                                 pattConflicts++;
                             }
@@ -572,7 +577,7 @@ namespace TERG
 
                 MessageBox.Show("Deleting this pattern will affect " + pattConflicts + " Patterns.");
                 InputBoxResult result = InputBox.Show("Type the pattern name to continue with deletion.", this.Text);
-                if(result.OK && result.Text == engine.Patterns[IndexInPatternEditor].Name)
+                if (result.OK && result.Text == engine.Patterns[IndexInPatternEditor].Name)
                 {
                     foreach (Pattern p in engine.Patterns)
                     {
@@ -601,7 +606,7 @@ namespace TERG
             }
         }
 
-        private void changeDatabaseLocationToolStripMenuItem_Click(object sender, EventArgs e)
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFileDialog dialog = new SaveFileDialog();
             dialog.AddExtension = true;
@@ -609,9 +614,14 @@ namespace TERG
             dialog.FileName = DBFileLocation;
             DialogResult result = dialog.ShowDialog();
 
-            if(result == DialogResult.OK)
+            if (result == DialogResult.OK)
             {
                 // Implement
+                Properties.Settings.Default["DatabaseFileLocation"] = Path.GetFullPath(dialog.FileName);
+                Properties.Settings.Default.Save();
+                MessageBox.Show("Restarting...");
+                Application.Restart();
+                Environment.Exit(0);
             }
         }
     }

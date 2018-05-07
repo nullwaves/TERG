@@ -54,9 +54,11 @@ namespace TERG
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabControlEditors = new System.Windows.Forms.TabControl();
             this.tabPoolEditor = new System.Windows.Forms.TabPage();
+            this.btnDeletePool = new System.Windows.Forms.Button();
             this.btnRefreshPool = new System.Windows.Forms.Button();
             this.btnSavePool = new System.Windows.Forms.Button();
             this.tabPatternEditor = new System.Windows.Forms.TabPage();
+            this.btnDeletePattern = new System.Windows.Forms.Button();
             this.comboAddReferenceType = new System.Windows.Forms.ComboBox();
             this.listPatternReferences = new System.Windows.Forms.ListBox();
             this.btnAddReference = new System.Windows.Forms.Button();
@@ -65,9 +67,7 @@ namespace TERG
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.textPatternName = new System.Windows.Forms.TextBox();
-            this.btnDeletePattern = new System.Windows.Forms.Button();
-            this.btnDeletePool = new System.Windows.Forms.Button();
-            this.changeDatabaseLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainStatusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tabEventLog.SuspendLayout();
@@ -173,8 +173,8 @@ namespace TERG
             // databseToolStripMenuItem
             // 
             this.databseToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newToolStripMenuItem,
             this.saveToolStripMenuItem,
-            this.changeDatabaseLocationToolStripMenuItem,
             this.toolStripSeparator1,
             this.addNewPoolToolStripMenuItem,
             this.addNewPatternToolStripMenuItem});
@@ -303,6 +303,16 @@ namespace TERG
             this.tabPoolEditor.TabIndex = 0;
             this.tabPoolEditor.Text = "Pools";
             // 
+            // btnDeletePool
+            // 
+            this.btnDeletePool.Location = new System.Drawing.Point(411, 247);
+            this.btnDeletePool.Name = "btnDeletePool";
+            this.btnDeletePool.Size = new System.Drawing.Size(121, 23);
+            this.btnDeletePool.TabIndex = 12;
+            this.btnDeletePool.Text = "Delete Pool";
+            this.btnDeletePool.UseVisualStyleBackColor = true;
+            this.btnDeletePool.Click += new System.EventHandler(this.btnDeletePool_Click);
+            // 
             // btnRefreshPool
             // 
             this.btnRefreshPool.Image = global::TERG.Properties.Resources.action_refresh;
@@ -341,6 +351,16 @@ namespace TERG
             this.tabPatternEditor.Size = new System.Drawing.Size(538, 276);
             this.tabPatternEditor.TabIndex = 1;
             this.tabPatternEditor.Text = "Patterns";
+            // 
+            // btnDeletePattern
+            // 
+            this.btnDeletePattern.Location = new System.Drawing.Point(406, 243);
+            this.btnDeletePattern.Name = "btnDeletePattern";
+            this.btnDeletePattern.Size = new System.Drawing.Size(121, 23);
+            this.btnDeletePattern.TabIndex = 11;
+            this.btnDeletePattern.Text = "Delete Pattern";
+            this.btnDeletePattern.UseVisualStyleBackColor = true;
+            this.btnDeletePattern.Click += new System.EventHandler(this.btnDeletePattern_Click);
             // 
             // comboAddReferenceType
             // 
@@ -414,32 +434,12 @@ namespace TERG
             this.textPatternName.Size = new System.Drawing.Size(172, 20);
             this.textPatternName.TabIndex = 6;
             // 
-            // btnDeletePattern
+            // newToolStripMenuItem
             // 
-            this.btnDeletePattern.Location = new System.Drawing.Point(406, 243);
-            this.btnDeletePattern.Name = "btnDeletePattern";
-            this.btnDeletePattern.Size = new System.Drawing.Size(121, 23);
-            this.btnDeletePattern.TabIndex = 11;
-            this.btnDeletePattern.Text = "Delete Pattern";
-            this.btnDeletePattern.UseVisualStyleBackColor = true;
-            this.btnDeletePattern.Click += new System.EventHandler(this.btnDeletePattern_Click);
-            // 
-            // btnDeletePool
-            // 
-            this.btnDeletePool.Location = new System.Drawing.Point(411, 247);
-            this.btnDeletePool.Name = "btnDeletePool";
-            this.btnDeletePool.Size = new System.Drawing.Size(121, 23);
-            this.btnDeletePool.TabIndex = 12;
-            this.btnDeletePool.Text = "Delete Pool";
-            this.btnDeletePool.UseVisualStyleBackColor = true;
-            this.btnDeletePool.Click += new System.EventHandler(this.btnDeletePool_Click);
-            // 
-            // changeDatabaseLocationToolStripMenuItem
-            // 
-            this.changeDatabaseLocationToolStripMenuItem.Name = "changeDatabaseLocationToolStripMenuItem";
-            this.changeDatabaseLocationToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
-            this.changeDatabaseLocationToolStripMenuItem.Text = "File Location";
-            this.changeDatabaseLocationToolStripMenuItem.Click += new System.EventHandler(this.changeDatabaseLocationToolStripMenuItem_Click);
+            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.newToolStripMenuItem.Text = "New";
+            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // frmMain
             // 
@@ -513,7 +513,7 @@ namespace TERG
         private System.Windows.Forms.ToolStripMenuItem patternRunToolStripMenuItem;
         private System.Windows.Forms.Button btnDeletePool;
         private System.Windows.Forms.Button btnDeletePattern;
-        private System.Windows.Forms.ToolStripMenuItem changeDatabaseLocationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
     }
 }
 
