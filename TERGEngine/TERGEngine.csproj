@@ -51,6 +51,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reference\PatternReference.cs" />
     <Compile Include="Reference\PoolReference.cs" />
+    <Compile Include="Reference\RandomIntegerReference.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

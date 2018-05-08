@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TERGEngine.Reference
+﻿namespace TERGEngine.Reference
 {
     public class PoolReference : IReference
     {

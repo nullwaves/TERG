@@ -90,6 +90,37 @@ namespace TERG
                         }
 
                         return pattr;
+                    #endregion
+                    #region RIntegerRef
+                    case "RINT":
+
+                        // Convert to type
+                        RandomIntegerReference rintr = (RandomIntegerReference)r;
+
+                        // Setup form
+                        if (n)
+                        {
+                            form.RINTtextMin.Text = "0";
+                            form.RINTtextMax.Text = "9";
+                            form.RINTtextMinLength.Text = "0";
+                        }
+                        else
+                        {
+                            form.RINTtextMin.Text = rintr.Min.ToString();
+                            form.RINTtextMax.Text = rintr.Max.ToString();
+                            form.RINTtextMinLength.Text = rintr.Max.ToString();
+                        }
+
+                        result = form.ShowDialog();
+
+                        if (result == DialogResult.OK)
+                        {
+                            rintr.Min = Int32.Parse(form.RINTtextMin.Text);
+                            rintr.Max = Int32.Parse(form.RINTtextMax.Text);
+                            rintr.MinLength = Int32.Parse(form.RINTtextMinLength.Text);
+                        }
+
+                        return rintr;
                         #endregion
                 }
 
@@ -101,9 +132,9 @@ namespace TERG
         {
             // tabControl.TabPages.Clear();
             // tabControl.TabPages.Add(Tabs[Tabs.IndexOfKey(type.ToUpper())]);
-            for(int i = 0; i < tabControl.TabPages.Count; i++)
+            for (int i = 0; i < tabControl.TabPages.Count; i++)
             {
-                if(tabControl.TabPages[i].Text == type)
+                if (tabControl.TabPages[i].Text == type)
                 {
                     TabPage use = tabControl.TabPages[i];
                     tabControl.TabPages.Clear();
@@ -125,6 +156,29 @@ namespace TERG
 
         private void POOLbtnOK_Click(object sender, EventArgs e)
         {
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
+
+        private void RINTbtnOK_Click(object sender, EventArgs e)
+        {
+            int test;
+            if (!Int32.TryParse(RINTtextMin.Text, out test))
+            {
+                MessageBox.Show("Invalid data in Minimum Value field, please correct before continuing");
+                return;
+            }
+            if (!Int32.TryParse(RINTtextMax.Text, out test))
+            {
+                MessageBox.Show("Invalid data in Maximum Value field, please correct before continuing");
+                return;
+            }
+            if (!Int32.TryParse(RINTtextMinLength.Text, out test))
+            {
+                MessageBox.Show("Invalid data in Minimum Length field, please correct before continuing");
+                return;
+            }
+
             this.DialogResult = DialogResult.OK;
             this.Close();
         }

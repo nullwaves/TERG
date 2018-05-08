@@ -37,15 +37,25 @@
             this.PATTbtnOK = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.PATTcomboPattern = new System.Windows.Forms.ComboBox();
+            this.tabRINT = new System.Windows.Forms.TabPage();
+            this.RINTbtnOK = new System.Windows.Forms.Button();
+            this.RINTtextMinLength = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.RINTtextMax = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.RINTtextMin = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPOOL.SuspendLayout();
             this.tabPATT.SuspendLayout();
+            this.tabRINT.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl
             // 
             this.tabControl.Controls.Add(this.tabPOOL);
             this.tabControl.Controls.Add(this.tabPATT);
+            this.tabControl.Controls.Add(this.tabRINT);
             this.tabControl.Location = new System.Drawing.Point(13, 13);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
@@ -132,6 +142,80 @@
             this.PATTcomboPattern.Size = new System.Drawing.Size(206, 21);
             this.PATTcomboPattern.TabIndex = 3;
             // 
+            // tabRINT
+            // 
+            this.tabRINT.Controls.Add(this.RINTbtnOK);
+            this.tabRINT.Controls.Add(this.RINTtextMinLength);
+            this.tabRINT.Controls.Add(this.label5);
+            this.tabRINT.Controls.Add(this.RINTtextMax);
+            this.tabRINT.Controls.Add(this.label4);
+            this.tabRINT.Controls.Add(this.RINTtextMin);
+            this.tabRINT.Controls.Add(this.label3);
+            this.tabRINT.Location = new System.Drawing.Point(4, 22);
+            this.tabRINT.Name = "tabRINT";
+            this.tabRINT.Size = new System.Drawing.Size(290, 288);
+            this.tabRINT.TabIndex = 2;
+            this.tabRINT.Text = "RINT";
+            this.tabRINT.UseVisualStyleBackColor = true;
+            // 
+            // RINTbtnOK
+            // 
+            this.RINTbtnOK.Location = new System.Drawing.Point(148, 102);
+            this.RINTbtnOK.Name = "RINTbtnOK";
+            this.RINTbtnOK.Size = new System.Drawing.Size(75, 23);
+            this.RINTbtnOK.TabIndex = 11;
+            this.RINTbtnOK.Text = "OK";
+            this.RINTbtnOK.UseVisualStyleBackColor = true;
+            this.RINTbtnOK.Click += new System.EventHandler(this.RINTbtnOK_Click);
+            // 
+            // RINTtextMinLength
+            // 
+            this.RINTtextMinLength.Location = new System.Drawing.Point(185, 66);
+            this.RINTtextMinLength.Name = "RINTtextMinLength";
+            this.RINTtextMinLength.Size = new System.Drawing.Size(38, 20);
+            this.RINTtextMinLength.TabIndex = 8;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(68, 69);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(87, 13);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "Minimum Length:";
+            // 
+            // RINTtextMax
+            // 
+            this.RINTtextMax.Location = new System.Drawing.Point(185, 40);
+            this.RINTtextMax.Name = "RINTtextMax";
+            this.RINTtextMax.Size = new System.Drawing.Size(38, 20);
+            this.RINTtextMax.TabIndex = 6;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(68, 43);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(84, 13);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "Maximum Value:";
+            // 
+            // RINTtextMin
+            // 
+            this.RINTtextMin.Location = new System.Drawing.Point(185, 14);
+            this.RINTtextMin.Name = "RINTtextMin";
+            this.RINTtextMin.Size = new System.Drawing.Size(38, 20);
+            this.RINTtextMin.TabIndex = 4;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(68, 17);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(81, 13);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Minimum Value:";
+            // 
             // ReferenceEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -146,6 +230,8 @@
             this.tabPOOL.PerformLayout();
             this.tabPATT.ResumeLayout(false);
             this.tabPATT.PerformLayout();
+            this.tabRINT.ResumeLayout(false);
+            this.tabRINT.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -161,5 +247,13 @@
         private System.Windows.Forms.Button PATTbtnOK;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox PATTcomboPattern;
+        private System.Windows.Forms.TabPage tabRINT;
+        private System.Windows.Forms.TextBox RINTtextMinLength;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox RINTtextMax;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox RINTtextMin;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button RINTbtnOK;
     }
 }

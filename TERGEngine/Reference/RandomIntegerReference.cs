@@ -1,0 +1,42 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace TERGEngine.Reference
+{
+    public class RandomIntegerReference : IReference
+    {
+        public string Type
+        {
+            get
+            {
+                return "RINT";
+            }
+        }
+
+        // Reference Settings
+        public int Min;
+        public int Max;
+        public int MinLength;
+
+        public string Pull(Engine e)
+        {
+            int num = Engine.RNG.Next(Min, Max);
+            StringBuilder r = new StringBuilder(num.ToString());
+            if (MinLength > 0)
+            {
+                int offset = 0;
+                if (num < 0) offset = 1;
+                r.Insert(offset, "0", MinLength - r.Length);
+            }
+            return r.ToString();
+        }
+
+        public string ToString(Engine e)
+        {
+            return "RINT: m" + Min + " M" + Max + " Z" + MinLength;
+        }
+    }
+}
