@@ -41,6 +41,7 @@ namespace TERG
             this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.databseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changeDatabaseLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.addNewPoolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -67,7 +68,6 @@ namespace TERG
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.textPatternName = new System.Windows.Forms.TextBox();
-            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainStatusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tabEventLog.SuspendLayout();
@@ -173,14 +173,21 @@ namespace TERG
             // databseToolStripMenuItem
             // 
             this.databseToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newToolStripMenuItem,
             this.saveToolStripMenuItem,
+            this.changeDatabaseLocationToolStripMenuItem,
             this.toolStripSeparator1,
             this.addNewPoolToolStripMenuItem,
             this.addNewPatternToolStripMenuItem});
             this.databseToolStripMenuItem.Name = "databseToolStripMenuItem";
             this.databseToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.databseToolStripMenuItem.Text = "Databse";
+            // 
+            // changeDatabaseLocationToolStripMenuItem
+            // 
+            this.changeDatabaseLocationToolStripMenuItem.Name = "changeDatabaseLocationToolStripMenuItem";
+            this.changeDatabaseLocationToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.changeDatabaseLocationToolStripMenuItem.Text = "Change Database";
+            this.changeDatabaseLocationToolStripMenuItem.Click += new System.EventHandler(this.changeDatabaseLocationToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
@@ -378,6 +385,7 @@ namespace TERG
             this.listPatternReferences.ScrollAlwaysVisible = true;
             this.listPatternReferences.Size = new System.Drawing.Size(172, 238);
             this.listPatternReferences.TabIndex = 9;
+            this.listPatternReferences.DoubleClick += new System.EventHandler(this.listPatternReferences_DoubleClick);
             // 
             // btnAddReference
             // 
@@ -433,13 +441,6 @@ namespace TERG
             this.textPatternName.Name = "textPatternName";
             this.textPatternName.Size = new System.Drawing.Size(172, 20);
             this.textPatternName.TabIndex = 6;
-            // 
-            // newToolStripMenuItem
-            // 
-            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
-            this.newToolStripMenuItem.Text = "New";
-            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // frmMain
             // 
@@ -513,7 +514,7 @@ namespace TERG
         private System.Windows.Forms.ToolStripMenuItem patternRunToolStripMenuItem;
         private System.Windows.Forms.Button btnDeletePool;
         private System.Windows.Forms.Button btnDeletePattern;
-        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem changeDatabaseLocationToolStripMenuItem;
     }
 }
 

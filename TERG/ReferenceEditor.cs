@@ -30,21 +30,21 @@ namespace TERG
          *      Engine      e:  TERGEngine loaded
          *      Reference   r:  Reference to be edited
         */
-        public static IReference Show(bool n, int t, Engine e, IReference r)
+        public static IReference Show(bool n, Engine e, IReference r)
         {
             using (ReferenceEditor form = new ReferenceEditor())
             {
                 DialogResult result;
-                switch (t)
+                form.SetPage(r.Type);
+                switch (r.Type)
                 {
                     #region PoolRef
-                    case POOL:
+                    case "POOL":
 
                         // Convert to type
                         PoolReference poolr = (PoolReference)r;
 
                         // Setup form
-                        form.SetPage("POOL");
                         foreach (Pool p in e.Pools)
                         {
                             form.POOLcomboPool.Items.Add(p.Name);
@@ -66,20 +66,19 @@ namespace TERG
                         return poolr;
                     #endregion
                     #region PatternRef
-                    case PATT:
+                    case "PATT":
 
                         // Convert to type
                         PatternReference pattr = (PatternReference)r;
 
                         // Setup form
-                        form.SetPage("PATT");
                         foreach (Pattern p in e.Patterns)
                         {
                             form.PATTcomboPattern.Items.Add(p.Name);
                         }
                         if (!n)
                         {
-                            form.PATTcomboPattern.SelectedIndex = form.POOLcomboPool.Items.IndexOf(e.FindPatternById(pattr.PatternID).Name);
+                            form.PATTcomboPattern.SelectedIndex = form.PATTcomboPattern.Items.IndexOf(e.FindPatternById(pattr.PatternID).Name);
                         }
 
                         // Show form and return results
@@ -94,7 +93,7 @@ namespace TERG
                         #endregion
                 }
 
-                throw new Exception("Invalid Reference Type: " + t);
+                throw new Exception("Invalid Reference Type: " + r.Type);
             }
         }
 
@@ -104,7 +103,7 @@ namespace TERG
             // tabControl.TabPages.Add(Tabs[Tabs.IndexOfKey(type.ToUpper())]);
             for(int i = 0; i < tabControl.TabPages.Count; i++)
             {
-                if(tabControl.TabPages[i].Name == type)
+                if(tabControl.TabPages[i].Text == type)
                 {
                     TabPage use = tabControl.TabPages[i];
                     tabControl.TabPages.Clear();

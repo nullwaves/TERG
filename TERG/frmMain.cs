@@ -81,6 +81,8 @@ namespace TERG
             btnOpenTemplateEditor.Enabled = false;                          // Disable Template editor while we're loading
             btnAddReference.Enabled = false;                                // And any other buttons that modify the pattern
             btnDeletePattern.Enabled = false;
+            listPatternReferences.Enabled = false;
+            textPatternName.Enabled = false;
             textPatternName.Clear();                                        // Clear Name field
             listPatternReferences.Items.Clear();                            // Clear Reference list
 
@@ -96,6 +98,8 @@ namespace TERG
                 btnDeletePattern.Enabled = true;
                 btnOpenTemplateEditor.Enabled = true;                       // Enable access to the Template Editor
                 btnAddReference.Enabled = true;
+                listPatternReferences.Enabled = true;
+                textPatternName.Enabled = true;
             }
         }
 
@@ -410,6 +414,35 @@ namespace TERG
             LoadPattern();
         }
 
+        private void listPatternReferences_DoubleClick(object sender, EventArgs e)
+        {
+            if(IndexInPatternEditor != -1 && listPatternReferences.SelectedIndex != -1)
+            {
+                int index = listPatternReferences.SelectedIndex;
+
+                IReference r = engine.Patterns[IndexInPatternEditor].References[index];
+
+                switch (r.Type)
+                {
+                    case "POOL":
+                        PoolReference pool = (PoolReference)ReferenceEditor.Show(false, engine, r);
+                        engine.Patterns[IndexInPatternEditor].References[index] = pool;
+                        break;
+                    case "PATT":
+                        PatternReference patt = (PatternReference)ReferenceEditor.Show(false, engine, r);
+                        engine.Patterns[IndexInPatternEditor].References[index] = patt;
+                        break;
+                    default:
+                        MessageBox.Show("Invalid Reference Type: " + r.Type);
+                        return;
+                }
+
+                PushDatabaseStatus("Updated Reference in Pattern [" + engine.Patterns[IndexInPatternEditor].Name + "]");
+                SaveDatabase();
+                LoadPattern();
+            }
+        }
+
         private void addNewPatternToolStripMenuItem_Click(object sender, EventArgs e)
         {
             InputBoxResult result = InputBox.Show("New Pattern Name:", this.Text);
@@ -450,11 +483,11 @@ namespace TERG
                 switch (s)
                 {
                     case "POOL":
-                        PoolReference pool = (PoolReference)ReferenceEditor.Show(true, ReferenceEditor.POOL, engine, new PoolReference());
+                        PoolReference pool = (PoolReference)ReferenceEditor.Show(true, engine, new PoolReference());
                         engine.Patterns[IndexInPatternEditor].References.Add(pool);
                         break;
                     case "PATT":
-                        PatternReference patt = (PatternReference)ReferenceEditor.Show(true, ReferenceEditor.PATT, engine, new PatternReference());
+                        PatternReference patt = (PatternReference)ReferenceEditor.Show(true, engine, new PatternReference());
                         engine.Patterns[IndexInPatternEditor].References.Add(patt);
                         break;
                     default:
@@ -606,7 +639,7 @@ namespace TERG
             }
         }
 
-        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        private void changeDatabaseLocationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFileDialog dialog = new SaveFileDialog();
             dialog.AddExtension = true;

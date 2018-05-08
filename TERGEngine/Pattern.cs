@@ -34,11 +34,14 @@ namespace TERGEngine
                 data[i] = References[i].Pull(e);
             }
 
-            StringBuilder output = new StringBuilder();
+            StringBuilder output = new StringBuilder(String.Join(Environment.NewLine, Base));
+            /*
             foreach (string s in Base)
             {
-                output.AppendLine(s);
+                output.Append(s);
             }
+            */
+
 
             for (int i = 0; i < References.Count; i++)
             {
