@@ -41,8 +41,8 @@ namespace TERG
             this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.databseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.changeDatabaseLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changeDatabaseLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.addNewPoolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addNewPatternToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,6 +59,9 @@ namespace TERG
             this.btnRefreshPool = new System.Windows.Forms.Button();
             this.btnSavePool = new System.Windows.Forms.Button();
             this.tabPatternEditor = new System.Windows.Forms.TabPage();
+            this.btnDeleteReference = new System.Windows.Forms.Button();
+            this.btnMoveRefDown = new System.Windows.Forms.Button();
+            this.btnMoveRefUp = new System.Windows.Forms.Button();
             this.btnDeletePattern = new System.Windows.Forms.Button();
             this.comboAddReferenceType = new System.Windows.Forms.ComboBox();
             this.listPatternReferences = new System.Windows.Forms.ListBox();
@@ -68,6 +71,14 @@ namespace TERG
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.textPatternName = new System.Windows.Forms.TextBox();
+            this.tabExport = new System.Windows.Forms.TabPage();
+            this.textExport = new System.Windows.Forms.TextBox();
+            this.btnRunExport = new System.Windows.Forms.Button();
+            this.textExportIterations = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.comboExportPattern = new System.Windows.Forms.ComboBox();
+            this.checkExportSeperators = new System.Windows.Forms.CheckBox();
             this.mainStatusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tabEventLog.SuspendLayout();
@@ -75,6 +86,7 @@ namespace TERG
             this.tabControlEditors.SuspendLayout();
             this.tabPoolEditor.SuspendLayout();
             this.tabPatternEditor.SuspendLayout();
+            this.tabExport.SuspendLayout();
             this.SuspendLayout();
             // 
             // listPools
@@ -182,13 +194,6 @@ namespace TERG
             this.databseToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.databseToolStripMenuItem.Text = "Databse";
             // 
-            // changeDatabaseLocationToolStripMenuItem
-            // 
-            this.changeDatabaseLocationToolStripMenuItem.Name = "changeDatabaseLocationToolStripMenuItem";
-            this.changeDatabaseLocationToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
-            this.changeDatabaseLocationToolStripMenuItem.Text = "Change Database";
-            this.changeDatabaseLocationToolStripMenuItem.Click += new System.EventHandler(this.changeDatabaseLocationToolStripMenuItem_Click);
-            // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
@@ -196,6 +201,13 @@ namespace TERG
             this.saveToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            // 
+            // changeDatabaseLocationToolStripMenuItem
+            // 
+            this.changeDatabaseLocationToolStripMenuItem.Name = "changeDatabaseLocationToolStripMenuItem";
+            this.changeDatabaseLocationToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.changeDatabaseLocationToolStripMenuItem.Text = "Change Database";
+            this.changeDatabaseLocationToolStripMenuItem.Click += new System.EventHandler(this.changeDatabaseLocationToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -284,6 +296,7 @@ namespace TERG
             // 
             this.tabControlEditors.Controls.Add(this.tabPoolEditor);
             this.tabControlEditors.Controls.Add(this.tabPatternEditor);
+            this.tabControlEditors.Controls.Add(this.tabExport);
             this.tabControlEditors.Location = new System.Drawing.Point(12, 27);
             this.tabControlEditors.Name = "tabControlEditors";
             this.tabControlEditors.SelectedIndex = 0;
@@ -343,6 +356,9 @@ namespace TERG
             // tabPatternEditor
             // 
             this.tabPatternEditor.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPatternEditor.Controls.Add(this.btnDeleteReference);
+            this.tabPatternEditor.Controls.Add(this.btnMoveRefDown);
+            this.tabPatternEditor.Controls.Add(this.btnMoveRefUp);
             this.tabPatternEditor.Controls.Add(this.btnDeletePattern);
             this.tabPatternEditor.Controls.Add(this.comboAddReferenceType);
             this.tabPatternEditor.Controls.Add(this.listPatternReferences);
@@ -358,6 +374,36 @@ namespace TERG
             this.tabPatternEditor.Size = new System.Drawing.Size(538, 276);
             this.tabPatternEditor.TabIndex = 1;
             this.tabPatternEditor.Text = "Patterns";
+            // 
+            // btnDeleteReference
+            // 
+            this.btnDeleteReference.Location = new System.Drawing.Point(407, 213);
+            this.btnDeleteReference.Name = "btnDeleteReference";
+            this.btnDeleteReference.Size = new System.Drawing.Size(121, 24);
+            this.btnDeleteReference.TabIndex = 14;
+            this.btnDeleteReference.Text = "Delete Reference";
+            this.btnDeleteReference.UseVisualStyleBackColor = true;
+            this.btnDeleteReference.Click += new System.EventHandler(this.btnDeleteReference_Click);
+            // 
+            // btnMoveRefDown
+            // 
+            this.btnMoveRefDown.Image = global::TERG.Properties.Resources.arrow_down;
+            this.btnMoveRefDown.Location = new System.Drawing.Point(357, 150);
+            this.btnMoveRefDown.Name = "btnMoveRefDown";
+            this.btnMoveRefDown.Size = new System.Drawing.Size(43, 23);
+            this.btnMoveRefDown.TabIndex = 13;
+            this.btnMoveRefDown.UseVisualStyleBackColor = true;
+            this.btnMoveRefDown.Click += new System.EventHandler(this.btnMoveRefDown_Click);
+            // 
+            // btnMoveRefUp
+            // 
+            this.btnMoveRefUp.Image = global::TERG.Properties.Resources.arrow_up;
+            this.btnMoveRefUp.Location = new System.Drawing.Point(357, 121);
+            this.btnMoveRefUp.Name = "btnMoveRefUp";
+            this.btnMoveRefUp.Size = new System.Drawing.Size(43, 23);
+            this.btnMoveRefUp.TabIndex = 12;
+            this.btnMoveRefUp.UseVisualStyleBackColor = true;
+            this.btnMoveRefUp.Click += new System.EventHandler(this.btnMoveRefUp_Click);
             // 
             // btnDeletePattern
             // 
@@ -442,6 +488,85 @@ namespace TERG
             this.textPatternName.Size = new System.Drawing.Size(172, 20);
             this.textPatternName.TabIndex = 6;
             // 
+            // tabExport
+            // 
+            this.tabExport.BackColor = System.Drawing.SystemColors.Control;
+            this.tabExport.Controls.Add(this.checkExportSeperators);
+            this.tabExport.Controls.Add(this.textExport);
+            this.tabExport.Controls.Add(this.btnRunExport);
+            this.tabExport.Controls.Add(this.textExportIterations);
+            this.tabExport.Controls.Add(this.label7);
+            this.tabExport.Controls.Add(this.label4);
+            this.tabExport.Controls.Add(this.comboExportPattern);
+            this.tabExport.Location = new System.Drawing.Point(4, 22);
+            this.tabExport.Name = "tabExport";
+            this.tabExport.Size = new System.Drawing.Size(538, 276);
+            this.tabExport.TabIndex = 2;
+            this.tabExport.Text = "Export";
+            // 
+            // textExport
+            // 
+            this.textExport.Location = new System.Drawing.Point(3, 30);
+            this.textExport.Multiline = true;
+            this.textExport.Name = "textExport";
+            this.textExport.ReadOnly = true;
+            this.textExport.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textExport.Size = new System.Drawing.Size(532, 243);
+            this.textExport.TabIndex = 5;
+            // 
+            // btnRunExport
+            // 
+            this.btnRunExport.Location = new System.Drawing.Point(460, 3);
+            this.btnRunExport.Name = "btnRunExport";
+            this.btnRunExport.Size = new System.Drawing.Size(75, 23);
+            this.btnRunExport.TabIndex = 4;
+            this.btnRunExport.Text = "Run";
+            this.btnRunExport.UseVisualStyleBackColor = true;
+            this.btnRunExport.Click += new System.EventHandler(this.btnRunExport_Click);
+            // 
+            // textExportIterations
+            // 
+            this.textExportIterations.Location = new System.Drawing.Point(264, 4);
+            this.textExportIterations.Name = "textExportIterations";
+            this.textExportIterations.Size = new System.Drawing.Size(56, 20);
+            this.textExportIterations.TabIndex = 3;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(205, 6);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(53, 13);
+            this.label7.TabIndex = 2;
+            this.label7.Text = "Iterations:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(3, 6);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(44, 13);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "Pattern:";
+            // 
+            // comboExportPattern
+            // 
+            this.comboExportPattern.FormattingEnabled = true;
+            this.comboExportPattern.Location = new System.Drawing.Point(53, 3);
+            this.comboExportPattern.Name = "comboExportPattern";
+            this.comboExportPattern.Size = new System.Drawing.Size(146, 21);
+            this.comboExportPattern.TabIndex = 0;
+            // 
+            // checkExportSeperators
+            // 
+            this.checkExportSeperators.AutoSize = true;
+            this.checkExportSeperators.Location = new System.Drawing.Point(374, 6);
+            this.checkExportSeperators.Name = "checkExportSeperators";
+            this.checkExportSeperators.Size = new System.Drawing.Size(77, 17);
+            this.checkExportSeperators.TabIndex = 6;
+            this.checkExportSeperators.Text = "Seperators";
+            this.checkExportSeperators.UseVisualStyleBackColor = true;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -470,6 +595,8 @@ namespace TERG
             this.tabPoolEditor.PerformLayout();
             this.tabPatternEditor.ResumeLayout(false);
             this.tabPatternEditor.PerformLayout();
+            this.tabExport.ResumeLayout(false);
+            this.tabExport.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -515,6 +642,17 @@ namespace TERG
         private System.Windows.Forms.Button btnDeletePool;
         private System.Windows.Forms.Button btnDeletePattern;
         private System.Windows.Forms.ToolStripMenuItem changeDatabaseLocationToolStripMenuItem;
+        private System.Windows.Forms.Button btnMoveRefDown;
+        private System.Windows.Forms.Button btnMoveRefUp;
+        private System.Windows.Forms.Button btnDeleteReference;
+        private System.Windows.Forms.TabPage tabExport;
+        private System.Windows.Forms.TextBox textExport;
+        private System.Windows.Forms.Button btnRunExport;
+        private System.Windows.Forms.TextBox textExportIterations;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox comboExportPattern;
+        private System.Windows.Forms.CheckBox checkExportSeperators;
     }
 }
 

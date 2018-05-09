@@ -15,9 +15,6 @@ namespace TERG
 {
     public partial class ReferenceEditor : Form
     {
-        public const int POOL = 10;
-        public const int PATT = 20;
-
         public ReferenceEditor()
         {
             InitializeComponent();
@@ -53,6 +50,10 @@ namespace TERG
                         {
                             form.POOLcomboPool.SelectedIndex = form.POOLcomboPool.Items.IndexOf(e.FindPoolById(poolr.PoolID).Name);
                         }
+                        else
+                        {
+                            form.POOLcomboPool.SelectedIndex = 0;
+                        }
 
                         // Show Form and return results
                         result = form.ShowDialog();
@@ -79,6 +80,10 @@ namespace TERG
                         if (!n)
                         {
                             form.PATTcomboPattern.SelectedIndex = form.PATTcomboPattern.Items.IndexOf(e.FindPatternById(pattr.PatternID).Name);
+                        }
+                        else
+                        {
+                            form.PATTcomboPattern.SelectedIndex = 0;
                         }
 
                         // Show form and return results
@@ -108,19 +113,54 @@ namespace TERG
                         {
                             form.RINTtextMin.Text = rintr.Min.ToString();
                             form.RINTtextMax.Text = rintr.Max.ToString();
-                            form.RINTtextMinLength.Text = rintr.Max.ToString();
+                            form.RINTtextMinLength.Text = rintr.MinLength.ToString();
                         }
 
                         result = form.ShowDialog();
 
                         if (result == DialogResult.OK)
                         {
-                            rintr.Min = Int32.Parse(form.RINTtextMin.Text);
-                            rintr.Max = Int32.Parse(form.RINTtextMax.Text);
-                            rintr.MinLength = Int32.Parse(form.RINTtextMinLength.Text);
+                            rintr.Min = int.Parse(form.RINTtextMin.Text);
+                            rintr.Max = int.Parse(form.RINTtextMax.Text);
+                            rintr.MinLength = int.Parse(form.RINTtextMinLength.Text);
                         }
 
                         return rintr;
+                    #endregion
+                    #region RPAT
+                    case "RPAT":
+                        // Convert to type
+                        RandomPatternReference rpatr = (RandomPatternReference)r;
+
+                        // Setup form
+                        foreach (Pattern p in e.Patterns)
+                        {
+                            form.RPATlistPatterns.Items.Add(p.Name);
+                        }
+
+                        if (!n)
+                        {
+                            foreach (int id in rpatr.PatternList)
+                            {
+                                form.RPATlistSelected.Items.Add(e.FindPatternById(id).Name);
+                            }
+                        }
+
+                        result = form.ShowDialog();
+
+                        if (result == DialogResult.OK)
+                        {
+                            var plist = new List<int>();
+                            foreach (string s in form.RPATlistSelected.Items)
+                            {
+                                int index = form.RPATlistPatterns.Items.IndexOf(s);
+                                plist.Add(e.Patterns[index].ID);
+                            }
+
+                            rpatr.PatternList = plist;
+                        }
+
+                        return rpatr;
                         #endregion
                 }
 
@@ -144,36 +184,46 @@ namespace TERG
             }
         }
 
-        private void ReferenceEditor_Load(object sender, EventArgs e)
-        {
-        }
-
         private void PATTbtnOK_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            if (PATTcomboPattern.SelectedIndex != -1)
+            {
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Must have a valid pattern selected.");
+            }
         }
 
         private void POOLbtnOK_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            if (POOLcomboPool.SelectedIndex != -1)
+            {
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Must have a valid pool selected.");
+            }
         }
 
         private void RINTbtnOK_Click(object sender, EventArgs e)
         {
             int test;
-            if (!Int32.TryParse(RINTtextMin.Text, out test))
+            if (!int.TryParse(RINTtextMin.Text, out test))
             {
                 MessageBox.Show("Invalid data in Minimum Value field, please correct before continuing");
                 return;
             }
-            if (!Int32.TryParse(RINTtextMax.Text, out test))
+            if (!int.TryParse(RINTtextMax.Text, out test))
             {
                 MessageBox.Show("Invalid data in Maximum Value field, please correct before continuing");
                 return;
             }
-            if (!Int32.TryParse(RINTtextMinLength.Text, out test))
+            if (!int.TryParse(RINTtextMinLength.Text, out test))
             {
                 MessageBox.Show("Invalid data in Minimum Length field, please correct before continuing");
                 return;
@@ -181,6 +231,48 @@ namespace TERG
 
             this.DialogResult = DialogResult.OK;
             this.Close();
+        }
+
+        private void RPATbtnOK_Click(object sender, EventArgs e)
+        {
+            if (RPATlistSelected.Items.Count < 1)
+            {
+                MessageBox.Show("Must have at least 1 pattern selected.");
+                return;
+            }
+
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
+
+        private void RPATbtnAdd_Click(object sender, EventArgs e)
+        {
+            if (RPATlistPatterns.SelectedIndex != -1)
+            {
+                string s = RPATlistPatterns.Items[RPATlistPatterns.SelectedIndex].ToString();
+                if (!(RPATlistSelected.Items.Contains(s)))
+                {
+                    RPATlistSelected.Items.Add(s);
+                }
+            }
+        }
+
+        private void RPATbtnRemove_Click(object sender, EventArgs e)
+        {
+            if(RPATlistSelected.SelectedIndex != -1)
+            {
+                RPATlistSelected.Items.RemoveAt(RPATlistSelected.SelectedIndex);
+            }
+        }
+
+        private void RPATbtnClear_Click(object sender, EventArgs e)
+        {
+            DialogResult r = MessageBox.Show("Are you sure you'd like to clear all selected patterns?", this.Text, MessageBoxButtons.YesNoCancel);
+
+            if(r == DialogResult.Yes)
+            {
+                RPATlistSelected.Items.Clear();
+            }
         }
     }
 }

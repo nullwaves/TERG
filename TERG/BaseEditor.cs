@@ -57,7 +57,7 @@ namespace TERG
 
         private void btnInsertReference_Click(object sender, EventArgs e)
         {
-            textBoxBase.Text.Insert(textBoxBase.SelectionStart, "[@]");
+            textBoxBase.Paste("[@]");
         }
     }
 

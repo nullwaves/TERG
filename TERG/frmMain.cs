@@ -1,14 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Newtonsoft.Json;
 using TERGEngine;
 using TERGEngine.Reference;
 
@@ -58,6 +51,8 @@ namespace TERG
 
             comboAddReferenceType.Items.Add("POOL");
             comboAddReferenceType.Items.Add("PATT");
+            comboAddReferenceType.Items.Add("RINT");
+            comboAddReferenceType.Items.Add("RPAT");
 
             /* Load Lists */
             LoadPoolLists();
@@ -67,9 +62,11 @@ namespace TERG
         private void LoadPatternLists()
         {
             listPatterns.Items.Clear();                                    // Clear Patterns list
+            comboExportPattern.Items.Clear();
             foreach (Pattern p in engine.Patterns)
             {
                 listPatterns.Items.Add(p.Name);                             // Add each Pattern back to the list
+                comboExportPattern.Items.Add(p.Name);
             }
             listPatterns.ClearSelected();                                   // Unload any Pattern's that could've been leftover
 
@@ -83,6 +80,9 @@ namespace TERG
             btnDeletePattern.Enabled = false;
             listPatternReferences.Enabled = false;
             textPatternName.Enabled = false;
+            btnMoveRefDown.Enabled = false;
+            btnMoveRefUp.Enabled = false;
+            btnDeleteReference.Enabled = false;
             textPatternName.Clear();                                        // Clear Name field
             listPatternReferences.Items.Clear();                            // Clear Reference list
 
@@ -100,6 +100,9 @@ namespace TERG
                 btnAddReference.Enabled = true;
                 listPatternReferences.Enabled = true;
                 textPatternName.Enabled = true;
+                btnMoveRefDown.Enabled = true;
+                btnMoveRefUp.Enabled = true;
+                btnDeleteReference.Enabled = true;
             }
         }
 
@@ -416,7 +419,7 @@ namespace TERG
 
         private void listPatternReferences_DoubleClick(object sender, EventArgs e)
         {
-            if(IndexInPatternEditor != -1 && listPatternReferences.SelectedIndex != -1)
+            if (IndexInPatternEditor != -1 && listPatternReferences.SelectedIndex != -1)
             {
                 int index = listPatternReferences.SelectedIndex;
 
@@ -431,6 +434,14 @@ namespace TERG
                     case "PATT":
                         PatternReference patt = (PatternReference)ReferenceEditor.Show(false, engine, r);
                         engine.Patterns[IndexInPatternEditor].References[index] = patt;
+                        break;
+                    case "RINT":
+                        RandomIntegerReference rint = (RandomIntegerReference)ReferenceEditor.Show(false, engine, r);
+                        engine.Patterns[IndexInPatternEditor].References[index] = rint;
+                        break;
+                    case "RPAT":
+                        RandomPatternReference rpat = (RandomPatternReference)ReferenceEditor.Show(false, engine, r);
+                        engine.Patterns[IndexInPatternEditor].References[index] = rpat;
                         break;
                     default:
                         MessageBox.Show("Invalid Reference Type: " + r.Type);
@@ -483,12 +494,25 @@ namespace TERG
                 switch (s)
                 {
                     case "POOL":
+                        if (engine.Pools.Count < 1)
+                        {
+                            MessageBox.Show("No pools to reference.");
+                            return;
+                        }
                         PoolReference pool = (PoolReference)ReferenceEditor.Show(true, engine, new PoolReference());
                         engine.Patterns[IndexInPatternEditor].References.Add(pool);
                         break;
                     case "PATT":
                         PatternReference patt = (PatternReference)ReferenceEditor.Show(true, engine, new PatternReference());
                         engine.Patterns[IndexInPatternEditor].References.Add(patt);
+                        break;
+                    case "RINT":
+                        RandomIntegerReference rint = (RandomIntegerReference)ReferenceEditor.Show(true, engine, new RandomIntegerReference());
+                        engine.Patterns[IndexInPatternEditor].References.Add(rint);
+                        break;
+                    case "RPAT":
+                        RandomPatternReference rpat = (RandomPatternReference)ReferenceEditor.Show(true, engine, new RandomPatternReference());
+                        engine.Patterns[IndexInPatternEditor].References.Add(rpat);
                         break;
                     default:
                         return;
@@ -657,5 +681,78 @@ namespace TERG
                 Environment.Exit(0);
             }
         }
+
+        private void btnMoveRefUp_Click(object sender, EventArgs e)
+        {
+            if (IndexInPatternEditor != -1 && listPatternReferences.SelectedIndex > 0)
+            {
+                int index = listPatternReferences.SelectedIndex;
+                IReference temp = engine.Patterns[IndexInPatternEditor].References[index];
+                engine.Patterns[IndexInPatternEditor].References[index] = engine.Patterns[IndexInPatternEditor].References[index - 1];
+                engine.Patterns[IndexInPatternEditor].References[index - 1] = temp;
+                SaveDatabase();
+                LoadPattern();
+                listPatternReferences.SelectedIndex = index - 1;
+            }
+        }
+
+        private void btnMoveRefDown_Click(object sender, EventArgs e)
+        {
+            if (IndexInPatternEditor != -1 &&
+                listPatternReferences.Items.Count > 1 &&
+                listPatternReferences.SelectedIndex < listPatternReferences.Items.Count - 1)
+            {
+                int index = listPatternReferences.SelectedIndex;
+                IReference temp = engine.Patterns[IndexInPatternEditor].References[index];
+                engine.Patterns[IndexInPatternEditor].References[index] = engine.Patterns[IndexInPatternEditor].References[index + 1];
+                engine.Patterns[IndexInPatternEditor].References[index + 1] = temp;
+                SaveDatabase();
+                LoadPattern();
+                listPatternReferences.SelectedIndex = index - 1;
+            }
+        }
+
+        private void btnDeleteReference_Click(object sender, EventArgs e)
+        {
+            if (IndexInPatternEditor != -1 &&
+                listPatternReferences.SelectedIndex != -1)
+            {
+                DialogResult result = MessageBox.Show("Are you sure you'd like to delete this reference?", this.Text, MessageBoxButtons.YesNoCancel);
+
+                if (result == DialogResult.Yes)
+                {
+                    engine.Patterns[IndexInPatternEditor].References.RemoveAt(listPatternReferences.SelectedIndex);
+                    PushDatabaseStatus("Deleted reference in pattern [" + engine.Patterns[IndexInPatternEditor].Name + "]");
+                    SaveDatabase();
+                    LoadPattern();
+                }
+            }
+        }
+
+        private void btnRunExport_Click(object sender, EventArgs e)
+        {
+            if (comboExportPattern.SelectedIndex != -1)
+            {
+                int it = 1;
+                if (!(int.TryParse(textExportIterations.Text, out it)))
+                {
+                    MessageBox.Show("Invalid number of iterations. Defaulting to 1.");
+                }
+                Pattern p = engine.Patterns[comboExportPattern.SelectedIndex];
+
+                textExport.Clear();
+
+                for (int i = 0; i < it; i++)
+                {
+                    textExport.Text += p.Fill(engine);
+                    textExport.Text += Environment.NewLine;
+                    if (checkExportSeperators.Checked)
+                    {
+                        textExport.Text += "--" + Environment.NewLine;
+                    }
+                }
+            }
+        }
     }
 }
+

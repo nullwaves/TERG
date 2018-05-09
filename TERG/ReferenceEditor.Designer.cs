@@ -45,10 +45,20 @@
             this.label4 = new System.Windows.Forms.Label();
             this.RINTtextMin = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.tabRPAT = new System.Windows.Forms.TabPage();
+            this.RPATlistPatterns = new System.Windows.Forms.ListBox();
+            this.RPATlistSelected = new System.Windows.Forms.ListBox();
+            this.RPATbtnAdd = new System.Windows.Forms.Button();
+            this.RPATbtnRemove = new System.Windows.Forms.Button();
+            this.RPATbtnClear = new System.Windows.Forms.Button();
+            this.RPATbtnOK = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPOOL.SuspendLayout();
             this.tabPATT.SuspendLayout();
             this.tabRINT.SuspendLayout();
+            this.tabRPAT.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl
@@ -56,10 +66,11 @@
             this.tabControl.Controls.Add(this.tabPOOL);
             this.tabControl.Controls.Add(this.tabPATT);
             this.tabControl.Controls.Add(this.tabRINT);
+            this.tabControl.Controls.Add(this.tabRPAT);
             this.tabControl.Location = new System.Drawing.Point(13, 13);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(298, 314);
+            this.tabControl.Size = new System.Drawing.Size(346, 314);
             this.tabControl.TabIndex = 0;
             // 
             // tabPOOL
@@ -216,15 +227,109 @@
             this.label3.TabIndex = 3;
             this.label3.Text = "Minimum Value:";
             // 
+            // tabRPAT
+            // 
+            this.tabRPAT.Controls.Add(this.label7);
+            this.tabRPAT.Controls.Add(this.label6);
+            this.tabRPAT.Controls.Add(this.RPATbtnOK);
+            this.tabRPAT.Controls.Add(this.RPATbtnClear);
+            this.tabRPAT.Controls.Add(this.RPATbtnRemove);
+            this.tabRPAT.Controls.Add(this.RPATbtnAdd);
+            this.tabRPAT.Controls.Add(this.RPATlistSelected);
+            this.tabRPAT.Controls.Add(this.RPATlistPatterns);
+            this.tabRPAT.Location = new System.Drawing.Point(4, 22);
+            this.tabRPAT.Name = "tabRPAT";
+            this.tabRPAT.Size = new System.Drawing.Size(338, 288);
+            this.tabRPAT.TabIndex = 3;
+            this.tabRPAT.Text = "RPAT";
+            this.tabRPAT.UseVisualStyleBackColor = true;
+            // 
+            // RPATlistPatterns
+            // 
+            this.RPATlistPatterns.FormattingEnabled = true;
+            this.RPATlistPatterns.Location = new System.Drawing.Point(3, 29);
+            this.RPATlistPatterns.Name = "RPATlistPatterns";
+            this.RPATlistPatterns.ScrollAlwaysVisible = true;
+            this.RPATlistPatterns.Size = new System.Drawing.Size(138, 251);
+            this.RPATlistPatterns.TabIndex = 4;
+            // 
+            // RPATlistSelected
+            // 
+            this.RPATlistSelected.FormattingEnabled = true;
+            this.RPATlistSelected.Location = new System.Drawing.Point(197, 29);
+            this.RPATlistSelected.Name = "RPATlistSelected";
+            this.RPATlistSelected.ScrollAlwaysVisible = true;
+            this.RPATlistSelected.Size = new System.Drawing.Size(138, 251);
+            this.RPATlistSelected.TabIndex = 5;
+            // 
+            // RPATbtnAdd
+            // 
+            this.RPATbtnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RPATbtnAdd.Location = new System.Drawing.Point(147, 51);
+            this.RPATbtnAdd.Name = "RPATbtnAdd";
+            this.RPATbtnAdd.Size = new System.Drawing.Size(44, 23);
+            this.RPATbtnAdd.TabIndex = 6;
+            this.RPATbtnAdd.Text = ">";
+            this.RPATbtnAdd.UseVisualStyleBackColor = true;
+            this.RPATbtnAdd.Click += new System.EventHandler(this.RPATbtnAdd_Click);
+            // 
+            // RPATbtnRemove
+            // 
+            this.RPATbtnRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RPATbtnRemove.Location = new System.Drawing.Point(147, 80);
+            this.RPATbtnRemove.Name = "RPATbtnRemove";
+            this.RPATbtnRemove.Size = new System.Drawing.Size(44, 23);
+            this.RPATbtnRemove.TabIndex = 7;
+            this.RPATbtnRemove.Text = "<";
+            this.RPATbtnRemove.UseVisualStyleBackColor = true;
+            this.RPATbtnRemove.Click += new System.EventHandler(this.RPATbtnRemove_Click);
+            // 
+            // RPATbtnClear
+            // 
+            this.RPATbtnClear.Location = new System.Drawing.Point(147, 137);
+            this.RPATbtnClear.Name = "RPATbtnClear";
+            this.RPATbtnClear.Size = new System.Drawing.Size(44, 23);
+            this.RPATbtnClear.TabIndex = 8;
+            this.RPATbtnClear.Text = "Clear";
+            this.RPATbtnClear.UseVisualStyleBackColor = true;
+            this.RPATbtnClear.Click += new System.EventHandler(this.RPATbtnClear_Click);
+            // 
+            // RPATbtnOK
+            // 
+            this.RPATbtnOK.Location = new System.Drawing.Point(147, 218);
+            this.RPATbtnOK.Name = "RPATbtnOK";
+            this.RPATbtnOK.Size = new System.Drawing.Size(44, 23);
+            this.RPATbtnOK.TabIndex = 9;
+            this.RPATbtnOK.Text = "OK";
+            this.RPATbtnOK.UseVisualStyleBackColor = true;
+            this.RPATbtnOK.Click += new System.EventHandler(this.RPATbtnOK_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(3, 13);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(63, 13);
+            this.label6.TabIndex = 10;
+            this.label6.Text = "All Patterns:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(194, 13);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(94, 13);
+            this.label7.TabIndex = 11;
+            this.label7.Text = "Selected Patterns:";
+            // 
             // ReferenceEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(323, 339);
+            this.ClientSize = new System.Drawing.Size(371, 339);
             this.Controls.Add(this.tabControl);
             this.Name = "ReferenceEditor";
             this.Text = "Reference Editor";
-            this.Load += new System.EventHandler(this.ReferenceEditor_Load);
             this.tabControl.ResumeLayout(false);
             this.tabPOOL.ResumeLayout(false);
             this.tabPOOL.PerformLayout();
@@ -232,6 +337,8 @@
             this.tabPATT.PerformLayout();
             this.tabRINT.ResumeLayout(false);
             this.tabRINT.PerformLayout();
+            this.tabRPAT.ResumeLayout(false);
+            this.tabRPAT.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -255,5 +362,14 @@
         private System.Windows.Forms.TextBox RINTtextMin;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button RINTbtnOK;
+        private System.Windows.Forms.TabPage tabRPAT;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button RPATbtnOK;
+        private System.Windows.Forms.Button RPATbtnClear;
+        private System.Windows.Forms.Button RPATbtnRemove;
+        private System.Windows.Forms.Button RPATbtnAdd;
+        private System.Windows.Forms.ListBox RPATlistSelected;
+        private System.Windows.Forms.ListBox RPATlistPatterns;
     }
 }
