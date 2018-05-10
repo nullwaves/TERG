@@ -53,6 +53,7 @@ namespace TERG
             comboAddReferenceType.Items.Add("PATT");
             comboAddReferenceType.Items.Add("RINT");
             comboAddReferenceType.Items.Add("RPAT");
+            comboAddReferenceType.Items.Add("IPAT");
 
             /* Load Lists */
             LoadPoolLists();
@@ -443,6 +444,10 @@ namespace TERG
                         RandomPatternReference rpat = (RandomPatternReference)ReferenceEditor.Show(false, engine, r);
                         engine.Patterns[IndexInPatternEditor].References[index] = rpat;
                         break;
+                    case "IPAT":
+                        IteratedPatternReference ipat = (IteratedPatternReference)ReferenceEditor.Show(false, engine, r);
+                        engine.Patterns[IndexInPatternEditor].References[index] = ipat;
+                        break;
                     default:
                         MessageBox.Show("Invalid Reference Type: " + r.Type);
                         return;
@@ -513,6 +518,10 @@ namespace TERG
                     case "RPAT":
                         RandomPatternReference rpat = (RandomPatternReference)ReferenceEditor.Show(true, engine, new RandomPatternReference());
                         engine.Patterns[IndexInPatternEditor].References.Add(rpat);
+                        break;
+                    case "IPAT":
+                        IteratedPatternReference ipat = (IteratedPatternReference)ReferenceEditor.Show(true, engine, new IteratedPatternReference());
+                        engine.Patterns[IndexInPatternEditor].References.Add(ipat);
                         break;
                     default:
                         return;

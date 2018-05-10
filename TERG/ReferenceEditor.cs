@@ -161,7 +161,43 @@ namespace TERG
                         }
 
                         return rpatr;
-                        #endregion
+                    #endregion
+                    case "IPAT":
+
+                        // Convert to type
+                        IteratedPatternReference ipatr = (IteratedPatternReference)r;
+
+                        // Setup form
+                        foreach (Pattern p in e.Patterns)
+                        {
+                            form.IPATcomboPattern.Items.Add(p.Name);
+                        }
+                        if (!n)
+                        {
+                            form.IPATcomboPattern.SelectedIndex = form.IPATcomboPattern.Items.IndexOf(e.FindPatternById(ipatr.PatternID).Name);
+                            form.IPATtextMin.Text = ipatr.MinimumIterations.ToString();
+                            form.IPATtextMax.Text = ipatr.MaximumIterations.ToString();
+                            form.IPATcheckRandom.Checked = ipatr.Random;
+                        }
+                        else
+                        {
+                            form.IPATcomboPattern.SelectedIndex = 0;
+                            form.IPATtextMin.Text = "1";
+                            form.IPATtextMax.Text = "1";
+                            form.IPATcheckRandom.Checked = false;
+                        }
+
+                        // Show form and return results
+                        result = form.ShowDialog();
+
+                        if (result == DialogResult.OK)
+                        {
+                            ipatr.PatternID = e.Patterns[form.IPATcomboPattern.SelectedIndex].ID;
+                            ipatr.MinimumIterations = int.Parse(form.IPATtextMin.Text);
+                            ipatr.MaximumIterations = int.Parse(form.IPATtextMax.Text);
+                        }
+
+                        return ipatr;
                 }
 
                 throw new Exception("Invalid Reference Type: " + r.Type);
@@ -233,6 +269,7 @@ namespace TERG
             this.Close();
         }
 
+        #region RPAT Functions
         private void RPATbtnOK_Click(object sender, EventArgs e)
         {
             if (RPATlistSelected.Items.Count < 1)
@@ -259,7 +296,7 @@ namespace TERG
 
         private void RPATbtnRemove_Click(object sender, EventArgs e)
         {
-            if(RPATlistSelected.SelectedIndex != -1)
+            if (RPATlistSelected.SelectedIndex != -1)
             {
                 RPATlistSelected.Items.RemoveAt(RPATlistSelected.SelectedIndex);
             }
@@ -269,10 +306,42 @@ namespace TERG
         {
             DialogResult r = MessageBox.Show("Are you sure you'd like to clear all selected patterns?", this.Text, MessageBoxButtons.YesNoCancel);
 
-            if(r == DialogResult.Yes)
+            if (r == DialogResult.Yes)
             {
                 RPATlistSelected.Items.Clear();
             }
         }
+        #endregion RPAT Functions
+
+        #region IPAT Functions
+        private void IPATbtnOK_Click(object sender, EventArgs e)
+        {
+            int test;
+            if (!int.TryParse(IPATtextMin.Text, out test))
+            {
+                MessageBox.Show("Invalid data in Minimum Iterations field, please correct before continuing.");
+                return;
+            }
+            if (!int.TryParse(IPATtextMax.Text, out test))
+            {
+                MessageBox.Show("Invalid data in Maximum Iterations field, please correct before continuing.");
+                return;
+            }
+            if (IPATcomboPattern.SelectedIndex != -1)
+            {
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+        }
+
+        private void IPATcheckRandom_CheckedChanged(object sender, EventArgs e)
+        {
+            if(!IPATcheckRandom.Checked)
+            {
+                IPATtextMax.Text = IPATtextMin.Text;
+            }
+            IPATtextMax.Enabled = IPATcheckRandom.Checked;
+        }
+        #endregion
     }
 }
