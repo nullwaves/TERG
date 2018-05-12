@@ -329,6 +329,10 @@ namespace TERG
             }
             if (IPATcomboPattern.SelectedIndex != -1)
             {
+                if(!IPATcheckRandom.Checked)
+                {
+                    IPATtextMax.Text = IPATtextMin.Text;
+                }
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }

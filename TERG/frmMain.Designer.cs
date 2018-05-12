@@ -72,13 +72,13 @@ namespace TERG
             this.label5 = new System.Windows.Forms.Label();
             this.textPatternName = new System.Windows.Forms.TextBox();
             this.tabExport = new System.Windows.Forms.TabPage();
+            this.checkExportSeperators = new System.Windows.Forms.CheckBox();
             this.textExport = new System.Windows.Forms.TextBox();
             this.btnRunExport = new System.Windows.Forms.Button();
             this.textExportIterations = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.comboExportPattern = new System.Windows.Forms.ComboBox();
-            this.checkExportSeperators = new System.Windows.Forms.CheckBox();
             this.mainStatusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tabEventLog.SuspendLayout();
@@ -258,7 +258,7 @@ namespace TERG
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -504,6 +504,16 @@ namespace TERG
             this.tabExport.TabIndex = 2;
             this.tabExport.Text = "Export";
             // 
+            // checkExportSeperators
+            // 
+            this.checkExportSeperators.AutoSize = true;
+            this.checkExportSeperators.Location = new System.Drawing.Point(374, 6);
+            this.checkExportSeperators.Name = "checkExportSeperators";
+            this.checkExportSeperators.Size = new System.Drawing.Size(77, 17);
+            this.checkExportSeperators.TabIndex = 6;
+            this.checkExportSeperators.Text = "Seperators";
+            this.checkExportSeperators.UseVisualStyleBackColor = true;
+            // 
             // textExport
             // 
             this.textExport.Location = new System.Drawing.Point(3, 30);
@@ -556,16 +566,6 @@ namespace TERG
             this.comboExportPattern.Name = "comboExportPattern";
             this.comboExportPattern.Size = new System.Drawing.Size(146, 21);
             this.comboExportPattern.TabIndex = 0;
-            // 
-            // checkExportSeperators
-            // 
-            this.checkExportSeperators.AutoSize = true;
-            this.checkExportSeperators.Location = new System.Drawing.Point(374, 6);
-            this.checkExportSeperators.Name = "checkExportSeperators";
-            this.checkExportSeperators.Size = new System.Drawing.Size(77, 17);
-            this.checkExportSeperators.TabIndex = 6;
-            this.checkExportSeperators.Text = "Seperators";
-            this.checkExportSeperators.UseVisualStyleBackColor = true;
             // 
             // frmMain
             // 

@@ -282,6 +282,7 @@ namespace TERG
             statusDatabase.Text = DateTime.Now + " " + Status;
             Console.WriteLine(statusDatabase.Text);
             txtEventLog.Text += statusDatabase.Text + "\r\n";
+            txtEventLog.ScrollToCaret();
         }
 
         private void listPools_SelectedIndexChanged(object sender, EventArgs e)
