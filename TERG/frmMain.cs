@@ -104,6 +104,8 @@ namespace TERG
                 btnMoveRefDown.Enabled = true;
                 btnMoveRefUp.Enabled = true;
                 btnDeleteReference.Enabled = true;
+
+                FlagPatternChanged = false;
             }
         }
 
@@ -760,6 +762,54 @@ namespace TERG
                     {
                         textExport.Text += "--" + Environment.NewLine;
                     }
+                }
+            }
+        }
+
+        private void textPatternName_TextChanged(object sender, EventArgs e)
+        {
+            FlagPatternChanged = true;
+        }
+
+        private void btnExportOut_Click(object sender, EventArgs e)
+        {
+            if (comboExportPattern.SelectedIndex != -1)
+            {
+                SaveFileDialog save = new SaveFileDialog();
+                save.Filter = "Text File|*.txt";
+                save.AddExtension = true;
+
+                DialogResult res = save.ShowDialog();
+
+                if (res == DialogResult.OK)
+                {
+                    // Open file for writing
+                    if(!File.Exists(save.FileName))
+                    {
+                        File.Create(save.FileName).Close();
+                    }
+                    StreamWriter o = new StreamWriter(save.FileName);
+
+                    // Running
+                    int it = 1;
+                    if (!(int.TryParse(textExportIterations.Text, out it)))
+                    {
+                        MessageBox.Show("Invalid number of iterations. Defaulting to 1.");
+                    }
+                    Pattern p = engine.Patterns[comboExportPattern.SelectedIndex];
+
+                    for (int i = 0; i < it; i++)
+                    {
+                        o.Write(p.Fill(engine) + Environment.NewLine);
+                        if (checkExportSeperators.Checked)
+                        {
+                            o.WriteLine("-----------------------------------");
+                        }
+                    }
+
+                    o.Flush();
+                    o.Close();
+                    PushDatabaseStatus("Wrote " + it + " iterations of " + p.Name + " to " + save.FileName);
                 }
             }
         }

@@ -79,6 +79,7 @@ namespace TERG
             this.label7 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.comboExportPattern = new System.Windows.Forms.ComboBox();
+            this.btnExportOut = new System.Windows.Forms.Button();
             this.mainStatusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tabEventLog.SuspendLayout();
@@ -258,7 +259,7 @@ namespace TERG
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -487,10 +488,12 @@ namespace TERG
             this.textPatternName.Name = "textPatternName";
             this.textPatternName.Size = new System.Drawing.Size(172, 20);
             this.textPatternName.TabIndex = 6;
+            this.textPatternName.TextChanged += new System.EventHandler(this.textPatternName_TextChanged);
             // 
             // tabExport
             // 
             this.tabExport.BackColor = System.Drawing.SystemColors.Control;
+            this.tabExport.Controls.Add(this.btnExportOut);
             this.tabExport.Controls.Add(this.checkExportSeperators);
             this.tabExport.Controls.Add(this.textExport);
             this.tabExport.Controls.Add(this.btnRunExport);
@@ -507,7 +510,7 @@ namespace TERG
             // checkExportSeperators
             // 
             this.checkExportSeperators.AutoSize = true;
-            this.checkExportSeperators.Location = new System.Drawing.Point(374, 6);
+            this.checkExportSeperators.Location = new System.Drawing.Point(326, 6);
             this.checkExportSeperators.Name = "checkExportSeperators";
             this.checkExportSeperators.Size = new System.Drawing.Size(77, 17);
             this.checkExportSeperators.TabIndex = 6;
@@ -526,9 +529,9 @@ namespace TERG
             // 
             // btnRunExport
             // 
-            this.btnRunExport.Location = new System.Drawing.Point(460, 3);
+            this.btnRunExport.Location = new System.Drawing.Point(409, 3);
             this.btnRunExport.Name = "btnRunExport";
-            this.btnRunExport.Size = new System.Drawing.Size(75, 23);
+            this.btnRunExport.Size = new System.Drawing.Size(61, 23);
             this.btnRunExport.TabIndex = 4;
             this.btnRunExport.Text = "Run";
             this.btnRunExport.UseVisualStyleBackColor = true;
@@ -566,6 +569,16 @@ namespace TERG
             this.comboExportPattern.Name = "comboExportPattern";
             this.comboExportPattern.Size = new System.Drawing.Size(146, 21);
             this.comboExportPattern.TabIndex = 0;
+            // 
+            // btnExportOut
+            // 
+            this.btnExportOut.Location = new System.Drawing.Point(474, 3);
+            this.btnExportOut.Name = "btnExportOut";
+            this.btnExportOut.Size = new System.Drawing.Size(61, 23);
+            this.btnExportOut.TabIndex = 7;
+            this.btnExportOut.Text = "To File...";
+            this.btnExportOut.UseVisualStyleBackColor = true;
+            this.btnExportOut.Click += new System.EventHandler(this.btnExportOut_Click);
             // 
             // frmMain
             // 
@@ -653,6 +666,7 @@ namespace TERG
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox comboExportPattern;
         private System.Windows.Forms.CheckBox checkExportSeperators;
+        private System.Windows.Forms.Button btnExportOut;
     }
 }
 

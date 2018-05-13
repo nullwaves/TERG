@@ -40,6 +40,7 @@
             // textBoxBase
             // 
             this.textBoxBase.AcceptsReturn = true;
+            this.textBoxBase.AcceptsTab = true;
             this.textBoxBase.Location = new System.Drawing.Point(12, 38);
             this.textBoxBase.Multiline = true;
             this.textBoxBase.Name = "textBoxBase";
