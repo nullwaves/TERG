@@ -48,7 +48,7 @@ namespace TERGEngine.Reference
         public string ToString(Engine e)
         {
             string s = "IPAT: m" + MinimumIterations;
-            if(MinimumIterations != MaximumIterations)
+            if (MinimumIterations != MaximumIterations)
             {
                 s += " M" + MaximumIterations;
             }

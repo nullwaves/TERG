@@ -98,7 +98,7 @@ namespace TERG
             this.listPools.ScrollAlwaysVisible = true;
             this.listPools.Size = new System.Drawing.Size(173, 277);
             this.listPools.TabIndex = 0;
-            this.listPools.SelectedIndexChanged += new System.EventHandler(this.listPools_SelectedIndexChanged);
+            this.listPools.SelectedIndexChanged += new System.EventHandler(this.ListPools_SelectedIndexChanged);
             // 
             // mainStatusStrip
             // 
@@ -124,7 +124,7 @@ namespace TERG
             this.comboPoolParent.Name = "comboPoolParent";
             this.comboPoolParent.Size = new System.Drawing.Size(172, 21);
             this.comboPoolParent.TabIndex = 5;
-            this.comboPoolParent.SelectedIndexChanged += new System.EventHandler(this.comboPoolParent_SelectedIndexChanged);
+            this.comboPoolParent.SelectedIndexChanged += new System.EventHandler(this.ComboPoolParent_SelectedIndexChanged);
             // 
             // textPoolName
             // 
@@ -132,7 +132,7 @@ namespace TERG
             this.textPoolName.Name = "textPoolName";
             this.textPoolName.Size = new System.Drawing.Size(172, 20);
             this.textPoolName.TabIndex = 2;
-            this.textPoolName.TextChanged += new System.EventHandler(this.textPoolName_TextChanged);
+            this.textPoolName.TextChanged += new System.EventHandler(this.TextPoolName_TextChanged);
             // 
             // textBoxPoolEditor
             // 
@@ -142,7 +142,7 @@ namespace TERG
             this.textBoxPoolEditor.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxPoolEditor.Size = new System.Drawing.Size(172, 242);
             this.textBoxPoolEditor.TabIndex = 2;
-            this.textBoxPoolEditor.TextChanged += new System.EventHandler(this.textBoxPoolEditor_TextChanged);
+            this.textBoxPoolEditor.TextChanged += new System.EventHandler(this.TextBoxPoolEditor_TextChanged);
             // 
             // label3
             // 
@@ -201,14 +201,14 @@ namespace TERG
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.saveToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.saveToolStripMenuItem.Text = "Save";
-            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItem_Click);
             // 
             // changeDatabaseLocationToolStripMenuItem
             // 
             this.changeDatabaseLocationToolStripMenuItem.Name = "changeDatabaseLocationToolStripMenuItem";
             this.changeDatabaseLocationToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.changeDatabaseLocationToolStripMenuItem.Text = "Change Database";
-            this.changeDatabaseLocationToolStripMenuItem.Click += new System.EventHandler(this.changeDatabaseLocationToolStripMenuItem_Click);
+            this.changeDatabaseLocationToolStripMenuItem.Click += new System.EventHandler(this.ChangeDatabaseLocationToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -221,7 +221,7 @@ namespace TERG
             this.addNewPoolToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
             this.addNewPoolToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.addNewPoolToolStripMenuItem.Text = "Add New Pool";
-            this.addNewPoolToolStripMenuItem.Click += new System.EventHandler(this.addNewPoolToolStripMenuItem_Click);
+            this.addNewPoolToolStripMenuItem.Click += new System.EventHandler(this.AddNewPoolToolStripMenuItem_Click);
             // 
             // addNewPatternToolStripMenuItem
             // 
@@ -229,7 +229,7 @@ namespace TERG
             this.addNewPatternToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
             this.addNewPatternToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.addNewPatternToolStripMenuItem.Text = "Add New Pattern";
-            this.addNewPatternToolStripMenuItem.Click += new System.EventHandler(this.addNewPatternToolStripMenuItem_Click);
+            this.addNewPatternToolStripMenuItem.Click += new System.EventHandler(this.AddNewPatternToolStripMenuItem_Click);
             // 
             // runToolStripMenuItem
             // 
@@ -245,7 +245,7 @@ namespace TERG
             this.patternRunToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
             this.patternRunToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.patternRunToolStripMenuItem.Text = "Pattern";
-            this.patternRunToolStripMenuItem.Click += new System.EventHandler(this.patternRunToolStripMenuItem_Click);
+            this.patternRunToolStripMenuItem.Click += new System.EventHandler(this.PatternRunToolStripMenuItem_Click);
             // 
             // tERGToolStripMenuItem
             // 
@@ -261,7 +261,7 @@ namespace TERG
             this.aboutToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
             // 
             // tabEventLog
             // 
@@ -332,7 +332,7 @@ namespace TERG
             this.btnDeletePool.TabIndex = 12;
             this.btnDeletePool.Text = "Delete Pool";
             this.btnDeletePool.UseVisualStyleBackColor = true;
-            this.btnDeletePool.Click += new System.EventHandler(this.btnDeletePool_Click);
+            this.btnDeletePool.Click += new System.EventHandler(this.BtnDeletePool_Click);
             // 
             // btnRefreshPool
             // 
@@ -342,7 +342,7 @@ namespace TERG
             this.btnRefreshPool.Size = new System.Drawing.Size(29, 23);
             this.btnRefreshPool.TabIndex = 4;
             this.btnRefreshPool.UseVisualStyleBackColor = true;
-            this.btnRefreshPool.Click += new System.EventHandler(this.btnRefreshPool_Click);
+            this.btnRefreshPool.Click += new System.EventHandler(this.BtnRefreshPool_Click);
             // 
             // btnSavePool
             // 
@@ -352,7 +352,7 @@ namespace TERG
             this.btnSavePool.Size = new System.Drawing.Size(29, 23);
             this.btnSavePool.TabIndex = 3;
             this.btnSavePool.UseVisualStyleBackColor = true;
-            this.btnSavePool.Click += new System.EventHandler(this.btnSavePool_Click);
+            this.btnSavePool.Click += new System.EventHandler(this.BtnSavePool_Click);
             // 
             // tabPatternEditor
             // 
@@ -384,7 +384,7 @@ namespace TERG
             this.btnDeleteReference.TabIndex = 14;
             this.btnDeleteReference.Text = "Delete Reference";
             this.btnDeleteReference.UseVisualStyleBackColor = true;
-            this.btnDeleteReference.Click += new System.EventHandler(this.btnDeleteReference_Click);
+            this.btnDeleteReference.Click += new System.EventHandler(this.BtnDeleteReference_Click);
             // 
             // btnMoveRefDown
             // 
@@ -394,7 +394,7 @@ namespace TERG
             this.btnMoveRefDown.Size = new System.Drawing.Size(43, 23);
             this.btnMoveRefDown.TabIndex = 13;
             this.btnMoveRefDown.UseVisualStyleBackColor = true;
-            this.btnMoveRefDown.Click += new System.EventHandler(this.btnMoveRefDown_Click);
+            this.btnMoveRefDown.Click += new System.EventHandler(this.BtnMoveRefDown_Click);
             // 
             // btnMoveRefUp
             // 
@@ -404,7 +404,7 @@ namespace TERG
             this.btnMoveRefUp.Size = new System.Drawing.Size(43, 23);
             this.btnMoveRefUp.TabIndex = 12;
             this.btnMoveRefUp.UseVisualStyleBackColor = true;
-            this.btnMoveRefUp.Click += new System.EventHandler(this.btnMoveRefUp_Click);
+            this.btnMoveRefUp.Click += new System.EventHandler(this.BtnMoveRefUp_Click);
             // 
             // btnDeletePattern
             // 
@@ -414,7 +414,7 @@ namespace TERG
             this.btnDeletePattern.TabIndex = 11;
             this.btnDeletePattern.Text = "Delete Pattern";
             this.btnDeletePattern.UseVisualStyleBackColor = true;
-            this.btnDeletePattern.Click += new System.EventHandler(this.btnDeletePattern_Click);
+            this.btnDeletePattern.Click += new System.EventHandler(this.BtnDeletePattern_Click);
             // 
             // comboAddReferenceType
             // 
@@ -432,7 +432,7 @@ namespace TERG
             this.listPatternReferences.ScrollAlwaysVisible = true;
             this.listPatternReferences.Size = new System.Drawing.Size(172, 238);
             this.listPatternReferences.TabIndex = 9;
-            this.listPatternReferences.DoubleClick += new System.EventHandler(this.listPatternReferences_DoubleClick);
+            this.listPatternReferences.DoubleClick += new System.EventHandler(this.ListPatternReferences_DoubleClick);
             // 
             // btnAddReference
             // 
@@ -442,7 +442,7 @@ namespace TERG
             this.btnAddReference.TabIndex = 8;
             this.btnAddReference.Text = "+ Ref";
             this.btnAddReference.UseVisualStyleBackColor = true;
-            this.btnAddReference.Click += new System.EventHandler(this.btnAddReference_Click);
+            this.btnAddReference.Click += new System.EventHandler(this.BtnAddReference_Click);
             // 
             // btnOpenTemplateEditor
             // 
@@ -452,7 +452,7 @@ namespace TERG
             this.btnOpenTemplateEditor.TabIndex = 8;
             this.btnOpenTemplateEditor.Text = "Edit Base Template";
             this.btnOpenTemplateEditor.UseVisualStyleBackColor = true;
-            this.btnOpenTemplateEditor.Click += new System.EventHandler(this.btnOpenTemplateEditor_Click);
+            this.btnOpenTemplateEditor.Click += new System.EventHandler(this.BtnOpenTemplateEditor_Click);
             // 
             // listPatterns
             // 
@@ -462,7 +462,7 @@ namespace TERG
             this.listPatterns.ScrollAlwaysVisible = true;
             this.listPatterns.Size = new System.Drawing.Size(173, 277);
             this.listPatterns.TabIndex = 3;
-            this.listPatterns.SelectedIndexChanged += new System.EventHandler(this.listPatterns_SelectedIndexChanged);
+            this.listPatterns.SelectedIndexChanged += new System.EventHandler(this.ListPatterns_SelectedIndexChanged);
             // 
             // label6
             // 
@@ -488,7 +488,7 @@ namespace TERG
             this.textPatternName.Name = "textPatternName";
             this.textPatternName.Size = new System.Drawing.Size(172, 20);
             this.textPatternName.TabIndex = 6;
-            this.textPatternName.TextChanged += new System.EventHandler(this.textPatternName_TextChanged);
+            this.textPatternName.TextChanged += new System.EventHandler(this.TextPatternName_TextChanged);
             // 
             // tabExport
             // 
@@ -535,7 +535,7 @@ namespace TERG
             this.btnRunExport.TabIndex = 4;
             this.btnRunExport.Text = "Run";
             this.btnRunExport.UseVisualStyleBackColor = true;
-            this.btnRunExport.Click += new System.EventHandler(this.btnRunExport_Click);
+            this.btnRunExport.Click += new System.EventHandler(this.BtnRunExport_Click);
             // 
             // textExportIterations
             // 
@@ -578,7 +578,7 @@ namespace TERG
             this.btnExportOut.TabIndex = 7;
             this.btnExportOut.Text = "To File...";
             this.btnExportOut.UseVisualStyleBackColor = true;
-            this.btnExportOut.Click += new System.EventHandler(this.btnExportOut_Click);
+            this.btnExportOut.Click += new System.EventHandler(this.BtnExportOut_Click);
             // 
             // frmMain
             // 
@@ -595,7 +595,7 @@ namespace TERG
             this.Name = "frmMain";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "The Encyclopedia of Random Generation";
-            this.Load += new System.EventHandler(this.frmMain_Load);
+            this.Load += new System.EventHandler(this.FrmMain_Load);
             this.mainStatusStrip.ResumeLayout(false);
             this.mainStatusStrip.PerformLayout();
             this.menuStrip1.ResumeLayout(false);

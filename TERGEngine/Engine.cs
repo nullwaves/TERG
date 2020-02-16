@@ -12,7 +12,7 @@ namespace TERGEngine
 
         public static Random RNG = new Random();
 
-        private static JsonSerializerSettings SerializerSettings = new JsonSerializerSettings()
+        private static readonly JsonSerializerSettings SerializerSettings = new JsonSerializerSettings()
         {
             TypeNameHandling = TypeNameHandling.All
         };

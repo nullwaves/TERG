@@ -24,7 +24,7 @@ namespace TERGEngine
             List<string> full = List.ToList();
             foreach (Pool p in e.Pools)
             {
-                if(p.ParentID == this.ID)
+                if (p.ParentID == this.ID)
                 {
                     full.AddRange(p.List);
                 }

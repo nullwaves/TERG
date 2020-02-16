@@ -55,20 +55,40 @@
             this.RPATlistSelected = new System.Windows.Forms.ListBox();
             this.RPATlistPatterns = new System.Windows.Forms.ListBox();
             this.tabIPAT = new System.Windows.Forms.TabPage();
-            this.IPATbtnOK = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
-            this.IPATcomboPattern = new System.Windows.Forms.ComboBox();
+            this.IPATcheckRandom = new System.Windows.Forms.CheckBox();
             this.IPATtextMax = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.IPATtextMin = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.IPATcheckRandom = new System.Windows.Forms.CheckBox();
+            this.IPATbtnOK = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.IPATcomboPattern = new System.Windows.Forms.ComboBox();
+            this.tabDTBL = new System.Windows.Forms.TabPage();
+            this.splitDTBL = new System.Windows.Forms.SplitContainer();
+            this.DTBLlstRows = new System.Windows.Forms.ListBox();
+            this.DTBLbtnRemoveRow = new System.Windows.Forms.Button();
+            this.DTBLbtnAddRow = new System.Windows.Forms.Button();
+            this.DTBLbtnOk = new System.Windows.Forms.Button();
+            this.DTBLbtnEditRowPattern = new System.Windows.Forms.Button();
+            this.DTBLchkUsePattern = new System.Windows.Forms.CheckBox();
+            this.DTBLtxtValue = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.DTBLtxtEnd = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.DTBLtxtStart = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.DTBLcomboReferenceType = new System.Windows.Forms.ComboBox();
             this.tabControl.SuspendLayout();
             this.tabPOOL.SuspendLayout();
             this.tabPATT.SuspendLayout();
             this.tabRINT.SuspendLayout();
             this.tabRPAT.SuspendLayout();
             this.tabIPAT.SuspendLayout();
+            this.tabDTBL.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitDTBL)).BeginInit();
+            this.splitDTBL.Panel1.SuspendLayout();
+            this.splitDTBL.Panel2.SuspendLayout();
+            this.splitDTBL.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl
@@ -78,6 +98,7 @@
             this.tabControl.Controls.Add(this.tabRINT);
             this.tabControl.Controls.Add(this.tabRPAT);
             this.tabControl.Controls.Add(this.tabIPAT);
+            this.tabControl.Controls.Add(this.tabDTBL);
             this.tabControl.Location = new System.Drawing.Point(13, 13);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
@@ -351,32 +372,16 @@
             this.tabIPAT.Text = "IPAT";
             this.tabIPAT.UseVisualStyleBackColor = true;
             // 
-            // IPATbtnOK
+            // IPATcheckRandom
             // 
-            this.IPATbtnOK.Location = new System.Drawing.Point(212, 136);
-            this.IPATbtnOK.Name = "IPATbtnOK";
-            this.IPATbtnOK.Size = new System.Drawing.Size(75, 23);
-            this.IPATbtnOK.TabIndex = 8;
-            this.IPATbtnOK.Text = "OK";
-            this.IPATbtnOK.UseVisualStyleBackColor = true;
-            this.IPATbtnOK.Click += new System.EventHandler(this.IPATbtnOK_Click);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(31, 17);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(44, 13);
-            this.label8.TabIndex = 7;
-            this.label8.Text = "Pattern:";
-            // 
-            // IPATcomboPattern
-            // 
-            this.IPATcomboPattern.FormattingEnabled = true;
-            this.IPATcomboPattern.Location = new System.Drawing.Point(81, 14);
-            this.IPATcomboPattern.Name = "IPATcomboPattern";
-            this.IPATcomboPattern.Size = new System.Drawing.Size(206, 21);
-            this.IPATcomboPattern.TabIndex = 6;
+            this.IPATcheckRandom.AutoSize = true;
+            this.IPATcheckRandom.Location = new System.Drawing.Point(155, 100);
+            this.IPATcheckRandom.Name = "IPATcheckRandom";
+            this.IPATcheckRandom.Size = new System.Drawing.Size(79, 17);
+            this.IPATcheckRandom.TabIndex = 13;
+            this.IPATcheckRandom.Text = "Randomize";
+            this.IPATcheckRandom.UseVisualStyleBackColor = true;
+            this.IPATcheckRandom.CheckedChanged += new System.EventHandler(this.IPATcheckRandom_CheckedChanged);
             // 
             // IPATtextMax
             // 
@@ -411,16 +416,190 @@
             this.label10.TabIndex = 9;
             this.label10.Text = "Minimum Iterations:";
             // 
-            // IPATcheckRandom
+            // IPATbtnOK
             // 
-            this.IPATcheckRandom.AutoSize = true;
-            this.IPATcheckRandom.Location = new System.Drawing.Point(155, 100);
-            this.IPATcheckRandom.Name = "IPATcheckRandom";
-            this.IPATcheckRandom.Size = new System.Drawing.Size(79, 17);
-            this.IPATcheckRandom.TabIndex = 13;
-            this.IPATcheckRandom.Text = "Randomize";
-            this.IPATcheckRandom.UseVisualStyleBackColor = true;
-            this.IPATcheckRandom.CheckedChanged += new System.EventHandler(this.IPATcheckRandom_CheckedChanged);
+            this.IPATbtnOK.Location = new System.Drawing.Point(212, 136);
+            this.IPATbtnOK.Name = "IPATbtnOK";
+            this.IPATbtnOK.Size = new System.Drawing.Size(75, 23);
+            this.IPATbtnOK.TabIndex = 8;
+            this.IPATbtnOK.Text = "OK";
+            this.IPATbtnOK.UseVisualStyleBackColor = true;
+            this.IPATbtnOK.Click += new System.EventHandler(this.IPATbtnOK_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(31, 17);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(44, 13);
+            this.label8.TabIndex = 7;
+            this.label8.Text = "Pattern:";
+            // 
+            // IPATcomboPattern
+            // 
+            this.IPATcomboPattern.FormattingEnabled = true;
+            this.IPATcomboPattern.Location = new System.Drawing.Point(81, 14);
+            this.IPATcomboPattern.Name = "IPATcomboPattern";
+            this.IPATcomboPattern.Size = new System.Drawing.Size(206, 21);
+            this.IPATcomboPattern.TabIndex = 6;
+            // 
+            // tabDTBL
+            // 
+            this.tabDTBL.Controls.Add(this.splitDTBL);
+            this.tabDTBL.Location = new System.Drawing.Point(4, 22);
+            this.tabDTBL.Name = "tabDTBL";
+            this.tabDTBL.Padding = new System.Windows.Forms.Padding(3);
+            this.tabDTBL.Size = new System.Drawing.Size(338, 288);
+            this.tabDTBL.TabIndex = 5;
+            this.tabDTBL.Text = "DTBL";
+            this.tabDTBL.ToolTipText = "Distribution Table Reference";
+            this.tabDTBL.UseVisualStyleBackColor = true;
+            // 
+            // splitDTBL
+            // 
+            this.splitDTBL.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitDTBL.Location = new System.Drawing.Point(3, 3);
+            this.splitDTBL.Name = "splitDTBL";
+            // 
+            // splitDTBL.Panel1
+            // 
+            this.splitDTBL.Panel1.Controls.Add(this.DTBLlstRows);
+            // 
+            // splitDTBL.Panel2
+            // 
+            this.splitDTBL.Panel2.Controls.Add(this.DTBLcomboReferenceType);
+            this.splitDTBL.Panel2.Controls.Add(this.DTBLbtnRemoveRow);
+            this.splitDTBL.Panel2.Controls.Add(this.DTBLbtnAddRow);
+            this.splitDTBL.Panel2.Controls.Add(this.DTBLbtnOk);
+            this.splitDTBL.Panel2.Controls.Add(this.DTBLbtnEditRowPattern);
+            this.splitDTBL.Panel2.Controls.Add(this.DTBLchkUsePattern);
+            this.splitDTBL.Panel2.Controls.Add(this.DTBLtxtValue);
+            this.splitDTBL.Panel2.Controls.Add(this.label13);
+            this.splitDTBL.Panel2.Controls.Add(this.DTBLtxtEnd);
+            this.splitDTBL.Panel2.Controls.Add(this.label12);
+            this.splitDTBL.Panel2.Controls.Add(this.DTBLtxtStart);
+            this.splitDTBL.Panel2.Controls.Add(this.label11);
+            this.splitDTBL.Size = new System.Drawing.Size(332, 282);
+            this.splitDTBL.SplitterDistance = 190;
+            this.splitDTBL.TabIndex = 0;
+            // 
+            // DTBLlstRows
+            // 
+            this.DTBLlstRows.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DTBLlstRows.FormattingEnabled = true;
+            this.DTBLlstRows.Location = new System.Drawing.Point(0, 0);
+            this.DTBLlstRows.Name = "DTBLlstRows";
+            this.DTBLlstRows.Size = new System.Drawing.Size(190, 282);
+            this.DTBLlstRows.TabIndex = 0;
+            this.DTBLlstRows.SelectedIndexChanged += new System.EventHandler(this.DTBLlstRows_SelectedIndexChanged);
+            // 
+            // DTBLbtnRemoveRow
+            // 
+            this.DTBLbtnRemoveRow.Location = new System.Drawing.Point(77, 156);
+            this.DTBLbtnRemoveRow.Name = "DTBLbtnRemoveRow";
+            this.DTBLbtnRemoveRow.Size = new System.Drawing.Size(58, 23);
+            this.DTBLbtnRemoveRow.TabIndex = 10;
+            this.DTBLbtnRemoveRow.Text = "-";
+            this.DTBLbtnRemoveRow.UseVisualStyleBackColor = true;
+            // 
+            // DTBLbtnAddRow
+            // 
+            this.DTBLbtnAddRow.Location = new System.Drawing.Point(3, 156);
+            this.DTBLbtnAddRow.Name = "DTBLbtnAddRow";
+            this.DTBLbtnAddRow.Size = new System.Drawing.Size(57, 23);
+            this.DTBLbtnAddRow.TabIndex = 9;
+            this.DTBLbtnAddRow.Text = "+";
+            this.DTBLbtnAddRow.UseVisualStyleBackColor = true;
+            this.DTBLbtnAddRow.Click += new System.EventHandler(this.DTBLbtnAddRow_Click);
+            // 
+            // DTBLbtnOk
+            // 
+            this.DTBLbtnOk.Location = new System.Drawing.Point(3, 256);
+            this.DTBLbtnOk.Name = "DTBLbtnOk";
+            this.DTBLbtnOk.Size = new System.Drawing.Size(131, 23);
+            this.DTBLbtnOk.TabIndex = 8;
+            this.DTBLbtnOk.Text = "OK";
+            this.DTBLbtnOk.UseVisualStyleBackColor = true;
+            // 
+            // DTBLbtnEditRowPattern
+            // 
+            this.DTBLbtnEditRowPattern.Location = new System.Drawing.Point(87, 98);
+            this.DTBLbtnEditRowPattern.Name = "DTBLbtnEditRowPattern";
+            this.DTBLbtnEditRowPattern.Size = new System.Drawing.Size(47, 23);
+            this.DTBLbtnEditRowPattern.TabIndex = 7;
+            this.DTBLbtnEditRowPattern.Text = "Edit";
+            this.DTBLbtnEditRowPattern.UseVisualStyleBackColor = true;
+            this.DTBLbtnEditRowPattern.Click += new System.EventHandler(this.DTBLbtnEditRowPattern_Click);
+            // 
+            // DTBLchkUsePattern
+            // 
+            this.DTBLchkUsePattern.AutoSize = true;
+            this.DTBLchkUsePattern.Location = new System.Drawing.Point(9, 102);
+            this.DTBLchkUsePattern.Name = "DTBLchkUsePattern";
+            this.DTBLchkUsePattern.Size = new System.Drawing.Size(82, 17);
+            this.DTBLchkUsePattern.TabIndex = 6;
+            this.DTBLchkUsePattern.Text = "Use Pattern";
+            this.DTBLchkUsePattern.UseVisualStyleBackColor = true;
+            this.DTBLchkUsePattern.CheckedChanged += new System.EventHandler(this.DTBLchkUsePattern_CheckedChanged);
+            // 
+            // DTBLtxtValue
+            // 
+            this.DTBLtxtValue.Location = new System.Drawing.Point(3, 75);
+            this.DTBLtxtValue.Name = "DTBLtxtValue";
+            this.DTBLtxtValue.Size = new System.Drawing.Size(131, 20);
+            this.DTBLtxtValue.TabIndex = 5;
+            this.DTBLtxtValue.Leave += new System.EventHandler(this.DTBLtxtValue_Leave);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(3, 59);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(37, 13);
+            this.label13.TabIndex = 4;
+            this.label13.Text = "Value:";
+            // 
+            // DTBLtxtEnd
+            // 
+            this.DTBLtxtEnd.Location = new System.Drawing.Point(77, 34);
+            this.DTBLtxtEnd.Name = "DTBLtxtEnd";
+            this.DTBLtxtEnd.Size = new System.Drawing.Size(57, 20);
+            this.DTBLtxtEnd.TabIndex = 3;
+            this.DTBLtxtEnd.Leave += new System.EventHandler(this.DTBLtxtEnd_Leave);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(2, 37);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(54, 13);
+            this.label12.TabIndex = 2;
+            this.label12.Text = "Row End:";
+            // 
+            // DTBLtxtStart
+            // 
+            this.DTBLtxtStart.Location = new System.Drawing.Point(77, 8);
+            this.DTBLtxtStart.Name = "DTBLtxtStart";
+            this.DTBLtxtStart.Size = new System.Drawing.Size(57, 20);
+            this.DTBLtxtStart.TabIndex = 1;
+            this.DTBLtxtStart.Leave += new System.EventHandler(this.DTBLtxtStart_Leave);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(3, 11);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(57, 13);
+            this.label11.TabIndex = 0;
+            this.label11.Text = "Row Start:";
+            // 
+            // DTBLcomboReferenceType
+            // 
+            this.DTBLcomboReferenceType.FormattingEnabled = true;
+            this.DTBLcomboReferenceType.Location = new System.Drawing.Point(5, 125);
+            this.DTBLcomboReferenceType.Name = "DTBLcomboReferenceType";
+            this.DTBLcomboReferenceType.Size = new System.Drawing.Size(129, 21);
+            this.DTBLcomboReferenceType.TabIndex = 11;
             // 
             // ReferenceEditor
             // 
@@ -430,6 +609,7 @@
             this.Controls.Add(this.tabControl);
             this.Name = "ReferenceEditor";
             this.Text = "Reference Editor";
+            this.Load += new System.EventHandler(this.ReferenceEditor_Load);
             this.tabControl.ResumeLayout(false);
             this.tabPOOL.ResumeLayout(false);
             this.tabPOOL.PerformLayout();
@@ -441,6 +621,12 @@
             this.tabRPAT.PerformLayout();
             this.tabIPAT.ResumeLayout(false);
             this.tabIPAT.PerformLayout();
+            this.tabDTBL.ResumeLayout(false);
+            this.splitDTBL.Panel1.ResumeLayout(false);
+            this.splitDTBL.Panel2.ResumeLayout(false);
+            this.splitDTBL.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitDTBL)).EndInit();
+            this.splitDTBL.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -482,5 +668,20 @@
         private System.Windows.Forms.Button IPATbtnOK;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ComboBox IPATcomboPattern;
+        private System.Windows.Forms.TabPage tabDTBL;
+        private System.Windows.Forms.SplitContainer splitDTBL;
+        private System.Windows.Forms.ListBox DTBLlstRows;
+        private System.Windows.Forms.Button DTBLbtnEditRowPattern;
+        private System.Windows.Forms.CheckBox DTBLchkUsePattern;
+        private System.Windows.Forms.TextBox DTBLtxtValue;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox DTBLtxtEnd;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox DTBLtxtStart;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button DTBLbtnOk;
+        private System.Windows.Forms.Button DTBLbtnRemoveRow;
+        private System.Windows.Forms.Button DTBLbtnAddRow;
+        private System.Windows.Forms.ComboBox DTBLcomboReferenceType;
     }
 }

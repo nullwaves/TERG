@@ -21,7 +21,7 @@ namespace TERG
                 DialogResult dialog = form.ShowDialog();
 
                 InputBoxResult retval = new InputBoxResult();
-                if(dialog == DialogResult.OK)
+                if (dialog == DialogResult.OK)
                 {
                     retval.OK = true;
                     retval.Text = form.txtInput.Text;

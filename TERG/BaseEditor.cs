@@ -26,7 +26,7 @@ namespace TERG
 
                 BaseEditorResult retval = new BaseEditorResult();
 
-                if(result == DialogResult.OK)
+                if (result == DialogResult.OK)
                 {
                     retval.OK = true;
                     retval.Text = form.textBoxBase.Lines;

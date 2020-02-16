@@ -19,14 +19,14 @@ namespace TERG
         private int IndexInPatternEditor = -1;
         private bool FlagPatternChanged = false;
 
-        private string DBFileLocation = (string)Properties.Settings.Default["DatabaseFileLocation"];
+        private readonly string DBFileLocation = (string)Properties.Settings.Default["DatabaseFileLocation"];
 
         public frmMain()
         {
             InitializeComponent();
         }
 
-        private void frmMain_Load(object sender, EventArgs e)
+        private void FrmMain_Load(object sender, EventArgs e)
         {
             if (File.Exists(DBFileLocation))
             {
@@ -54,6 +54,7 @@ namespace TERG
             comboAddReferenceType.Items.Add("RINT");
             comboAddReferenceType.Items.Add("RPAT");
             comboAddReferenceType.Items.Add("IPAT");
+            comboAddReferenceType.Items.Add("DTBL");
 
             /* Load Lists */
             LoadPoolLists();
@@ -287,7 +288,7 @@ namespace TERG
             txtEventLog.ScrollToCaret();
         }
 
-        private void listPools_SelectedIndexChanged(object sender, EventArgs e)
+        private void ListPools_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (IndexInPoolEditor == listPools.SelectedIndex) return;
 
@@ -322,17 +323,20 @@ namespace TERG
             LoadPool();
         }
 
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new TERGAboutBox().ShowDialog();
+            using (var ab = new TERGAboutBox())
+            {
+                ab.ShowDialog();
+            }
         }
 
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveDatabase();
         }
 
-        private void addNewPoolToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AddNewPoolToolStripMenuItem_Click(object sender, EventArgs e)
         {
             InputBoxResult result = InputBox.Show("New Pool name:", this.Text);
             if (result.OK)
@@ -348,7 +352,7 @@ namespace TERG
             }
         }
 
-        private void textBoxPoolEditor_TextChanged(object sender, EventArgs e)
+        private void TextBoxPoolEditor_TextChanged(object sender, EventArgs e)
         {
             if (IndexInPoolEditor != -1)
             {
@@ -356,7 +360,7 @@ namespace TERG
             }
         }
 
-        private void textPoolName_TextChanged(object sender, EventArgs e)
+        private void TextPoolName_TextChanged(object sender, EventArgs e)
         {
             if (IndexInPoolEditor != -1)
             {
@@ -364,7 +368,7 @@ namespace TERG
             }
         }
 
-        private void comboPoolParent_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboPoolParent_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (IndexInPoolEditor != -1)
             {
@@ -376,17 +380,17 @@ namespace TERG
             }
         }
 
-        private void btnSavePool_Click(object sender, EventArgs e)
+        private void BtnSavePool_Click(object sender, EventArgs e)
         {
             SavePool();
         }
 
-        private void btnRefreshPool_Click(object sender, EventArgs e)
+        private void BtnRefreshPool_Click(object sender, EventArgs e)
         {
             LoadPool();
         }
 
-        private void listPatterns_SelectedIndexChanged(object sender, EventArgs e)
+        private void ListPatterns_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (IndexInPatternEditor == listPatterns.SelectedIndex) return;
 
@@ -421,7 +425,7 @@ namespace TERG
             LoadPattern();
         }
 
-        private void listPatternReferences_DoubleClick(object sender, EventArgs e)
+        private void ListPatternReferences_DoubleClick(object sender, EventArgs e)
         {
             if (IndexInPatternEditor != -1 && listPatternReferences.SelectedIndex != -1)
             {
@@ -451,6 +455,10 @@ namespace TERG
                         IteratedPatternReference ipat = (IteratedPatternReference)ReferenceEditor.Show(false, engine, r);
                         engine.Patterns[IndexInPatternEditor].References[index] = ipat;
                         break;
+                    case "DTBL":
+                        DistributionTableReference dtbl = (DistributionTableReference)ReferenceEditor.Show(false, engine, r);
+                        engine.Patterns[IndexInPatternEditor].References[index] = dtbl;
+                        break;
                     default:
                         MessageBox.Show("Invalid Reference Type: " + r.Type);
                         return;
@@ -462,7 +470,7 @@ namespace TERG
             }
         }
 
-        private void addNewPatternToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AddNewPatternToolStripMenuItem_Click(object sender, EventArgs e)
         {
             InputBoxResult result = InputBox.Show("New Pattern Name:", this.Text);
             if (result.OK)
@@ -478,7 +486,7 @@ namespace TERG
             }
         }
 
-        private void btnOpenTemplateEditor_Click(object sender, EventArgs e)
+        private void BtnOpenTemplateEditor_Click(object sender, EventArgs e)
         {
             if (IndexInPatternEditor != -1)
             {
@@ -494,7 +502,7 @@ namespace TERG
             }
         }
 
-        private void btnAddReference_Click(object sender, EventArgs e)
+        private void BtnAddReference_Click(object sender, EventArgs e)
         {
             if (IndexInPatternEditor != -1 && comboAddReferenceType.Text.Length == 4)
             {
@@ -526,6 +534,10 @@ namespace TERG
                         IteratedPatternReference ipat = (IteratedPatternReference)ReferenceEditor.Show(true, engine, new IteratedPatternReference());
                         engine.Patterns[IndexInPatternEditor].References.Add(ipat);
                         break;
+                    case "DTBL":
+                        DistributionTableReference dtbl = (DistributionTableReference)ReferenceEditor.Show(true, engine, new DistributionTableReference());
+                        engine.Patterns[IndexInPatternEditor].References.Add(dtbl);
+                        break;
                     default:
                         return;
                 }
@@ -535,7 +547,7 @@ namespace TERG
             }
         }
 
-        private void patternRunToolStripMenuItem_Click(object sender, EventArgs e)
+        private void PatternRunToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (IndexInPatternEditor != -1)
             {
@@ -543,7 +555,7 @@ namespace TERG
             }
         }
 
-        private void btnDeletePool_Click(object sender, EventArgs e)
+        private void BtnDeletePool_Click(object sender, EventArgs e)
         {
             if (IndexInPoolEditor != -1)
             {
@@ -620,7 +632,7 @@ namespace TERG
             }
         }
 
-        private void btnDeletePattern_Click(object sender, EventArgs e)
+        private void BtnDeletePattern_Click(object sender, EventArgs e)
         {
             if (IndexInPatternEditor != -1)
             {
@@ -675,12 +687,14 @@ namespace TERG
             }
         }
 
-        private void changeDatabaseLocationToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ChangeDatabaseLocationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SaveFileDialog dialog = new SaveFileDialog();
-            dialog.AddExtension = true;
-            dialog.DefaultExt = ".db";
-            dialog.FileName = DBFileLocation;
+            SaveFileDialog dialog = new SaveFileDialog
+            {
+                AddExtension = true,
+                DefaultExt = ".db",
+                FileName = DBFileLocation
+            };
             DialogResult result = dialog.ShowDialog();
 
             if (result == DialogResult.OK)
@@ -688,13 +702,16 @@ namespace TERG
                 // Implement
                 Properties.Settings.Default["DatabaseFileLocation"] = Path.GetFullPath(dialog.FileName);
                 Properties.Settings.Default.Save();
+                dialog.Dispose();
                 MessageBox.Show("Restarting...");
                 Application.Restart();
                 Environment.Exit(0);
             }
+
+            dialog.Dispose();
         }
 
-        private void btnMoveRefUp_Click(object sender, EventArgs e)
+        private void BtnMoveRefUp_Click(object sender, EventArgs e)
         {
             if (IndexInPatternEditor != -1 && listPatternReferences.SelectedIndex > 0)
             {
@@ -708,7 +725,7 @@ namespace TERG
             }
         }
 
-        private void btnMoveRefDown_Click(object sender, EventArgs e)
+        private void BtnMoveRefDown_Click(object sender, EventArgs e)
         {
             if (IndexInPatternEditor != -1 &&
                 listPatternReferences.Items.Count > 1 &&
@@ -724,7 +741,7 @@ namespace TERG
             }
         }
 
-        private void btnDeleteReference_Click(object sender, EventArgs e)
+        private void BtnDeleteReference_Click(object sender, EventArgs e)
         {
             if (IndexInPatternEditor != -1 &&
                 listPatternReferences.SelectedIndex != -1)
@@ -741,12 +758,11 @@ namespace TERG
             }
         }
 
-        private void btnRunExport_Click(object sender, EventArgs e)
+        private void BtnRunExport_Click(object sender, EventArgs e)
         {
             if (comboExportPattern.SelectedIndex != -1)
             {
-                int it = 1;
-                if (!(int.TryParse(textExportIterations.Text, out it)))
+                if (!(int.TryParse(textExportIterations.Text, out int it)))
                 {
                     MessageBox.Show("Invalid number of iterations. Defaulting to 1.");
                 }
@@ -766,33 +782,34 @@ namespace TERG
             }
         }
 
-        private void textPatternName_TextChanged(object sender, EventArgs e)
+        private void TextPatternName_TextChanged(object sender, EventArgs e)
         {
             FlagPatternChanged = true;
         }
 
-        private void btnExportOut_Click(object sender, EventArgs e)
+        private void BtnExportOut_Click(object sender, EventArgs e)
         {
             if (comboExportPattern.SelectedIndex != -1)
             {
-                SaveFileDialog save = new SaveFileDialog();
-                save.Filter = "Text File|*.txt";
-                save.AddExtension = true;
+                SaveFileDialog save = new SaveFileDialog
+                {
+                    Filter = "Text File|*.txt",
+                    AddExtension = true
+                };
 
                 DialogResult res = save.ShowDialog();
 
                 if (res == DialogResult.OK)
                 {
                     // Open file for writing
-                    if(!File.Exists(save.FileName))
+                    if (!File.Exists(save.FileName))
                     {
                         File.Create(save.FileName).Close();
                     }
                     StreamWriter o = new StreamWriter(save.FileName);
 
                     // Running
-                    int it = 1;
-                    if (!(int.TryParse(textExportIterations.Text, out it)))
+                    if (!(int.TryParse(textExportIterations.Text, out int it)))
                     {
                         MessageBox.Show("Invalid number of iterations. Defaulting to 1.");
                     }
@@ -811,6 +828,7 @@ namespace TERG
                     o.Close();
                     PushDatabaseStatus("Wrote " + it + " iterations of " + p.Name + " to " + save.FileName);
                 }
+                save.Dispose();
             }
         }
     }

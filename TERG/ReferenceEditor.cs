@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using TERGEngine;
 using TERGEngine.Reference;
@@ -8,9 +9,23 @@ namespace TERG
 {
     public partial class ReferenceEditor : Form
     {
+        private List<DistributionRow> DTBLRows;
+        private int DTBLIndexInEditor;
+        private Engine engine;
+
         public ReferenceEditor()
         {
             InitializeComponent();
+        }
+
+        private void ReferenceEditor_Load(object sender, EventArgs e)
+        {
+            DTBLcomboReferenceType.Items.Add("POOL");
+            DTBLcomboReferenceType.Items.Add("PATT");
+            DTBLcomboReferenceType.Items.Add("RINT");
+            DTBLcomboReferenceType.Items.Add("RPAT");
+            DTBLcomboReferenceType.Items.Add("IPAT");
+            DTBLcomboReferenceType.Items.Add("DTBL");
         }
 
         /* 
@@ -26,6 +41,7 @@ namespace TERG
             {
                 DialogResult result;
                 form.SetPage(r.Type);
+                form.engine = e;
                 switch (r.Type)
                 {
                     #region PoolRef
@@ -155,6 +171,7 @@ namespace TERG
 
                         return rpatr;
                     #endregion
+                    #region IPAT
                     case "IPAT":
 
                         // Convert to type
@@ -191,6 +208,32 @@ namespace TERG
                         }
 
                         return ipatr;
+                    #endregion
+                    #region DTBL
+                    case "DTBL":
+
+                        //Convert to type
+                        DistributionTableReference dtblr = (DistributionTableReference)r;
+
+                        // Setup form
+                        if (!n)
+                        {
+                            form.DTBL_setRows(dtblr.Rows);
+                        }
+                        else
+                        {
+                            form.DTBL_setRows(new List<DistributionRow>() { new DistributionRow() { Start = 1, End = 100, Value = "Empty" } });
+                        }
+
+                        result = form.ShowDialog();
+
+                        if (result == DialogResult.OK)
+                        {
+                            dtblr.Rows = form.DTBLRows;
+                        }
+
+                        return dtblr;
+                        #endregion
                 }
 
                 throw new Exception("Invalid Reference Type: " + r.Type);
@@ -241,18 +284,17 @@ namespace TERG
 
         private void RINTbtnOK_Click(object sender, EventArgs e)
         {
-            int test;
-            if (!int.TryParse(RINTtextMin.Text, out test))
+            if (!int.TryParse(RINTtextMin.Text, out _))
             {
                 MessageBox.Show("Invalid data in Minimum Value field, please correct before continuing");
                 return;
             }
-            if (!int.TryParse(RINTtextMax.Text, out test))
+            if (!int.TryParse(RINTtextMax.Text, out _))
             {
                 MessageBox.Show("Invalid data in Maximum Value field, please correct before continuing");
                 return;
             }
-            if (!int.TryParse(RINTtextMinLength.Text, out test))
+            if (!int.TryParse(RINTtextMinLength.Text, out _))
             {
                 MessageBox.Show("Invalid data in Minimum Length field, please correct before continuing");
                 return;
@@ -309,20 +351,19 @@ namespace TERG
         #region IPAT Functions
         private void IPATbtnOK_Click(object sender, EventArgs e)
         {
-            int test;
-            if (!int.TryParse(IPATtextMin.Text, out test))
+            if (!int.TryParse(IPATtextMin.Text, out _))
             {
                 MessageBox.Show("Invalid data in Minimum Iterations field, please correct before continuing.");
                 return;
             }
-            if (!int.TryParse(IPATtextMax.Text, out test))
+            if (!int.TryParse(IPATtextMax.Text, out _))
             {
                 MessageBox.Show("Invalid data in Maximum Iterations field, please correct before continuing.");
                 return;
             }
             if (IPATcomboPattern.SelectedIndex != -1)
             {
-                if(!IPATcheckRandom.Checked)
+                if (!IPATcheckRandom.Checked)
                 {
                     IPATtextMax.Text = IPATtextMin.Text;
                 }
@@ -333,12 +374,234 @@ namespace TERG
 
         private void IPATcheckRandom_CheckedChanged(object sender, EventArgs e)
         {
-            if(!IPATcheckRandom.Checked)
+            if (!IPATcheckRandom.Checked)
             {
                 IPATtextMax.Text = IPATtextMin.Text;
             }
             IPATtextMax.Enabled = IPATcheckRandom.Checked;
         }
         #endregion
+
+        #region DTBL Functions
+        public void DTBL_setRows(List<DistributionRow> rows)
+        {
+            DTBLRows = rows;
+            DTBL_updateList();
+        }
+
+        private void DTBL_updateList()
+        {
+            DTBLlstRows.Items.Clear();
+            DTBLRows = DTBLRows.OrderBy(x => x.Start).ToList();
+            foreach (var row in DTBLRows)
+            {
+                DTBLlstRows.Items.Add(row.ToString(new Engine()));
+            }
+            DTBLlstRows.SelectedIndex = -1;
+            DTBLIndexInEditor = -1;
+
+        }
+
+        private void DTBL_saveCurrentRow()
+        {
+            if (DTBLIndexInEditor != -1)
+            {
+                if (!DTBLchkUsePattern.Checked)
+                {
+                    DTBLRows[DTBLIndexInEditor].Value = DTBLtxtValue.Text;
+                    DTBLRows[DTBLIndexInEditor].Reference = null;
+                }
+                else if (DTBLRows[DTBLIndexInEditor].Reference.GetType() != null)
+                {
+                    DTBLRows[DTBLIndexInEditor].Value = null;
+                }
+                else
+                {
+                    DTBLRows[DTBLIndexInEditor].Reference = null;
+                    DTBLRows[DTBLIndexInEditor].Value = "Empty";
+                }
+                DTBLRows[DTBLIndexInEditor].Start = int.Parse(DTBLtxtStart.Text);
+                DTBLRows[DTBLIndexInEditor].End = int.Parse(DTBLtxtEnd.Text);
+            }
+        }
+
+        private void DTBLlstRows_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DTBL_saveCurrentRow();
+            if (DTBLlstRows.SelectedIndex != -1)
+            {
+                DTBLIndexInEditor = DTBLlstRows.SelectedIndex;
+                DTBLtxtStart.Text = DTBLRows[DTBLIndexInEditor].Start.ToString();
+                DTBLtxtStart.Enabled = true;
+                DTBLtxtEnd.Text = DTBLRows[DTBLIndexInEditor].End.ToString();
+                DTBLtxtEnd.Enabled = true;
+                if (DTBLRows[DTBLIndexInEditor].Value != null)
+                {
+                    DTBLtxtValue.Text = DTBLRows[DTBLIndexInEditor].Value;
+                    DTBLtxtValue.Enabled = true;
+                    DTBLchkUsePattern.Checked = false;
+                    DTBLcomboReferenceType.SelectedIndex = -1;
+                    DTBLcomboReferenceType.Enabled = false;
+                }
+                else
+                {
+                    DTBLtxtValue.Text = DTBLRows[DTBLIndexInEditor].Reference.ToString();
+                    DTBLchkUsePattern.Checked = true;
+                    DTBLcomboReferenceType.SelectedItem = DTBLRows[DTBLIndexInEditor].Reference.Type;
+                    DTBLcomboReferenceType.Enabled = true;
+                }
+            }
+            else
+            {
+                DTBLIndexInEditor = -1;
+                DTBLtxtStart.Text = "";
+                DTBLtxtStart.Enabled = false;
+                DTBLtxtEnd.Text = "";
+                DTBLtxtEnd.Enabled = false;
+                DTBLtxtValue.Text = "";
+                DTBLtxtValue.Enabled = false;
+                DTBLchkUsePattern.Checked = false;
+                DTBLcomboReferenceType.SelectedIndex = -1;
+                DTBLcomboReferenceType.Enabled = false;
+            }
+        }
+
+        private void DTBLchkUsePattern_CheckedChanged(object sender, EventArgs e)
+        {
+            if (DTBLchkUsePattern.Checked)
+            {
+                DTBLtxtValue.Text = DTBLRows[DTBLIndexInEditor].Reference.ToString();
+                DTBLtxtValue.Enabled = false;
+                DTBLcomboReferenceType.Enabled = true;
+            }
+            else
+            {
+                DTBLtxtValue.Text = "";
+                DTBLtxtValue.Enabled = true;
+                DTBLcomboReferenceType.Enabled = false;
+            }
+        }
+
+        private void DTBLbtnAddRow_Click(object sender, EventArgs e)
+        {
+            DTBL_saveCurrentRow();
+            DTBLRows.Add(new DistributionRow());
+            DTBL_updateList();
+            DTBLlstRows.SelectedIndex = DTBLRows.Count - 1;
+        }
+
+        private void DTBLtxtStart_Leave(object sender, EventArgs e)
+        {
+            if (int.TryParse(DTBLtxtStart.Text, out int start))
+            {
+                if (DTBLIndexInEditor != 0 || start == 1)
+                {
+                    if (start <= DTBLRows[DTBLIndexInEditor].End)
+                    {
+                        DTBLRows[DTBLIndexInEditor].Start = start;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Starting point cannot be greater than endpoint.", "TERG", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        DTBLtxtStart.Focus();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Starting point for first row must be 1.", "TERG", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    DTBLtxtStart.Focus();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Starting point for row must be an integer 1-100", "TERG", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                DTBLtxtStart.Focus();
+            }
+        }
+
+        private void DTBLtxtEnd_Leave(object sender, EventArgs e)
+        {
+            if (int.TryParse(DTBLtxtEnd.Text, out int end))
+            {
+                if (DTBLIndexInEditor != DTBLRows.Count - 1 || end == 1)
+                {
+                    if (end >= DTBLRows[DTBLIndexInEditor].Start)
+                    {
+                        DTBLRows[DTBLIndexInEditor].End = end;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ending point cannot be less than starting point.", "TERG", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        DTBLtxtEnd.Focus();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Ending point for last row must be 100.", "TERG", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    DTBLtxtEnd.Focus();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Ending point for row must be an integer 1-100", "TERG", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                DTBLtxtEnd.Focus();
+            }
+        }
+
+        private void DTBLtxtValue_Leave(object sender, EventArgs e)
+        {
+            DTBLRows[DTBLIndexInEditor].Value = DTBLtxtValue.Text;
+        }
+
+        private void DTBLbtnEditRowPattern_Click(object sender, EventArgs e)
+        {
+            if (DTBLIndexInEditor != -1)
+            {
+                if (DTBLRows[DTBLIndexInEditor].Reference != null && DTBLRows[DTBLIndexInEditor].Reference.Type == DTBLcomboReferenceType.Text)
+                {
+                    // Edit existing reference
+                    var res = Show(false, engine, DTBLRows[DTBLIndexInEditor].Reference);
+                    DTBLRows[DTBLIndexInEditor].Reference = res;
+                }
+                else
+                {
+                    IReference res = null;
+                    switch (DTBLcomboReferenceType.Text)
+                    {
+                        case "POOL":
+                            if (engine.Pools.Count < 1)
+                            {
+                                MessageBox.Show("No pools to reference.");
+                                return;
+                            }
+                            res = Show(true, engine, new PoolReference());
+                            break;
+                        case "PATT":
+                            res = Show(true, engine, new PatternReference());
+                            break;
+                        case "RINT":
+                            res = Show(true, engine, new RandomIntegerReference());
+                            break;
+                        case "RPAT":
+                            res = Show(true, engine, new RandomPatternReference());
+                            break;
+                        case "IPAT":
+                            res = Show(true, engine, new IteratedPatternReference());
+                            break;
+                        case "DTBL":
+                            res = Show(true, engine, new DistributionTableReference());
+                            break;
+                        default:
+                            return;
+                    }
+                    if (res != null)
+                    {
+                        DTBLRows[DTBLIndexInEditor].Reference = res;
+                    }
+                }
+            }
+        }
+        #endregion
+
     }
 }

@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Engine.cs" />
+    <Compile Include="Reference\DistributionTableReference.cs" />
     <Compile Include="Reference\IReference.cs" />
     <Compile Include="Pattern.cs" />
     <Compile Include="Pool.cs" />
