@@ -506,7 +506,7 @@ namespace TERG
         {
             if (IndexInPatternEditor != -1 && comboAddReferenceType.Text.Length == 4)
             {
-                string s = comboAddReferenceType.Items[comboAddReferenceType.SelectedIndex].ToString();
+                string s = comboAddReferenceType.Text.Trim();
                 switch (s)
                 {
                     case "POOL":

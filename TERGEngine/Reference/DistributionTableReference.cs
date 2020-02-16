@@ -5,7 +5,7 @@ namespace TERGEngine.Reference
 {
     public class DistributionTableReference : IReference
     {
-        public List<DistributionRow> Rows;
+        public List<DistributionRow> Rows = new List<DistributionRow>();
 
         public string Type
         {
@@ -36,9 +36,9 @@ namespace TERGEngine.Reference
     }
     public class DistributionRow
     {
-        public int Start;
-        public int End;
-        public string Value = null;
+        public int Start = 1;
+        public int End = 100;
+        public string Value = "Empty";
         public IReference Reference = null;
         public string ToString(Engine e) => $"{Start}-{End} " + (Value ?? Reference.Pull(e));
     }

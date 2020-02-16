@@ -9,7 +9,7 @@ namespace TERG
 {
     public partial class ReferenceEditor : Form
     {
-        private List<DistributionRow> DTBLRows;
+        private List<DistributionRow> DTBLRows = new List<DistributionRow>();
         private int DTBLIndexInEditor;
         private Engine engine;
 
@@ -383,6 +383,13 @@ namespace TERG
         #endregion
 
         #region DTBL Functions
+        private void DTBLbtnOk_Click(object sender, EventArgs e)
+        {
+            DTBL_saveCurrentRow();
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
+
         public void DTBL_setRows(List<DistributionRow> rows)
         {
             DTBLRows = rows;
@@ -484,10 +491,32 @@ namespace TERG
 
         private void DTBLbtnAddRow_Click(object sender, EventArgs e)
         {
-            DTBL_saveCurrentRow();
-            DTBLRows.Add(new DistributionRow());
-            DTBL_updateList();
-            DTBLlstRows.SelectedIndex = DTBLRows.Count - 1;
+            var prev = DTBLRows[DTBLRows.Count - 1];
+            if (prev.End-prev.Start > 1)
+            {
+                DTBL_saveCurrentRow();
+                DTBLRows[DTBLRows.Count - 1].End -= (prev.End - prev.Start) / 2;
+                DistributionRow row = new DistributionRow
+                {
+                    Start = DTBLRows[DTBLRows.Count - 1].End + 1
+                };
+                DTBLRows.Add(row);
+                DTBL_setRows(DTBLRows);
+                DTBLlstRows.SelectedIndex = DTBLRows.Count - 1;
+            }
+            else
+            {
+                _ = MessageBox.Show("Cannot fit another row at the end", "TERG", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void DTBLbtnRemoveRow_Click(object sender, EventArgs e)
+        {
+            if (DTBLIndexInEditor != -1)
+            {
+                DTBLRows.RemoveAt(DTBLIndexInEditor);
+                DTBL_setRows(DTBLRows);
+            }
         }
 
         private void DTBLtxtStart_Leave(object sender, EventArgs e)
@@ -523,7 +552,7 @@ namespace TERG
         {
             if (int.TryParse(DTBLtxtEnd.Text, out int end))
             {
-                if (DTBLIndexInEditor != DTBLRows.Count - 1 || end == 1)
+                if (DTBLIndexInEditor != DTBLRows.Count - 1 || end == 100)
                 {
                     if (end >= DTBLRows[DTBLIndexInEditor].Start)
                     {
@@ -565,7 +594,7 @@ namespace TERG
                 }
                 else
                 {
-                    IReference res = null;
+                    IReference res;
                     switch (DTBLcomboReferenceType.Text)
                     {
                         case "POOL":
@@ -602,6 +631,5 @@ namespace TERG
             }
         }
         #endregion
-
     }
 }

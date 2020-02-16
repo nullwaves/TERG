@@ -66,6 +66,7 @@
             this.tabDTBL = new System.Windows.Forms.TabPage();
             this.splitDTBL = new System.Windows.Forms.SplitContainer();
             this.DTBLlstRows = new System.Windows.Forms.ListBox();
+            this.DTBLcomboReferenceType = new System.Windows.Forms.ComboBox();
             this.DTBLbtnRemoveRow = new System.Windows.Forms.Button();
             this.DTBLbtnAddRow = new System.Windows.Forms.Button();
             this.DTBLbtnOk = new System.Windows.Forms.Button();
@@ -77,7 +78,6 @@
             this.label12 = new System.Windows.Forms.Label();
             this.DTBLtxtStart = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.DTBLcomboReferenceType = new System.Windows.Forms.ComboBox();
             this.tabControl.SuspendLayout();
             this.tabPOOL.SuspendLayout();
             this.tabPATT.SuspendLayout();
@@ -493,6 +493,14 @@
             this.DTBLlstRows.TabIndex = 0;
             this.DTBLlstRows.SelectedIndexChanged += new System.EventHandler(this.DTBLlstRows_SelectedIndexChanged);
             // 
+            // DTBLcomboReferenceType
+            // 
+            this.DTBLcomboReferenceType.FormattingEnabled = true;
+            this.DTBLcomboReferenceType.Location = new System.Drawing.Point(5, 125);
+            this.DTBLcomboReferenceType.Name = "DTBLcomboReferenceType";
+            this.DTBLcomboReferenceType.Size = new System.Drawing.Size(129, 21);
+            this.DTBLcomboReferenceType.TabIndex = 11;
+            // 
             // DTBLbtnRemoveRow
             // 
             this.DTBLbtnRemoveRow.Location = new System.Drawing.Point(77, 156);
@@ -501,6 +509,7 @@
             this.DTBLbtnRemoveRow.TabIndex = 10;
             this.DTBLbtnRemoveRow.Text = "-";
             this.DTBLbtnRemoveRow.UseVisualStyleBackColor = true;
+            this.DTBLbtnRemoveRow.Click += new System.EventHandler(this.DTBLbtnRemoveRow_Click);
             // 
             // DTBLbtnAddRow
             // 
@@ -520,6 +529,7 @@
             this.DTBLbtnOk.TabIndex = 8;
             this.DTBLbtnOk.Text = "OK";
             this.DTBLbtnOk.UseVisualStyleBackColor = true;
+            this.DTBLbtnOk.Click += new System.EventHandler(this.DTBLbtnOk_Click);
             // 
             // DTBLbtnEditRowPattern
             // 
@@ -592,14 +602,6 @@
             this.label11.Size = new System.Drawing.Size(57, 13);
             this.label11.TabIndex = 0;
             this.label11.Text = "Row Start:";
-            // 
-            // DTBLcomboReferenceType
-            // 
-            this.DTBLcomboReferenceType.FormattingEnabled = true;
-            this.DTBLcomboReferenceType.Location = new System.Drawing.Point(5, 125);
-            this.DTBLcomboReferenceType.Name = "DTBLcomboReferenceType";
-            this.DTBLcomboReferenceType.Size = new System.Drawing.Size(129, 21);
-            this.DTBLcomboReferenceType.TabIndex = 11;
             // 
             // ReferenceEditor
             // 
