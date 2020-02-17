@@ -83,7 +83,7 @@ namespace TERGEngine
             {
                 if (p.ID == id) return p;
             }
-            throw new Exception("Pattern with that ID does not exist.");
+            return null;
         }
     }
 }

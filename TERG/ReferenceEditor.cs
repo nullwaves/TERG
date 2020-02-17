@@ -10,7 +10,7 @@ namespace TERG
     public partial class ReferenceEditor : Form
     {
         private List<DistributionRow> DTBLRows = new List<DistributionRow>();
-        private int DTBLIndexInEditor;
+        private int DTBLIndexInEditor = -1;
         private Engine engine;
 
         public ReferenceEditor()
@@ -232,6 +232,8 @@ namespace TERG
                             dtblr.Rows = form.DTBLRows;
                         }
 
+                        if (dtblr.Rows.Count < 1) dtblr.Rows.Add(new DistributionRow());
+
                         return dtblr;
                         #endregion
                 }
@@ -402,10 +404,10 @@ namespace TERG
             DTBLRows = DTBLRows.OrderBy(x => x.Start).ToList();
             foreach (var row in DTBLRows)
             {
-                DTBLlstRows.Items.Add(row.ToString(new Engine()));
+                DTBLlstRows.Items.Add(row.ToString(engine));
             }
-            DTBLlstRows.SelectedIndex = -1;
-            DTBLIndexInEditor = -1;
+            //DTBLlstRows.SelectedIndex = -1;
+            //DTBLIndexInEditor = -1;
 
         }
 
@@ -477,7 +479,8 @@ namespace TERG
         {
             if (DTBLchkUsePattern.Checked)
             {
-                DTBLtxtValue.Text = DTBLRows[DTBLIndexInEditor].Reference.ToString();
+                var rr = DTBLRows[DTBLIndexInEditor].Reference;
+                DTBLtxtValue.Text = rr != null ? rr.ToString() : string.Empty;
                 DTBLtxtValue.Enabled = false;
                 DTBLcomboReferenceType.Enabled = true;
             }
@@ -528,6 +531,7 @@ namespace TERG
                     if (start <= DTBLRows[DTBLIndexInEditor].End)
                     {
                         DTBLRows[DTBLIndexInEditor].Start = start;
+                        DTBL_updateList();
                     }
                     else
                     {
@@ -557,6 +561,7 @@ namespace TERG
                     if (end >= DTBLRows[DTBLIndexInEditor].Start)
                     {
                         DTBLRows[DTBLIndexInEditor].End = end;
+                        DTBL_updateList();
                     }
                     else
                     {
@@ -580,6 +585,7 @@ namespace TERG
         private void DTBLtxtValue_Leave(object sender, EventArgs e)
         {
             DTBLRows[DTBLIndexInEditor].Value = DTBLtxtValue.Text;
+            DTBL_updateList();
         }
 
         private void DTBLbtnEditRowPattern_Click(object sender, EventArgs e)
@@ -626,6 +632,8 @@ namespace TERG
                     if (res != null)
                     {
                         DTBLRows[DTBLIndexInEditor].Reference = res;
+                        DTBLtxtValue.Text = res.ToString(engine);
+                        DTBL_updateList();
                     }
                 }
             }

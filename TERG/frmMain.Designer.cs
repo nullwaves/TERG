@@ -59,6 +59,7 @@ namespace TERG
             this.btnRefreshPool = new System.Windows.Forms.Button();
             this.btnSavePool = new System.Windows.Forms.Button();
             this.tabPatternEditor = new System.Windows.Forms.TabPage();
+            this.btnNewPattern = new System.Windows.Forms.Button();
             this.btnDeleteReference = new System.Windows.Forms.Button();
             this.btnMoveRefDown = new System.Windows.Forms.Button();
             this.btnMoveRefUp = new System.Windows.Forms.Button();
@@ -72,6 +73,7 @@ namespace TERG
             this.label5 = new System.Windows.Forms.Label();
             this.textPatternName = new System.Windows.Forms.TextBox();
             this.tabExport = new System.Windows.Forms.TabPage();
+            this.btnExportOut = new System.Windows.Forms.Button();
             this.checkExportSeperators = new System.Windows.Forms.CheckBox();
             this.textExport = new System.Windows.Forms.TextBox();
             this.btnRunExport = new System.Windows.Forms.Button();
@@ -79,7 +81,7 @@ namespace TERG
             this.label7 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.comboExportPattern = new System.Windows.Forms.ComboBox();
-            this.btnExportOut = new System.Windows.Forms.Button();
+            this.btnCopyPattern = new System.Windows.Forms.Button();
             this.mainStatusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tabEventLog.SuspendLayout();
@@ -357,6 +359,8 @@ namespace TERG
             // tabPatternEditor
             // 
             this.tabPatternEditor.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPatternEditor.Controls.Add(this.btnCopyPattern);
+            this.tabPatternEditor.Controls.Add(this.btnNewPattern);
             this.tabPatternEditor.Controls.Add(this.btnDeleteReference);
             this.tabPatternEditor.Controls.Add(this.btnMoveRefDown);
             this.tabPatternEditor.Controls.Add(this.btnMoveRefUp);
@@ -376,9 +380,19 @@ namespace TERG
             this.tabPatternEditor.TabIndex = 1;
             this.tabPatternEditor.Text = "Patterns";
             // 
+            // btnNewPattern
+            // 
+            this.btnNewPattern.Location = new System.Drawing.Point(407, 213);
+            this.btnNewPattern.Name = "btnNewPattern";
+            this.btnNewPattern.Size = new System.Drawing.Size(121, 24);
+            this.btnNewPattern.TabIndex = 15;
+            this.btnNewPattern.Text = "New Pattern";
+            this.btnNewPattern.UseVisualStyleBackColor = true;
+            this.btnNewPattern.Click += new System.EventHandler(this.AddNewPatternToolStripMenuItem_Click);
+            // 
             // btnDeleteReference
             // 
-            this.btnDeleteReference.Location = new System.Drawing.Point(407, 213);
+            this.btnDeleteReference.Location = new System.Drawing.Point(406, 121);
             this.btnDeleteReference.Name = "btnDeleteReference";
             this.btnDeleteReference.Size = new System.Drawing.Size(121, 24);
             this.btnDeleteReference.TabIndex = 14;
@@ -507,6 +521,16 @@ namespace TERG
             this.tabExport.TabIndex = 2;
             this.tabExport.Text = "Export";
             // 
+            // btnExportOut
+            // 
+            this.btnExportOut.Location = new System.Drawing.Point(474, 3);
+            this.btnExportOut.Name = "btnExportOut";
+            this.btnExportOut.Size = new System.Drawing.Size(61, 23);
+            this.btnExportOut.TabIndex = 7;
+            this.btnExportOut.Text = "To File...";
+            this.btnExportOut.UseVisualStyleBackColor = true;
+            this.btnExportOut.Click += new System.EventHandler(this.BtnExportOut_Click);
+            // 
             // checkExportSeperators
             // 
             this.checkExportSeperators.AutoSize = true;
@@ -570,15 +594,15 @@ namespace TERG
             this.comboExportPattern.Size = new System.Drawing.Size(146, 21);
             this.comboExportPattern.TabIndex = 0;
             // 
-            // btnExportOut
+            // btnCopyPattern
             // 
-            this.btnExportOut.Location = new System.Drawing.Point(474, 3);
-            this.btnExportOut.Name = "btnExportOut";
-            this.btnExportOut.Size = new System.Drawing.Size(61, 23);
-            this.btnExportOut.TabIndex = 7;
-            this.btnExportOut.Text = "To File...";
-            this.btnExportOut.UseVisualStyleBackColor = true;
-            this.btnExportOut.Click += new System.EventHandler(this.BtnExportOut_Click);
+            this.btnCopyPattern.Location = new System.Drawing.Point(406, 183);
+            this.btnCopyPattern.Name = "btnCopyPattern";
+            this.btnCopyPattern.Size = new System.Drawing.Size(121, 24);
+            this.btnCopyPattern.TabIndex = 16;
+            this.btnCopyPattern.Text = "Copy Pattern";
+            this.btnCopyPattern.UseVisualStyleBackColor = true;
+            this.btnCopyPattern.Click += new System.EventHandler(this.BtnCopyPattern_Click);
             // 
             // frmMain
             // 
@@ -667,6 +691,8 @@ namespace TERG
         private System.Windows.Forms.ComboBox comboExportPattern;
         private System.Windows.Forms.CheckBox checkExportSeperators;
         private System.Windows.Forms.Button btnExportOut;
+        private System.Windows.Forms.Button btnNewPattern;
+        private System.Windows.Forms.Button btnCopyPattern;
     }
 }
 

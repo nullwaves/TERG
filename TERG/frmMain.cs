@@ -737,7 +737,7 @@ namespace TERG
                 engine.Patterns[IndexInPatternEditor].References[index + 1] = temp;
                 SaveDatabase();
                 LoadPattern();
-                listPatternReferences.SelectedIndex = index - 1;
+                listPatternReferences.SelectedIndex = index + 1;
             }
         }
 
@@ -829,6 +829,26 @@ namespace TERG
                     PushDatabaseStatus("Wrote " + it + " iterations of " + p.Name + " to " + save.FileName);
                 }
                 save.Dispose();
+            }
+        }
+
+        private void BtnCopyPattern_Click(object sender, EventArgs e)
+        {
+            if (IndexInPatternEditor != -1)
+            {
+                var patt = engine.Patterns[IndexInPatternEditor];
+                var npat = new Pattern(engine.GetNextPatternID(), patt.Name + "_2");
+                npat.Desc = patt.Desc;
+                npat.Base = patt.Base;
+                npat.References = patt.References;
+                engine.Patterns.Add(npat);
+                PushDatabaseStatus("Copied pattern \"" + patt.Name + "\"");
+                SaveDatabase();
+                LoadPatternLists();
+            }
+            else
+            {
+                _ = MessageBox.Show("No pattern selected", "TERG", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

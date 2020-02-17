@@ -40,6 +40,6 @@ namespace TERGEngine.Reference
         public int End = 100;
         public string Value = "Empty";
         public IReference Reference = null;
-        public string ToString(Engine e) => $"{Start}-{End} " + (Value ?? Reference.Pull(e));
+        public string ToString(Engine e) => $"{Start}-{End} " + (Value ?? Reference.ToString(e));
     }
 }
