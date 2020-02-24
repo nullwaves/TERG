@@ -219,6 +219,7 @@ namespace TERG
                         if (!n)
                         {
                             form.DTBL_setRows(dtblr.Rows);
+                            form.DTBLlstRows_SelectedIndexChanged(form, new EventArgs());
                         }
                         else
                         {
@@ -395,13 +396,13 @@ namespace TERG
         public void DTBL_setRows(List<DistributionRow> rows)
         {
             DTBLRows = rows;
+            DTBLRows = DTBLRows.OrderBy(x => x.Start).ToList();
             DTBL_updateList();
         }
 
         private void DTBL_updateList()
         {
             DTBLlstRows.Items.Clear();
-            DTBLRows = DTBLRows.OrderBy(x => x.Start).ToList();
             foreach (var row in DTBLRows)
             {
                 DTBLlstRows.Items.Add(row.ToString(engine));
@@ -495,7 +496,7 @@ namespace TERG
         private void DTBLbtnAddRow_Click(object sender, EventArgs e)
         {
             var prev = DTBLRows[DTBLRows.Count - 1];
-            if (prev.End-prev.Start > 1)
+            if (prev.End - prev.Start > 1)
             {
                 DTBL_saveCurrentRow();
                 DTBLRows[DTBLRows.Count - 1].End -= (prev.End - prev.Start) / 2;
@@ -526,12 +527,15 @@ namespace TERG
         {
             if (int.TryParse(DTBLtxtStart.Text, out int start))
             {
+                /*
                 if (DTBLIndexInEditor != 0 || start == 1)
                 {
                     if (start <= DTBLRows[DTBLIndexInEditor].End)
                     {
-                        DTBLRows[DTBLIndexInEditor].Start = start;
-                        DTBL_updateList();
+                    */
+                DTBLRows[DTBLIndexInEditor].Start = start;
+                DTBL_updateList();
+                /*
                     }
                     else
                     {
@@ -544,6 +548,7 @@ namespace TERG
                     MessageBox.Show("Starting point for first row must be 1.", "TERG", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     DTBLtxtStart.Focus();
                 }
+                */
             }
             else
             {
@@ -556,8 +561,10 @@ namespace TERG
         {
             if (int.TryParse(DTBLtxtEnd.Text, out int end))
             {
+                /*
                 if (DTBLIndexInEditor != DTBLRows.Count - 1 || end == 100)
                 {
+                */
                     if (end >= DTBLRows[DTBLIndexInEditor].Start)
                     {
                         DTBLRows[DTBLIndexInEditor].End = end;
@@ -568,12 +575,14 @@ namespace TERG
                         MessageBox.Show("Ending point cannot be less than starting point.", "TERG", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         DTBLtxtEnd.Focus();
                     }
+                /*
                 }
                 else
                 {
                     MessageBox.Show("Ending point for last row must be 100.", "TERG", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     DTBLtxtEnd.Focus();
                 }
+                */
             }
             else
             {
