@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using TERGEngine;
 using TERGEngine.Reference;
@@ -770,15 +772,26 @@ namespace TERG
 
                 textExport.Clear();
 
+                List<string> results = new List<string>();
+                List<Task> tasks = new List<Task>();
+
                 for (int i = 0; i < it; i++)
                 {
-                    textExport.Text += p.Fill(engine);
-                    textExport.Text += Environment.NewLine;
-                    if (checkExportSeperators.Checked)
-                    {
-                        textExport.Text += "--" + Environment.NewLine;
-                    }
+                    tasks.Add(Task.Run(() =>
+                      {
+                          string result = p.Fill(engine);
+                          result += Environment.NewLine;
+                          if (checkExportSeperators.Checked)
+                          {
+                              result += "--" + Environment.NewLine;
+                          }
+                          results.Add(result);
+                      }));
                 }
+
+                Task.WaitAll(tasks.ToArray());
+                PushDatabaseStatus("Generated " + tasks.Count + " iterations of " + p.Name);
+                textExport.Text = String.Join(Environment.NewLine,results);
             }
         }
 
@@ -815,16 +828,25 @@ namespace TERG
                     }
                     Pattern p = engine.Patterns[comboExportPattern.SelectedIndex];
 
+                    List<string> results = new List<string>();
+                    List<Task> tasks = new List<Task>();
                     for (int i = 0; i < it; i++)
                     {
-                        o.Write(p.Fill(engine) + Environment.NewLine);
-                        if (checkExportSeperators.Checked)
+                        tasks.Add(Task.Run(() =>
                         {
-                            o.WriteLine("-----------------------------------");
-                        }
+                            string result = p.Fill(engine);
+                            results.Add(result);
+                        }));
                     }
+                    Task.WaitAll(tasks.ToArray());
 
-                    o.Flush();
+                    foreach(string r in results)
+                    {
+                        o.WriteLine(
+                            checkExportSeperators.Checked ? r + Environment.NewLine + "-----------------------------------" : r
+                            );
+                        o.Flush();
+                    }
                     o.Close();
                     PushDatabaseStatus("Wrote " + it + " iterations of " + p.Name + " to " + save.FileName);
                 }
