@@ -691,26 +691,20 @@ namespace TERG
 
         private void ChangeDatabaseLocationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SaveFileDialog dialog = new SaveFileDialog
+            using (SaveFileDialog dialog = new SaveFileDialog { AddExtension = true, DefaultExt = ".db", FileName = DBFileLocation })
             {
-                AddExtension = true,
-                DefaultExt = ".db",
-                FileName = DBFileLocation
-            };
-            DialogResult result = dialog.ShowDialog();
+                DialogResult result = dialog.ShowDialog();
 
-            if (result == DialogResult.OK)
-            {
-                // Implement
-                Properties.Settings.Default["DatabaseFileLocation"] = Path.GetFullPath(dialog.FileName);
-                Properties.Settings.Default.Save();
-                dialog.Dispose();
-                MessageBox.Show("Restarting...");
-                Application.Restart();
-                Environment.Exit(0);
+                if (result == DialogResult.OK)
+                {
+                    // Implement
+                    Properties.Settings.Default["DatabaseFileLocation"] = Path.GetFullPath(dialog.FileName);
+                    Properties.Settings.Default.Save();
+                    MessageBox.Show("Restarting...");
+                    Application.Restart();
+                    Environment.Exit(0);
+                }
             }
-
-            dialog.Dispose();
         }
 
         private void BtnMoveRefUp_Click(object sender, EventArgs e)
@@ -791,7 +785,7 @@ namespace TERG
 
                 Task.WaitAll(tasks.ToArray());
                 PushDatabaseStatus("Generated " + tasks.Count + " iterations of " + p.Name);
-                textExport.Text = String.Join(Environment.NewLine,results);
+                textExport.Text = String.Join(Environment.NewLine, results);
             }
         }
 
@@ -840,7 +834,7 @@ namespace TERG
                     }
                     Task.WaitAll(tasks.ToArray());
 
-                    foreach(string r in results)
+                    foreach (string r in results)
                     {
                         o.WriteLine(
                             checkExportSeperators.Checked ? r + Environment.NewLine + "-----------------------------------" : r
@@ -858,11 +852,13 @@ namespace TERG
         {
             if (IndexInPatternEditor != -1)
             {
-                var patt = engine.Patterns[IndexInPatternEditor];
-                var npat = new Pattern(engine.GetNextPatternID(), patt.Name + "_2");
-                npat.Desc = patt.Desc;
-                npat.Base = patt.Base;
-                npat.References = patt.References;
+                Pattern patt = engine.Patterns[IndexInPatternEditor];
+                Pattern npat = new Pattern(engine.GetNextPatternID(), patt.Name + "_2")
+                {
+                    Desc = patt.Desc,
+                    Base = patt.Base,
+                    References = patt.References
+                };
                 engine.Patterns.Add(npat);
                 PushDatabaseStatus("Copied pattern \"" + patt.Name + "\"");
                 SaveDatabase();

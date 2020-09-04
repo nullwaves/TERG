@@ -40,7 +40,6 @@ namespace TERGEngine
             {
                 writer.Write(JsonConvert.SerializeObject(this, Formatting.Indented, SerializerSettings));
                 writer.Flush();
-                writer.Close();
             }
         }
 
