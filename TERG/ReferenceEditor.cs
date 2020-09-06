@@ -31,7 +31,6 @@ namespace TERG
         /* 
          * Show(
          *      bool        n:  A New reference
-         *      int         t:  Reference Type
          *      Engine      e:  TERGEngine loaded
          *      Reference   r:  Reference to be edited
         */
@@ -184,7 +183,8 @@ namespace TERG
                         }
                         if (!n)
                         {
-                            form.IPATcomboPattern.SelectedIndex = form.IPATcomboPattern.Items.IndexOf(e.FindPatternById(ipatr.PatternID).Name);
+                            var pat = e.FindPatternById(ipatr.PatternID);
+                            form.IPATcomboPattern.SelectedIndex = pat != null ? form.IPATcomboPattern.Items.IndexOf(pat.Name) : -1;
                             form.IPATtextMin.Text = ipatr.MinimumIterations.ToString();
                             form.IPATtextMax.Text = ipatr.MaximumIterations.ToString();
                             form.IPATcheckRandom.Checked = ipatr.Random;
@@ -245,8 +245,6 @@ namespace TERG
 
         private void SetPage(string type)
         {
-            // tabControl.TabPages.Clear();
-            // tabControl.TabPages.Add(Tabs[Tabs.IndexOfKey(type.ToUpper())]);
             for (int i = 0; i < tabControl.TabPages.Count; i++)
             {
                 if (tabControl.TabPages[i].Text == type)

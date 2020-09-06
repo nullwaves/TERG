@@ -41,9 +41,10 @@ namespace TERGEngine.Reference
 
         public string ToString(Engine e)
         {
+            var pat = e.FindPatternById(PatternID);
             return "IPAT: m" + MinimumIterations +
                 (Random ? " M" + MaximumIterations : string.Empty) +
-                " " + e.FindPatternById(PatternID).Name;
+                " " + (pat != null ? pat.Name : "Empty");
         }
     }
 }
