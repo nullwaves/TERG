@@ -59,6 +59,7 @@ namespace TERG
             this.btnRefreshPool = new System.Windows.Forms.Button();
             this.btnSavePool = new System.Windows.Forms.Button();
             this.tabPatternEditor = new System.Windows.Forms.TabPage();
+            this.btnCopyPattern = new System.Windows.Forms.Button();
             this.btnNewPattern = new System.Windows.Forms.Button();
             this.btnDeleteReference = new System.Windows.Forms.Button();
             this.btnMoveRefDown = new System.Windows.Forms.Button();
@@ -81,7 +82,6 @@ namespace TERG
             this.label7 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.comboExportPattern = new System.Windows.Forms.ComboBox();
-            this.btnCopyPattern = new System.Windows.Forms.Button();
             this.mainStatusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tabEventLog.SuspendLayout();
@@ -254,7 +254,7 @@ namespace TERG
             this.tERGToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem});
             this.tERGToolStripMenuItem.Name = "tERGToolStripMenuItem";
-            this.tERGToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.tERGToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.tERGToolStripMenuItem.Text = "TERG";
             // 
             // aboutToolStripMenuItem
@@ -380,6 +380,16 @@ namespace TERG
             this.tabPatternEditor.TabIndex = 1;
             this.tabPatternEditor.Text = "Patterns";
             // 
+            // btnCopyPattern
+            // 
+            this.btnCopyPattern.Location = new System.Drawing.Point(406, 183);
+            this.btnCopyPattern.Name = "btnCopyPattern";
+            this.btnCopyPattern.Size = new System.Drawing.Size(121, 24);
+            this.btnCopyPattern.TabIndex = 16;
+            this.btnCopyPattern.Text = "Copy Pattern";
+            this.btnCopyPattern.UseVisualStyleBackColor = true;
+            this.btnCopyPattern.Click += new System.EventHandler(this.BtnCopyPattern_Click);
+            // 
             // btnNewPattern
             // 
             this.btnNewPattern.Location = new System.Drawing.Point(407, 213);
@@ -464,7 +474,7 @@ namespace TERG
             this.btnOpenTemplateEditor.Name = "btnOpenTemplateEditor";
             this.btnOpenTemplateEditor.Size = new System.Drawing.Size(171, 24);
             this.btnOpenTemplateEditor.TabIndex = 8;
-            this.btnOpenTemplateEditor.Text = "Edit Base Template";
+            this.btnOpenTemplateEditor.Text = "Edit Pattern Body";
             this.btnOpenTemplateEditor.UseVisualStyleBackColor = true;
             this.btnOpenTemplateEditor.Click += new System.EventHandler(this.BtnOpenTemplateEditor_Click);
             // 
@@ -593,16 +603,6 @@ namespace TERG
             this.comboExportPattern.Name = "comboExportPattern";
             this.comboExportPattern.Size = new System.Drawing.Size(146, 21);
             this.comboExportPattern.TabIndex = 0;
-            // 
-            // btnCopyPattern
-            // 
-            this.btnCopyPattern.Location = new System.Drawing.Point(406, 183);
-            this.btnCopyPattern.Name = "btnCopyPattern";
-            this.btnCopyPattern.Size = new System.Drawing.Size(121, 24);
-            this.btnCopyPattern.TabIndex = 16;
-            this.btnCopyPattern.Text = "Copy Pattern";
-            this.btnCopyPattern.UseVisualStyleBackColor = true;
-            this.btnCopyPattern.Click += new System.EventHandler(this.BtnCopyPattern_Click);
             // 
             // frmMain
             // 

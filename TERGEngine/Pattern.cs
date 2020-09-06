@@ -11,7 +11,7 @@ namespace TERGEngine
         public string Name;
         public string Desc;
         public List<IReference> References;
-        public string[] Base;
+        public string[] Body;
 
         public Pattern(int i, string name)
         {
@@ -19,7 +19,7 @@ namespace TERGEngine
             Name = name;
             Desc = String.Empty;
             References = new List<IReference>();
-            Base = new string[0];
+            Body = new string[] { "[@0]" };
         }
 
         public string Fill(Engine e)
@@ -32,7 +32,7 @@ namespace TERGEngine
                 data[i] = References[i].Pull(e);
             }
 
-            StringBuilder output = new StringBuilder(String.Join(Environment.NewLine, Base));
+            StringBuilder output = new StringBuilder(String.Join(Environment.NewLine, Body));
 
 
             for (int i = 0; i < References.Count; i++)

@@ -493,11 +493,11 @@ namespace TERG
             if (IndexInPatternEditor != -1)
             {
                 Pattern patt = engine.Patterns[IndexInPatternEditor];
-                BaseEditorResult result = BaseEditor.Show(patt.Name, patt.Base);
+                BaseEditorResult result = BaseEditor.Show(patt.Name, patt.Body);
 
                 if (result.OK)
                 {
-                    engine.Patterns[IndexInPatternEditor].Base = result.Text;
+                    engine.Patterns[IndexInPatternEditor].Body = result.Text;
                     PushDatabaseStatus("Updated template for [" + patt.Name + "]");
                     SaveDatabase();
                 }
@@ -856,7 +856,7 @@ namespace TERG
                 Pattern npat = new Pattern(engine.GetNextPatternID(), patt.Name + "_2")
                 {
                     Desc = patt.Desc,
-                    Base = patt.Base,
+                    Body = patt.Body,
                     References = patt.References
                 };
                 engine.Patterns.Add(npat);
