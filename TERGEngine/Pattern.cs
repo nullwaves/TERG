@@ -33,12 +33,6 @@ namespace TERGEngine
             }
 
             StringBuilder output = new StringBuilder(String.Join(Environment.NewLine, Base));
-            /*
-            foreach (string s in Base)
-            {
-                output.Append(s);
-            }
-            */
 
 
             for (int i = 0; i < References.Count; i++)

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.IO;
+using System.Linq;
 using Newtonsoft.Json;
 
 namespace TERGEngine
@@ -27,8 +29,7 @@ namespace TERGEngine
         {
             StreamReader reader = new StreamReader(file);
             string json = reader.ReadToEnd();
-            // Engine retval = JsonConvert.DeserializeObject<Engine>(json); //old
-            Engine retval = JsonConvert.DeserializeObject<Engine>(json, SerializerSettings); // new
+            Engine retval = JsonConvert.DeserializeObject<Engine>(json, SerializerSettings);
             reader.Close();
             if (retval == null) throw new Exception("Corrupted Database. Please backup and delete file.");
             return retval;
@@ -57,11 +58,7 @@ namespace TERGEngine
 
         public Pool FindPoolById(int id)
         {
-            foreach (Pool p in Pools)
-            {
-                if (p.ID == id) return p;
-            }
-            throw new Exception("Pool with that ID does not exist.");
+            return Pools.Where(x => id == x.ID).FirstOrDefault();
         }
 
         public int GetNextPatternID()
@@ -78,11 +75,7 @@ namespace TERGEngine
 
         public Pattern FindPatternById(int id)
         {
-            foreach (Pattern p in Patterns)
-            {
-                if (p.ID == id) return p;
-            }
-            return null;
+            return Patterns.Where(x => id == x.ID).FirstOrDefault();
         }
     }
 }

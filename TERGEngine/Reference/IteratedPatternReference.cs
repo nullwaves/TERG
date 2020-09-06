@@ -28,14 +28,8 @@ namespace TERGEngine.Reference
         public string Pull(Engine e)
         {
             Pattern p = e.FindPatternById(PatternID);
-
             StringBuilder s = new StringBuilder();
-            int t = MinimumIterations;
-
-            if (MinimumIterations != MaximumIterations)
-            {
-                t = Engine.RNG.Next(MinimumIterations, MaximumIterations + 1);
-            }
+            int t = Random ? Engine.RNG.Next(MinimumIterations, MaximumIterations + 1) : MinimumIterations;
 
             for (int i = 0; i < t; i++)
             {
@@ -47,13 +41,9 @@ namespace TERGEngine.Reference
 
         public string ToString(Engine e)
         {
-            string s = "IPAT: m" + MinimumIterations;
-            if (MinimumIterations != MaximumIterations)
-            {
-                s += " M" + MaximumIterations;
-            }
-            s += " " + e.FindPatternById(PatternID).Name;
-            return s;
+            return "IPAT: m" + MinimumIterations +
+                (Random ? " M" + MaximumIterations : string.Empty) +
+                " " + e.FindPatternById(PatternID).Name;
         }
     }
 }

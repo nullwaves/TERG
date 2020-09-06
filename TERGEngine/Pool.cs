@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace TERGEngine
 {
@@ -22,12 +23,10 @@ namespace TERGEngine
         {
             // Fetch any children
             List<string> full = List.ToList();
-            foreach (Pool p in e.Pools)
+            var children = e.Pools.Where(c => c.ParentID == ID);
+            foreach (Pool p in children)
             {
-                if (p.ParentID == this.ID)
-                {
-                    full.AddRange(p.List);
-                }
+                full.AddRange(p.List);
             }
 
             return full[Engine.RNG.Next(0, full.Count)];
