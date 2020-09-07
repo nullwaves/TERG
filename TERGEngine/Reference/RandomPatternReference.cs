@@ -14,10 +14,16 @@ namespace TERGEngine.Reference
             }
         }
 
+        public RandomPatternReference()
+        {
+            PatternList = new List<int>();
+        }
+
         public string Pull(Engine e)
         {
+            if (PatternList.Count < 1) return string.Empty;
             Pattern p = e.FindPatternById(PatternList[Engine.RNG.Next(0, PatternList.Count)]);
-            return p.Fill(e);
+            return p?.Fill(e);
         }
 
         public string ToString(Engine e)

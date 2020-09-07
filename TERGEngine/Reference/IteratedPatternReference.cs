@@ -25,9 +25,21 @@ namespace TERGEngine.Reference
             }
         }
 
+        public IteratedPatternReference()
+        {
+            PatternID = -1;
+            MinimumIterations = 1;
+            MaximumIterations = 1;
+        }
+
         public string Pull(Engine e)
         {
             Pattern p = e.FindPatternById(PatternID);
+            if (p == null)
+            {
+                return string.Empty;
+            }
+
             StringBuilder s = new StringBuilder();
             int t = Random ? Engine.RNG.Next(MinimumIterations, MaximumIterations + 1) : MinimumIterations;
 

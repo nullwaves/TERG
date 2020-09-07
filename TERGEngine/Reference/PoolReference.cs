@@ -12,14 +12,19 @@
 
         public int PoolID;
 
+        public PoolReference()
+        {
+            PoolID = -1;
+        }
+
         public string Pull(Engine e)
         {
-            return e.FindPoolById(PoolID).Pull(e);
+            return e.FindPoolById(PoolID)?.Pull(e);
         }
 
         public string ToString(Engine e)
         {
-            return "POOL: " + e.FindPoolById(PoolID).Name;
+            return "POOL: " + e.FindPoolById(PoolID)?.Name;
         }
     }
 }

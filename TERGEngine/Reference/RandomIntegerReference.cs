@@ -17,6 +17,13 @@ namespace TERGEngine.Reference
         public int Max;
         public int MinLength;
 
+        public RandomIntegerReference()
+        {
+            Min = 0;
+            Max = 0;
+            MinLength = 0;
+        }
+
         public string Pull(Engine e)
         {
             int num = Engine.RNG.Next(Min, Max);

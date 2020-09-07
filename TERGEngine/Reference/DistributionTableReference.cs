@@ -5,7 +5,7 @@ namespace TERGEngine.Reference
 {
     public class DistributionTableReference : IReference
     {
-        public List<DistributionRow> Rows = new List<DistributionRow>();
+        public List<DistributionRow> Rows;
 
         public string Type
         {
@@ -13,6 +13,11 @@ namespace TERGEngine.Reference
             {
                 return "DTBL";
             }
+        }
+
+        public DistributionTableReference()
+        {
+            Rows = new List<DistributionRow>();
         }
 
         public string Pull(Engine e)
