@@ -10,6 +10,7 @@ namespace TERGEngine
     {
         public List<Pool> Pools;
         public List<Pattern> Patterns;
+        public Composer Composer { get; }
 
         public static Random RNG = new Random();
 
@@ -22,6 +23,7 @@ namespace TERGEngine
         {
             Pools = new List<Pool>();
             Patterns = new List<Pattern>();
+            Composer = new Composer(this);
         }
 
         public static Engine Load(string file)
