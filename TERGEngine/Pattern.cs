@@ -7,6 +7,14 @@ namespace TERGEngine
 {
     public class Pattern
     {
+        public enum HeaderAndFooterSetting
+        {
+            NONE,
+            BOTH,
+            HEADER_ONLY,
+            FOOTER_ONLY
+        }
+
         public int ID;
         public string Name;
         public string Desc;
@@ -26,7 +34,7 @@ namespace TERGEngine
             Footer = new string[0];
         }
 
-        public string Fill(Engine e, bool HeadAndFoot = false)
+        public string Fill(Engine e, HeaderAndFooterSetting HeadAndFoot = HeaderAndFooterSetting.NONE)
         {
             //Time to draw straws
             string[] data = new string[References.Count];
@@ -44,10 +52,20 @@ namespace TERGEngine
                 output.Replace("[@" + i + "]", data[i]);
             }
 
-            if(HeadAndFoot)
+            switch (HeadAndFoot)
             {
-                output.Insert(0, string.Join(Environment.NewLine, Header));
-                output.Append(string.Join(Environment.NewLine, Footer));
+                case HeaderAndFooterSetting.BOTH:
+                    output.Insert(0, string.Join(Environment.NewLine, Header));
+                    output.Append(string.Join(Environment.NewLine, Footer));
+                    break;
+                case HeaderAndFooterSetting.HEADER_ONLY:
+                    output.Insert(0, string.Join(Environment.NewLine, Header));
+                    break;
+                case HeaderAndFooterSetting.FOOTER_ONLY:
+                    output.Append(string.Join(Environment.NewLine, Footer));
+                    break;
+                default:
+                    break;
             }
 
             return output.ToString();
