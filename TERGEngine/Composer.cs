@@ -22,9 +22,9 @@
     {
         public enum HeaderAndFooterSetting
         {
-            IGNORE_ALL,
-            ONCE_PER_JOB,
-            EVERY_PATTERN
+            ALL,
+            FIRST_LAST,
+            NONE
         }
 
         public Pattern Pattern;
