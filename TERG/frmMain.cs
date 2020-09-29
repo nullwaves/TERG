@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -53,12 +54,7 @@ namespace TERG
                 SaveDatabase();
             }
 
-            comboAddReferenceType.Items.Add("POOL");
-            comboAddReferenceType.Items.Add("PATT");
-            comboAddReferenceType.Items.Add("RINT");
-            comboAddReferenceType.Items.Add("RPAT");
-            comboAddReferenceType.Items.Add("IPAT");
-            comboAddReferenceType.Items.Add("DTBL");
+            comboAddReferenceType.Items.AddRange(ReferenceFactory.typeMap.Keys.ToArray<string>());
 
             /* Load Lists */
             LoadPoolLists();
@@ -484,36 +480,7 @@ namespace TERG
             if (IndexInPatternEditor != -1 && comboAddReferenceType.Text.Length == 4)
             {
                 string s = comboAddReferenceType.Text.Trim();
-                IReference nref;
-                switch (s)
-                {
-                    case "POOL":
-                        nref = new PoolReference();
-                        break;
-
-                    case "PATT":
-                        nref = new PatternReference();
-                        break;
-
-                    case "RINT":
-                        nref = new RandomIntegerReference();
-                        break;
-
-                    case "RPAT":
-                        nref = new RandomPatternReference();
-                        break;
-
-                    case "IPAT":
-                        nref = new IteratedPatternReference();
-                        break;
-
-                    case "DTBL":
-                        nref = new DistributionTableReference();
-                        break;
-
-                    default:
-                        return;
-                }
+                IReference nref = ReferenceFactory.Create(s);
                 nref = ReferenceEditor.Show(true, engine, nref);
                 engine.Patterns[IndexInPatternEditor].References.Add(nref);
                 PushDatabaseStatus("Added Reference of type [" + s + "] to pattern [" + engine.Patterns[IndexInPatternEditor].Name + "]");

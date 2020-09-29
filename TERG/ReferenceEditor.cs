@@ -20,20 +20,16 @@ namespace TERG
 
         private void ReferenceEditor_Load(object sender, EventArgs e)
         {
-            DTBLcomboReferenceType.Items.Add("POOL");
-            DTBLcomboReferenceType.Items.Add("PATT");
-            DTBLcomboReferenceType.Items.Add("RINT");
-            DTBLcomboReferenceType.Items.Add("RPAT");
-            DTBLcomboReferenceType.Items.Add("IPAT");
-            DTBLcomboReferenceType.Items.Add("DTBL");
+            DTBLcomboReferenceType.Items.AddRange(ReferenceFactory.typeMap.Keys.ToArray<string>());
         }
 
-        /* 
+        /*
          * Show(
          *      bool        n:  A New reference
          *      Engine      e:  TERGEngine loaded
          *      Reference   r:  Reference to be edited
         */
+
         public static IReference Show(bool n, Engine e, IReference r)
         {
             using (ReferenceEditor form = new ReferenceEditor())
@@ -44,6 +40,7 @@ namespace TERG
                 switch (r.Type)
                 {
                     #region PoolRef
+
                     case "POOL":
 
                         // Convert to type
@@ -73,8 +70,11 @@ namespace TERG
                         }
 
                         return poolr;
-                    #endregion
+
+                    #endregion PoolRef
+
                     #region PatternRef
+
                     case "PATT":
 
                         // Convert to type
@@ -103,8 +103,11 @@ namespace TERG
                         }
 
                         return pattr;
-                    #endregion
+
+                    #endregion PatternRef
+
                     #region RIntegerRef
+
                     case "RINT":
 
                         // Convert to type
@@ -134,8 +137,11 @@ namespace TERG
                         }
 
                         return rintr;
-                    #endregion
+
+                    #endregion RIntegerRef
+
                     #region RPAT
+
                     case "RPAT":
                         // Convert to type
                         RandomPatternReference rpatr = (RandomPatternReference)r;
@@ -169,8 +175,11 @@ namespace TERG
                         }
 
                         return rpatr;
-                    #endregion
+
+                    #endregion RPAT
+
                     #region IPAT
+
                     case "IPAT":
 
                         // Convert to type
@@ -208,8 +217,11 @@ namespace TERG
                         }
 
                         return ipatr;
-                    #endregion
+
+                    #endregion IPAT
+
                     #region DTBL
+
                     case "DTBL":
 
                         //Convert to type
@@ -236,7 +248,8 @@ namespace TERG
                         if (dtblr.Rows.Count < 1) dtblr.Rows.Add(new DistributionRow());
 
                         return dtblr;
-                        #endregion
+
+                        #endregion DTBL
                 }
 
                 throw new Exception("Invalid Reference Type: " + r.Type);
@@ -306,6 +319,7 @@ namespace TERG
         }
 
         #region RPAT Functions
+
         private void RPATbtnOK_Click(object sender, EventArgs e)
         {
             if (RPATlistSelected.Items.Count < 1)
@@ -347,9 +361,11 @@ namespace TERG
                 RPATlistSelected.Items.Clear();
             }
         }
+
         #endregion RPAT Functions
 
         #region IPAT Functions
+
         private void IPATbtnOK_Click(object sender, EventArgs e)
         {
             if (!int.TryParse(IPATtextMin.Text, out _))
@@ -381,9 +397,11 @@ namespace TERG
             }
             IPATtextMax.Enabled = IPATcheckRandom.Checked;
         }
-        #endregion
+
+        #endregion IPAT Functions
 
         #region DTBL Functions
+
         private void DTBLbtnOk_Click(object sender, EventArgs e)
         {
             DTBL_saveCurrentRow();
@@ -407,7 +425,6 @@ namespace TERG
             }
             //DTBLlstRows.SelectedIndex = -1;
             //DTBLIndexInEditor = -1;
-
         }
 
         private void DTBL_saveCurrentRow()
@@ -563,16 +580,16 @@ namespace TERG
                 if (DTBLIndexInEditor != DTBLRows.Count - 1 || end == 100)
                 {
                 */
-                    if (end >= DTBLRows[DTBLIndexInEditor].Start)
-                    {
-                        DTBLRows[DTBLIndexInEditor].End = end;
-                        DTBL_updateList();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Ending point cannot be less than starting point.", "TERG", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        DTBLtxtEnd.Focus();
-                    }
+                if (end >= DTBLRows[DTBLIndexInEditor].Start)
+                {
+                    DTBLRows[DTBLIndexInEditor].End = end;
+                    DTBL_updateList();
+                }
+                else
+                {
+                    MessageBox.Show("Ending point cannot be less than starting point.", "TERG", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    DTBLtxtEnd.Focus();
+                }
                 /*
                 }
                 else
@@ -618,21 +635,27 @@ namespace TERG
                             }
                             res = Show(true, engine, new PoolReference());
                             break;
+
                         case "PATT":
                             res = Show(true, engine, new PatternReference());
                             break;
+
                         case "RINT":
                             res = Show(true, engine, new RandomIntegerReference());
                             break;
+
                         case "RPAT":
                             res = Show(true, engine, new RandomPatternReference());
                             break;
+
                         case "IPAT":
                             res = Show(true, engine, new IteratedPatternReference());
                             break;
+
                         case "DTBL":
                             res = Show(true, engine, new DistributionTableReference());
                             break;
+
                         default:
                             return;
                     }
@@ -645,6 +668,7 @@ namespace TERG
                 }
             }
         }
-        #endregion
+
+        #endregion DTBL Functions
     }
 }
