@@ -7,7 +7,9 @@
         {
             get;
         }
+
         string Pull(Engine e);
+
         string ToString(Engine e);
     }
 }

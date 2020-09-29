@@ -39,12 +39,14 @@ namespace TERGEngine.Reference
             return "DTBL r" + Rows.Count();
         }
     }
+
     public class DistributionRow
     {
         public int Start = 1;
         public int End = 100;
         public string Value = "Empty";
         public IReference Reference = null;
+
         public string ToString(Engine e) => $"{Start}-{End} " + (Value ?? Reference.ToString(e));
     }
 }

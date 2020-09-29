@@ -46,7 +46,6 @@ namespace TERGEngine
 
             StringBuilder output = new StringBuilder(String.Join(Environment.NewLine, Body));
 
-
             for (int i = 0; i < References.Count; i++)
             {
                 output.Replace("[@" + i + "]", data[i]);
@@ -58,12 +57,15 @@ namespace TERGEngine
                     output.Insert(0, string.Join(Environment.NewLine, Header));
                     output.Append(string.Join(Environment.NewLine, Footer));
                     break;
+
                 case HeaderAndFooterSetting.HEADER_ONLY:
                     output.Insert(0, string.Join(Environment.NewLine, Header));
                     break;
+
                 case HeaderAndFooterSetting.FOOTER_ONLY:
                     output.Append(string.Join(Environment.NewLine, Footer));
                     break;
+
                 default:
                     break;
             }

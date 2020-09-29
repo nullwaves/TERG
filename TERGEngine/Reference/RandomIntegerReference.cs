@@ -14,6 +14,7 @@ namespace TERGEngine.Reference
 
         // Reference Settings
         public int Min;
+
         public int Max;
         public int MinLength;
 

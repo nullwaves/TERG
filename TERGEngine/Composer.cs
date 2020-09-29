@@ -22,7 +22,7 @@ namespace TERGEngine
             e = engine;
         }
 
-        public List<string> Compose(Pattern p, int i, HeaderAndFooterSetting hf) => 
+        public List<string> Compose(Pattern p, int i, HeaderAndFooterSetting hf) =>
             Compose(new JobSettings() { Pattern = p, Iterations = i, HeaderAndFooter = hf });
 
         public List<string> Compose(JobSettings job)
@@ -42,18 +42,20 @@ namespace TERGEngine
                 tasks.Add(Task.Run(() =>
                 {
                     Pattern.HeaderAndFooterSetting hf;
-                    switch(job.HeaderAndFooter)
+                    switch (job.HeaderAndFooter)
                     {
                         case HeaderAndFooterSetting.ALL:
                             // All the Headers and Footers
                             hf = Pattern.HeaderAndFooterSetting.BOTH;
                             break;
+
                         case HeaderAndFooterSetting.FIRST_LAST:
                             if (i == 0 && job.Iterations > 1) hf = Pattern.HeaderAndFooterSetting.HEADER_ONLY;                          // First
                             else if (i == job.Iterations - 1 && job.Iterations > 1) hf = Pattern.HeaderAndFooterSetting.FOOTER_ONLY;    // Last
                             else if (job.Iterations == 1) hf = Pattern.HeaderAndFooterSetting.BOTH;                                     // Both because there is only one pattern
                             else hf = Pattern.HeaderAndFooterSetting.NONE;                                                              // Middlel pattern, append neither
                             break;
+
                         default:
                             hf = Pattern.HeaderAndFooterSetting.NONE;
                             break;
