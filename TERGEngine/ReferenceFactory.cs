@@ -9,7 +9,7 @@ namespace TERGEngine
 {
     public static class ReferenceFactory
     {
-        public readonly static Dictionary<string, Type> typeMap = new Dictionary<string, Type>()
+        public static readonly Dictionary<string, Type> typeMap = new Dictionary<string, Type>()
         {
             {"POOL", typeof(PoolReference)},
             {"PATT", typeof(PatternReference)},
