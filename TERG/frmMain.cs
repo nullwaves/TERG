@@ -15,10 +15,12 @@ namespace TERG
 
         // Variables for Pool Editor
         private int IndexInPoolEditor = -1;
+
         private bool FlagPoolChanged = false;
 
         //Variables for Pattern Editor
         private int IndexInPatternEditor = -1;
+
         private bool FlagPatternChanged = false;
 
         private readonly string DBFileLocation = (string)Properties.Settings.Default["DatabaseFileLocation"];
@@ -311,8 +313,10 @@ namespace TERG
                         case DialogResult.Yes:                              // Save changes and proceed
                             SavePool();
                             break;
+
                         case DialogResult.No:                               //Don't Save Changes, just skip to loading the next pool
                             break;
+
                         default:                                            //Neither, reset the index back to the previous and abort mission
                             listPools.SelectedIndex = IndexInPoolEditor;
                             return;
@@ -413,8 +417,10 @@ namespace TERG
                         case DialogResult.Yes:                              // Save changes and proceed
                             SavePattern();
                             break;
+
                         case DialogResult.No:                               //Don't Save Changes, just skip to loading the next pool
                             break;
+
                         default:                                            //Neither, reset the index back to the previous and abort mission
                             listPatterns.SelectedIndex = IndexInPatternEditor;
                             return;
@@ -433,39 +439,8 @@ namespace TERG
             {
                 int index = listPatternReferences.SelectedIndex;
 
-                IReference r = engine.Patterns[IndexInPatternEditor].References[index];
-
-                switch (r.Type)
-                {
-                    case "POOL":
-                        PoolReference pool = (PoolReference)ReferenceEditor.Show(false, engine, r);
-                        engine.Patterns[IndexInPatternEditor].References[index] = pool;
-                        break;
-                    case "PATT":
-                        PatternReference patt = (PatternReference)ReferenceEditor.Show(false, engine, r);
-                        engine.Patterns[IndexInPatternEditor].References[index] = patt;
-                        break;
-                    case "RINT":
-                        RandomIntegerReference rint = (RandomIntegerReference)ReferenceEditor.Show(false, engine, r);
-                        engine.Patterns[IndexInPatternEditor].References[index] = rint;
-                        break;
-                    case "RPAT":
-                        RandomPatternReference rpat = (RandomPatternReference)ReferenceEditor.Show(false, engine, r);
-                        engine.Patterns[IndexInPatternEditor].References[index] = rpat;
-                        break;
-                    case "IPAT":
-                        IteratedPatternReference ipat = (IteratedPatternReference)ReferenceEditor.Show(false, engine, r);
-                        engine.Patterns[IndexInPatternEditor].References[index] = ipat;
-                        break;
-                    case "DTBL":
-                        DistributionTableReference dtbl = (DistributionTableReference)ReferenceEditor.Show(false, engine, r);
-                        engine.Patterns[IndexInPatternEditor].References[index] = dtbl;
-                        break;
-                    default:
-                        MessageBox.Show("Invalid Reference Type: " + r.Type);
-                        return;
-                }
-
+                IReference r = ReferenceEditor.Show(false, engine, engine.Patterns[IndexInPatternEditor].References[index]);
+                engine.Patterns[IndexInPatternEditor].References[index] = r;
                 PushDatabaseStatus("Updated Reference in Pattern [" + engine.Patterns[IndexInPatternEditor].Name + "]");
                 SaveDatabase();
                 LoadPattern();
@@ -509,40 +484,38 @@ namespace TERG
             if (IndexInPatternEditor != -1 && comboAddReferenceType.Text.Length == 4)
             {
                 string s = comboAddReferenceType.Text.Trim();
+                IReference nref;
                 switch (s)
                 {
                     case "POOL":
-                        if (engine.Pools.Count < 1)
-                        {
-                            MessageBox.Show("No pools to reference.");
-                            return;
-                        }
-                        PoolReference pool = (PoolReference)ReferenceEditor.Show(true, engine, new PoolReference());
-                        engine.Patterns[IndexInPatternEditor].References.Add(pool);
+                        nref = new PoolReference();
                         break;
+
                     case "PATT":
-                        PatternReference patt = (PatternReference)ReferenceEditor.Show(true, engine, new PatternReference());
-                        engine.Patterns[IndexInPatternEditor].References.Add(patt);
+                        nref = new PatternReference();
                         break;
+
                     case "RINT":
-                        RandomIntegerReference rint = (RandomIntegerReference)ReferenceEditor.Show(true, engine, new RandomIntegerReference());
-                        engine.Patterns[IndexInPatternEditor].References.Add(rint);
+                        nref = new RandomIntegerReference();
                         break;
+
                     case "RPAT":
-                        RandomPatternReference rpat = (RandomPatternReference)ReferenceEditor.Show(true, engine, new RandomPatternReference());
-                        engine.Patterns[IndexInPatternEditor].References.Add(rpat);
+                        nref = new RandomPatternReference();
                         break;
+
                     case "IPAT":
-                        IteratedPatternReference ipat = (IteratedPatternReference)ReferenceEditor.Show(true, engine, new IteratedPatternReference());
-                        engine.Patterns[IndexInPatternEditor].References.Add(ipat);
+                        nref = new IteratedPatternReference();
                         break;
+
                     case "DTBL":
-                        DistributionTableReference dtbl = (DistributionTableReference)ReferenceEditor.Show(true, engine, new DistributionTableReference());
-                        engine.Patterns[IndexInPatternEditor].References.Add(dtbl);
+                        nref = new DistributionTableReference();
                         break;
+
                     default:
                         return;
                 }
+                nref = ReferenceEditor.Show(true, engine, nref);
+                engine.Patterns[IndexInPatternEditor].References.Add(nref);
                 PushDatabaseStatus("Added Reference of type [" + s + "] to pattern [" + engine.Patterns[IndexInPatternEditor].Name + "]");
                 SaveDatabase();
                 LoadPattern();
@@ -766,7 +739,7 @@ namespace TERG
 
                 textExport.Clear();
 
-                List<string> results = engine.Composer.Compose(p,it,Composer.HeaderAndFooterSetting.NONE);
+                List<string> results = engine.Composer.Compose(p, it, Composer.HeaderAndFooterSetting.NONE);
 
                 foreach (string result in results)
                 {
@@ -858,4 +831,3 @@ namespace TERG
         }
     }
 }
-
