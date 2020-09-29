@@ -760,32 +760,19 @@ namespace TERG
             {
                 if (!(int.TryParse(textExportIterations.Text, out int it)))
                 {
-                    MessageBox.Show("Invalid number of iterations. Defaulting to 1.");
+                    it = 1;
                 }
                 Pattern p = engine.Patterns[comboExportPattern.SelectedIndex];
 
                 textExport.Clear();
 
-                List<string> results = new List<string>();
-                List<Task> tasks = new List<Task>();
+                List<string> results = engine.Composer.Compose(p,it,Composer.HeaderAndFooterSetting.NONE);
 
-                for (int i = 0; i < it; i++)
+                foreach (string result in results)
                 {
-                    tasks.Add(Task.Run(() =>
-                      {
-                          string result = p.Fill(engine);
-                          result += Environment.NewLine;
-                          if (checkExportSeperators.Checked)
-                          {
-                              result += "--" + Environment.NewLine;
-                          }
-                          results.Add(result);
-                      }));
+                    textExport.Text += result + Environment.NewLine + ((checkExportSeperators.Checked) ? "----END OF RESULT----" + Environment.NewLine : string.Empty);
                 }
-
-                Task.WaitAll(tasks.ToArray());
-                PushDatabaseStatus("Generated " + tasks.Count + " iterations of " + p.Name);
-                textExport.Text = String.Join(Environment.NewLine, results);
+                PushDatabaseStatus("Generated " + results.Count + " iterations of " + p.Name);
             }
         }
 
