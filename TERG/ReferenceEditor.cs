@@ -624,41 +624,7 @@ namespace TERG
                 }
                 else
                 {
-                    IReference res;
-                    switch (DTBLcomboReferenceType.Text)
-                    {
-                        case "POOL":
-                            if (engine.Pools.Count < 1)
-                            {
-                                MessageBox.Show("No pools to reference.");
-                                return;
-                            }
-                            res = Show(true, engine, new PoolReference());
-                            break;
-
-                        case "PATT":
-                            res = Show(true, engine, new PatternReference());
-                            break;
-
-                        case "RINT":
-                            res = Show(true, engine, new RandomIntegerReference());
-                            break;
-
-                        case "RPAT":
-                            res = Show(true, engine, new RandomPatternReference());
-                            break;
-
-                        case "IPAT":
-                            res = Show(true, engine, new IteratedPatternReference());
-                            break;
-
-                        case "DTBL":
-                            res = Show(true, engine, new DistributionTableReference());
-                            break;
-
-                        default:
-                            return;
-                    }
+                    IReference res = Show(true, engine, ReferenceFactory.Create(DTBLcomboReferenceType.Text));
                     if (res != null)
                     {
                         DTBLRows[DTBLIndexInEditor].Reference = res;
