@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Remoting.Messaging;
 using System.Threading.Tasks;
 
 namespace TERGEngine
@@ -28,46 +30,48 @@ namespace TERGEngine
         public List<string> Compose(JobSettings job)
         {
             List<string> results = new List<string>();
-            if (job.Iterations < 1 || job.Pattern.ID == -1)
+            if (job.Validate())
             {
-                // Invalid Pattern or nothing to run
-                return results;
-            }
+                List<Task> tasks = new List<Task>();
 
-            List<Task> tasks = new List<Task>();
-
-            // Create thread for each iteration and return results list when done filling.
-            for (int i = 0; i < job.Iterations; i++)
-            {
-                tasks.Add(Task.Run(() =>
+                // Create thread for each iteration and return results list when done filling.
+                for (int i = 0; i < job.Iterations; i++)
                 {
-                    Pattern.HeaderAndFooterSetting hf;
-                    switch (job.HeaderAndFooter)
+                    tasks.Add(Task.Run(() =>
                     {
-                        case HeaderAndFooterSetting.ALL:
-                            // All the Headers and Footers
-                            hf = Pattern.HeaderAndFooterSetting.BOTH;
-                            break;
+                        var hf = CalcHF(job.HeaderAndFooter, i, job.Iterations);
+                        string filled = job.Pattern.Fill(e, hf);
+                        results.Add(filled);
+                    }));
+                }
 
-                        case HeaderAndFooterSetting.FIRST_LAST:
-                            if (i == 0 && job.Iterations > 1) hf = Pattern.HeaderAndFooterSetting.HEADER_ONLY;                          // First
-                            else if (i == job.Iterations - 1 && job.Iterations > 1) hf = Pattern.HeaderAndFooterSetting.FOOTER_ONLY;    // Last
-                            else if (job.Iterations == 1) hf = Pattern.HeaderAndFooterSetting.BOTH;                                     // Both because there is only one pattern
-                            else hf = Pattern.HeaderAndFooterSetting.NONE;                                                              // Middlel pattern, append neither
-                            break;
-
-                        default:
-                            hf = Pattern.HeaderAndFooterSetting.NONE;
-                            break;
-                    }
-
-                    string filled = job.Pattern.Fill(this.e, hf);
-                    results.Add(filled);
-                }));
+                Task.WaitAll(tasks.ToArray());
             }
-
-            Task.WaitAll(tasks.ToArray());
             return results;
+        }
+
+        internal static Pattern.HeaderAndFooterSetting CalcHF(HeaderAndFooterSetting setting, int it, int its)
+        {
+            Pattern.HeaderAndFooterSetting hf;
+            switch (setting)
+            {
+                case HeaderAndFooterSetting.ALL:
+                    // All the Headers and Footers
+                    hf = Pattern.HeaderAndFooterSetting.BOTH;
+                    break;
+
+                case HeaderAndFooterSetting.FIRST_LAST:
+                    if (it == 0 && its > 1) hf = Pattern.HeaderAndFooterSetting.HEADER_ONLY;                          // First
+                    else if (it == its - 1 && its > 1) hf = Pattern.HeaderAndFooterSetting.FOOTER_ONLY;    // Last
+                    else if (its == 1) hf = Pattern.HeaderAndFooterSetting.BOTH;                                     // Both because there is only one pattern
+                    else hf = Pattern.HeaderAndFooterSetting.NONE;                                                              // Middle pattern, append neither
+                    break;
+
+                default:
+                    hf = Pattern.HeaderAndFooterSetting.NONE;
+                    break;
+            }
+            return hf;
         }
     }
 
@@ -89,6 +93,11 @@ namespace TERGEngine
             Pattern = pattern;
             Iterations = iterations;
             HeaderAndFooter = headerAndFooterSetting;
+        }
+
+        public bool Validate()
+        {
+            return !(Iterations < 1 || Pattern.ID == -1);
         }
     }
 }
