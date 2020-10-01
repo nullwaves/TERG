@@ -748,23 +748,12 @@ namespace TERG
                     }
                     Pattern p = engine.Patterns[comboExportPattern.SelectedIndex];
 
-                    List<string> results = new List<string>();
-                    List<Task> tasks = new List<Task>();
-                    for (int i = 0; i < it; i++)
-                    {
-                        tasks.Add(Task.Run(() =>
-                        {
-                            string result = p.Fill(engine);
-                            results.Add(result);
-                        }));
-                    }
-                    Task.WaitAll(tasks.ToArray());
+                    List<string> results = engine.Composer.Compose(p, it, Composer.HeaderAndFooterSetting.NONE);
 
-                    foreach (string r in results)
+                    foreach (string result in results)
                     {
-                        o.WriteLine(
-                            checkExportSeperators.Checked ? r + Environment.NewLine + "-----------------------------------" : r
-                            );
+                        string value = result + Environment.NewLine + (checkExportSeperators.Checked ? "----END OF RESULT----" + Environment.NewLine : string.Empty);
+                        o.WriteLine(value);
                         o.Flush();
                     }
                     o.Close();
