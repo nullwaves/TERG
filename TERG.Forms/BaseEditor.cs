@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace TERG
+namespace TERG.Forms
 {
     public partial class BaseEditor : Form
     {

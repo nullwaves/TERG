@@ -7,8 +7,8 @@
     <ProjectGuid>{51E67029-2277-425C-A170-8D3C9A9ABB61}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TERG</RootNamespace>
-    <AssemblyName>TERG</AssemblyName>
+    <RootNamespace>TERG.Forms</RootNamespace>
+    <AssemblyName>TERG WinForms GUI</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

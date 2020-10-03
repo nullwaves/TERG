@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Windows.Forms;
 
-namespace TERG
+namespace TERG.Forms
 {
     partial class TERGAboutBox : Form
     {

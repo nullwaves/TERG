@@ -1,4 +1,4 @@
-﻿namespace TERG
+﻿namespace TERG.Forms
 {
     partial class ReferenceEditor
     {

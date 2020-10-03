@@ -7,9 +7,9 @@ using System.Windows.Forms;
 using TERGEngine;
 using TERGEngine.Reference;
 
-namespace TERG
+namespace TERG.Forms
 {
-    public partial class frmMain : Form
+    public partial class Dashboard : Form
     {
         private Engine engine;
 
@@ -25,12 +25,12 @@ namespace TERG
 
         private readonly string DBFileLocation = (string)Properties.Settings.Default["DatabaseFileLocation"];
 
-        public frmMain()
+        public Dashboard()
         {
             InitializeComponent();
         }
 
-        private void FrmMain_Load(object sender, EventArgs e)
+        private void Dashboard_Load(object sender, EventArgs e)
         {
             if (File.Exists(DBFileLocation))
             {

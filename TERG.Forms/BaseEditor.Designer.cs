@@ -1,4 +1,4 @@
-﻿namespace TERG
+﻿namespace TERG.Forms
 {
     partial class BaseEditor
     {
@@ -49,7 +49,7 @@
             // 
             // btnInsertReference
             // 
-            this.btnInsertReference.Image = global::TERG.Properties.Resources.page_code;
+            this.btnInsertReference.Image = global::TERG.Forms.Properties.Resources.page_code;
             this.btnInsertReference.Location = new System.Drawing.Point(479, 9);
             this.btnInsertReference.Name = "btnInsertReference";
             this.btnInsertReference.Size = new System.Drawing.Size(29, 23);
@@ -59,7 +59,7 @@
             // 
             // btnRefreshPool
             // 
-            this.btnRefreshPool.Image = global::TERG.Properties.Resources.action_refresh;
+            this.btnRefreshPool.Image = global::TERG.Forms.Properties.Resources.action_refresh;
             this.btnRefreshPool.Location = new System.Drawing.Point(444, 9);
             this.btnRefreshPool.Name = "btnRefreshPool";
             this.btnRefreshPool.Size = new System.Drawing.Size(29, 23);
@@ -69,7 +69,7 @@
             // 
             // btnSavePool
             // 
-            this.btnSavePool.Image = global::TERG.Properties.Resources.action_save;
+            this.btnSavePool.Image = global::TERG.Forms.Properties.Resources.action_save;
             this.btnSavePool.Location = new System.Drawing.Point(409, 9);
             this.btnSavePool.Name = "btnSavePool";
             this.btnSavePool.Size = new System.Drawing.Size(29, 23);

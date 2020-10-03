@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace TERG
+namespace TERG.Forms
 {
     internal static class Program
     {
@@ -13,7 +13,7 @@ namespace TERG
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmMain());
+            Application.Run(new Dashboard());
         }
     }
 }

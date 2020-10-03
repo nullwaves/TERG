@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace TERG
+namespace TERG.Forms
 {
-    partial class frmMain
+    partial class Dashboard
     {
         /// <summary>
         /// Required designer variable.
@@ -338,7 +338,7 @@ namespace TERG
             // 
             // btnRefreshPool
             // 
-            this.btnRefreshPool.Image = global::TERG.Properties.Resources.action_refresh;
+            this.btnRefreshPool.Image = global::TERG.Forms.Properties.Resources.action_refresh;
             this.btnRefreshPool.Location = new System.Drawing.Point(463, 6);
             this.btnRefreshPool.Name = "btnRefreshPool";
             this.btnRefreshPool.Size = new System.Drawing.Size(29, 23);
@@ -348,7 +348,7 @@ namespace TERG
             // 
             // btnSavePool
             // 
-            this.btnSavePool.Image = global::TERG.Properties.Resources.action_save;
+            this.btnSavePool.Image = global::TERG.Forms.Properties.Resources.action_save;
             this.btnSavePool.Location = new System.Drawing.Point(498, 6);
             this.btnSavePool.Name = "btnSavePool";
             this.btnSavePool.Size = new System.Drawing.Size(29, 23);
@@ -412,7 +412,7 @@ namespace TERG
             // 
             // btnMoveRefDown
             // 
-            this.btnMoveRefDown.Image = global::TERG.Properties.Resources.arrow_down;
+            this.btnMoveRefDown.Image = global::TERG.Forms.Properties.Resources.arrow_down;
             this.btnMoveRefDown.Location = new System.Drawing.Point(357, 150);
             this.btnMoveRefDown.Name = "btnMoveRefDown";
             this.btnMoveRefDown.Size = new System.Drawing.Size(43, 23);
@@ -422,7 +422,7 @@ namespace TERG
             // 
             // btnMoveRefUp
             // 
-            this.btnMoveRefUp.Image = global::TERG.Properties.Resources.arrow_up;
+            this.btnMoveRefUp.Image = global::TERG.Forms.Properties.Resources.arrow_up;
             this.btnMoveRefUp.Location = new System.Drawing.Point(357, 121);
             this.btnMoveRefUp.Name = "btnMoveRefUp";
             this.btnMoveRefUp.Size = new System.Drawing.Size(43, 23);
@@ -619,7 +619,7 @@ namespace TERG
             this.Name = "frmMain";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "The Encyclopedia of Random Generation";
-            this.Load += new System.EventHandler(this.FrmMain_Load);
+            this.Load += new System.EventHandler(this.Dashboard_Load);
             this.mainStatusStrip.ResumeLayout(false);
             this.mainStatusStrip.PerformLayout();
             this.menuStrip1.ResumeLayout(false);

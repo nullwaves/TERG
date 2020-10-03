@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using TERGEngine;
 using TERGEngine.Reference;
 
-namespace TERG
+namespace TERG.Forms
 {
     public partial class ReferenceEditor : Form
     {

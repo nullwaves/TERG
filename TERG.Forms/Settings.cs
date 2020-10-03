@@ -1,4 +1,4 @@
-﻿namespace TERG.Properties
+﻿namespace TERG.Forms.Properties
 {
 
 
