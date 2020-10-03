@@ -56,11 +56,11 @@
     <Compile Include="BaseEditor.Designer.cs">
       <DependentUpon>BaseEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmMain.cs">
+    <Compile Include="Dashboard.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmMain.Designer.cs">
-      <DependentUpon>frmMain.cs</DependentUpon>
+    <Compile Include="Dashboard.Designer.cs">
+      <DependentUpon>Dashboard.cs</DependentUpon>
     </Compile>
     <Compile Include="InputBox.cs">
       <SubType>Form</SubType>
@@ -86,8 +86,8 @@
     <EmbeddedResource Include="BaseEditor.resx">
       <DependentUpon>BaseEditor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmMain.resx">
-      <DependentUpon>frmMain.cs</DependentUpon>
+    <EmbeddedResource Include="Dashboard.resx">
+      <DependentUpon>Dashboard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InputBox.resx">
       <DependentUpon>InputBox.cs</DependentUpon>
