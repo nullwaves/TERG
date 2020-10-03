@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace TERG.Core
+namespace TERG.Core.Models
 {
     public class Pool
     {

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Text;
+using TERG.Core.Interfaces;
 
-namespace TERG.Core.Reference
+namespace TERG.Core.Models.References
 {
     public class IteratedPatternReference : IReference
     {
@@ -13,7 +14,7 @@ namespace TERG.Core.Reference
         {
             get
             {
-                return (MinimumIterations != MaximumIterations);
+                return MinimumIterations != MaximumIterations;
             }
         }
 

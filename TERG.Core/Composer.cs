@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.IO;
-using System.Runtime.Remoting.Messaging;
 using System.Threading.Tasks;
+using TERG.Core.Models;
 
 namespace TERG.Core
 {

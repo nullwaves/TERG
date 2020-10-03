@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using TERG.Core.Reference;
+using TERG.Core.Interfaces;
+using TERG.Core.Models.References;
 
 namespace TERG.Core
 {

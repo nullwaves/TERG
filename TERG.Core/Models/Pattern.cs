@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using TERG.Core.Reference;
+using TERG.Core.Interfaces;
 
-namespace TERG.Core
+namespace TERG.Core.Models
 {
     public class Pattern
     {
@@ -27,7 +27,7 @@ namespace TERG.Core
         {
             ID = i;
             Name = name;
-            Desc = String.Empty;
+            Desc = string.Empty;
             References = new List<IReference>();
             Header = new string[0];
             Body = new string[] { "[@0]" };
@@ -44,7 +44,7 @@ namespace TERG.Core
                 data[i] = References[i].Pull(e);
             }
 
-            StringBuilder output = new StringBuilder(String.Join(Environment.NewLine, Body));
+            StringBuilder output = new StringBuilder(string.Join(Environment.NewLine, Body));
 
             for (int i = 0; i < References.Count; i++)
             {

@@ -49,8 +49,8 @@
     <Compile Include="ReferenceFactory.cs" />
     <Compile Include="Models\References\DistributionTableReference.cs" />
     <Compile Include="Interfaces\IReference.cs" />
-    <Compile Include="Pattern.cs" />
-    <Compile Include="Pool.cs" />
+    <Compile Include="Models\Pattern.cs" />
+    <Compile Include="Models\Pool.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\References\IteratedPatternReference.cs" />
     <Compile Include="Models\References\PatternReference.cs" />

@@ -1,6 +1,7 @@
 ﻿using System.Text;
+using TERG.Core.Interfaces;
 
-namespace TERG.Core.Reference
+namespace TERG.Core.Models.References
 {
     public class RandomIntegerReference : IReference
     {
