@@ -4,8 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using TERGEngine;
-using TERGEngine.Reference;
+using TERG.Core;
+using TERG.Core.Reference;
 
 namespace TERG.Forms
 {

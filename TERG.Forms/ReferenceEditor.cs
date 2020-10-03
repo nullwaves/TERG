@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using TERGEngine;
-using TERGEngine.Reference;
+using TERG.Core;
+using TERG.Core.Reference;
 
 namespace TERG.Forms
 {
@@ -26,7 +26,7 @@ namespace TERG.Forms
         /*
          * Show(
          *      bool        n:  A New reference
-         *      Engine      e:  TERGEngine loaded
+         *      Engine      e:  TERG.Core loaded
          *      Reference   r:  Reference to be edited
         */
 

@@ -123,12 +123,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TERGEngine\TERGEngine.csproj">
-      <Project>{bb9a9d99-02a5-4f55-be3a-07b527f7fb26}</Project>
-      <Name>TERGEngine</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\action_save.gif" />
   </ItemGroup>
   <ItemGroup>
@@ -142,6 +136,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\arrow_up.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TERG.Core\TERG.Core.csproj">
+      <Project>{BB9A9D99-02A5-4F55-BE3A-07B527F7FB26}</Project>
+      <Name>TERG.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

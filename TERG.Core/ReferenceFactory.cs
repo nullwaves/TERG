@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using TERGEngine.Reference;
+using TERG.Core.Reference;
 
-namespace TERGEngine
+namespace TERG.Core
 {
     public static class ReferenceFactory
     {

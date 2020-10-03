@@ -3,7 +3,7 @@ using System.IO;
 using System.Runtime.Remoting.Messaging;
 using System.Threading.Tasks;
 
-namespace TERGEngine
+namespace TERG.Core
 {
     public class Composer
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace TERGEngine.Reference
+namespace TERG.Core.Reference
 {
     public class DistributionTableReference : IReference
     {

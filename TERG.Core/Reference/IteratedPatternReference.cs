@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace TERGEngine.Reference
+namespace TERG.Core.Reference
 {
     public class IteratedPatternReference : IReference
     {

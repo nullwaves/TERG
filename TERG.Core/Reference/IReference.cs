@@ -1,4 +1,4 @@
-﻿namespace TERGEngine.Reference
+﻿namespace TERG.Core.Reference
 {
     // find a way to add global variables for reference types.
     public interface IReference

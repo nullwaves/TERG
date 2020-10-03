@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TERGEngine.Reference
+namespace TERG.Core.Reference
 {
     public class RandomPatternReference : IReference
     {
