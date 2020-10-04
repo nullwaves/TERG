@@ -23,14 +23,14 @@ namespace TERG.Core.Models
         public string[] Body;
         public string[] Footer;
 
-        public Pattern(int i, string name)
+        public Pattern()
         {
-            ID = i;
-            Name = name;
+            ID = -1;
+            Name = string.Empty;
             Desc = string.Empty;
             References = new List<IReference>();
             Header = new string[0];
-            Body = new string[] { "[@0]" };
+            Body = new string[0];
             Footer = new string[0];
         }
 

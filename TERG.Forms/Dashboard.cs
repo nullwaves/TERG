@@ -14,6 +14,8 @@ namespace TERG.Forms
     {
         private Engine engine;
 
+        private IEnumerable<Pattern> Patterns => engine.GetPatterns();
+
         // Variables for Pool Editor
         private int IndexInPoolEditor = -1;
 
@@ -40,7 +42,7 @@ namespace TERG.Forms
                 try
                 {
                     engine = Engine.Load(DBFileLocation);
-                    PushDatabaseStatus("Database loaded from [" + Path.GetFullPath(DBFileLocation) + "]. Pools: " + engine.Pools.Count + " Patterns: " + engine.Patterns.Count);
+                    PushDatabaseStatus("Database loaded from [" + Path.GetFullPath(DBFileLocation) + "]. Pools: " + engine.Pools.Count + " Patterns: " + Patterns.Count());
                 }
                 catch (Exception ex)
                 {
@@ -65,7 +67,7 @@ namespace TERG.Forms
         {
             listPatterns.Items.Clear();                                    // Clear Patterns list
             comboExportPattern.Items.Clear();
-            foreach (Pattern p in engine.Patterns)
+            foreach (Pattern p in Patterns)
             {
                 listPatterns.Items.Add(p.Name);                             // Add each Pattern back to the list
                 comboExportPattern.Items.Add(p.Name);
@@ -90,7 +92,7 @@ namespace TERG.Forms
 
             if (IndexInPatternEditor != -1)                                 // 3, 2, 1, Let's Jam!
             {
-                Pattern p = engine.Patterns[IndexInPatternEditor];          // Fetch pattern for easy reference
+                Pattern p = Patterns.ToArray()[IndexInPatternEditor];          // Fetch pattern for easy reference
                 textPatternName.Text = p.Name;                              // Fill TextBox textPatternName
                 foreach (IReference r in p.References)
                 {
@@ -172,10 +174,10 @@ namespace TERG.Forms
         {
             // Save Pattern Name
             string name = textPatternName.Text.Trim();
-            if (!engine.Patterns[IndexInPatternEditor].Name.Equals(name))
+            if (!Patterns.ToArray()[IndexInPatternEditor].Name.Equals(name))
             {
-                string oldName = engine.Patterns[IndexInPatternEditor].Name;
-                engine.Patterns[IndexInPatternEditor].Name = name;
+                string oldName = Patterns.ToArray()[IndexInPatternEditor].Name;
+                Patterns.ToArray()[IndexInPatternEditor].Name = name;
                 PushDatabaseStatus("Updated pattern name from [" + oldName + "] to [" + name + "]");
             }
 
@@ -435,9 +437,9 @@ namespace TERG.Forms
             {
                 int index = listPatternReferences.SelectedIndex;
 
-                IReference r = ReferenceEditor.Show(false, engine, engine.Patterns[IndexInPatternEditor].References[index]);
-                engine.Patterns[IndexInPatternEditor].References[index] = r;
-                PushDatabaseStatus("Updated Reference in Pattern [" + engine.Patterns[IndexInPatternEditor].Name + "]");
+                IReference r = ReferenceEditor.Show(false, engine, Patterns.ToArray()[IndexInPatternEditor].References[index]);
+                Patterns.ToArray()[IndexInPatternEditor].References[index] = r;
+                PushDatabaseStatus("Updated Reference in Pattern [" + Patterns.ToArray()[IndexInPatternEditor].Name + "]");
                 SaveDatabase();
                 LoadPattern();
             }
@@ -449,12 +451,16 @@ namespace TERG.Forms
             if (result.OK)
             {
                 string name = result.Text.Trim();
-                if (name.Length > 0)
+                var ret = engine.AddPattern(new Pattern() { Name = name });
+                if (ret.ID > 0)
                 {
-                    engine.Patterns.Add(new Pattern(engine.GetNextPatternID(), name));
-                    PushDatabaseStatus("Added pattern \"" + name + "\"");
+                    PushDatabaseStatus($"Added pattern [{ret.ID}] {ret.Name}");
                     SaveDatabase();
                     LoadPatternLists();
+                }
+                else
+                {
+                    PushDatabaseStatus("Failed to add Pattern");
                 }
             }
         }
@@ -463,12 +469,12 @@ namespace TERG.Forms
         {
             if (IndexInPatternEditor != -1)
             {
-                Pattern patt = engine.Patterns[IndexInPatternEditor];
+                Pattern patt = Patterns.ToArray()[IndexInPatternEditor];
                 BaseEditorResult result = BaseEditor.Show(patt.Name, patt.Body);
 
                 if (result.OK)
                 {
-                    engine.Patterns[IndexInPatternEditor].Body = result.Text;
+                    Patterns.ToArray()[IndexInPatternEditor].Body = result.Text;
                     PushDatabaseStatus("Updated template for [" + patt.Name + "]");
                     SaveDatabase();
                 }
@@ -482,8 +488,8 @@ namespace TERG.Forms
                 string s = comboAddReferenceType.Text.Trim();
                 IReference nref = ReferenceFactory.Create(s);
                 nref = ReferenceEditor.Show(true, engine, nref);
-                engine.Patterns[IndexInPatternEditor].References.Add(nref);
-                PushDatabaseStatus("Added Reference of type [" + s + "] to pattern [" + engine.Patterns[IndexInPatternEditor].Name + "]");
+                Patterns.ToArray()[IndexInPatternEditor].References.Add(nref);
+                PushDatabaseStatus("Added Reference of type [" + s + "] to pattern [" + Patterns.ToArray()[IndexInPatternEditor].Name + "]");
                 SaveDatabase();
                 LoadPattern();
             }
@@ -493,7 +499,7 @@ namespace TERG.Forms
         {
             if (IndexInPatternEditor != -1)
             {
-                MessageBox.Show(engine.Patterns[IndexInPatternEditor].Fill(engine));
+                MessageBox.Show(Patterns.ToArray()[IndexInPatternEditor].Fill(engine));
             }
         }
 
@@ -507,7 +513,7 @@ namespace TERG.Forms
                 int poolConflicts = 0;
 
                 // Check how many patterns reference this pool
-                foreach (Pattern p in engine.Patterns)
+                foreach (Pattern p in Patterns)
                 {
                     foreach (IReference r in p.References)
                     {
@@ -535,7 +541,7 @@ namespace TERG.Forms
                 if (result.OK && result.Text == engine.Pools[IndexInPoolEditor].Name)
                 {
                     // Delete any patterns references to this pool
-                    foreach (Pattern p in engine.Patterns)
+                    foreach (Pattern p in Patterns)
                     {
                         List<IReference> removal = new List<IReference>();
                         foreach (IReference r in p.References)
@@ -578,12 +584,12 @@ namespace TERG.Forms
         {
             if (IndexInPatternEditor != -1)
             {
-                int PatternID = engine.Patterns[IndexInPatternEditor].ID;
+                int PatternID = Patterns.ToArray()[IndexInPatternEditor].ID;
 
                 int pattConflicts = 0;
 
                 // Check for any patterns that reference this pattern
-                foreach (Pattern p in engine.Patterns)
+                foreach (Pattern p in Patterns)
                 {
                     for (int i = 0; i < p.References.Count; i++)
                     {
@@ -600,9 +606,9 @@ namespace TERG.Forms
 
                 MessageBox.Show("Deleting this pattern will affect " + pattConflicts + " Patterns.");
                 InputBoxResult result = InputBox.Show("Type the pattern name to continue with deletion.", this.Text);
-                if (result.OK && result.Text == engine.Patterns[IndexInPatternEditor].Name)
+                if (result.OK && result.Text == Patterns.ToArray()[IndexInPatternEditor].Name)
                 {
-                    foreach (Pattern p in engine.Patterns)
+                    foreach (Pattern p in Patterns)
                     {
                         for (int i = 0; i < p.References.Count; i++)
                         {
@@ -618,11 +624,11 @@ namespace TERG.Forms
                         }
                     }
 
-                    string oldName = engine.Patterns[IndexInPatternEditor].Name;
+                    Pattern oldpatt = Patterns.ToArray()[IndexInPatternEditor];
 
-                    engine.Patterns.RemoveAt(IndexInPatternEditor);
+                    engine.RemovePattern(PatternID);
                     IndexInPatternEditor = -1;
-                    PushDatabaseStatus("Deleted Pattern [" + oldName + "]");
+                    PushDatabaseStatus($"Deleted Pattern [{oldpatt.Name}]");
                     SaveDatabase();
                     LoadPatternLists();
                 }
@@ -652,9 +658,9 @@ namespace TERG.Forms
             if (IndexInPatternEditor != -1 && listPatternReferences.SelectedIndex > 0)
             {
                 int index = listPatternReferences.SelectedIndex;
-                IReference temp = engine.Patterns[IndexInPatternEditor].References[index];
-                engine.Patterns[IndexInPatternEditor].References[index] = engine.Patterns[IndexInPatternEditor].References[index - 1];
-                engine.Patterns[IndexInPatternEditor].References[index - 1] = temp;
+                IReference temp = Patterns.ToArray()[IndexInPatternEditor].References[index];
+                Patterns.ToArray()[IndexInPatternEditor].References[index] = Patterns.ToArray()[IndexInPatternEditor].References[index - 1];
+                Patterns.ToArray()[IndexInPatternEditor].References[index - 1] = temp;
                 SaveDatabase();
                 LoadPattern();
                 listPatternReferences.SelectedIndex = index - 1;
@@ -668,9 +674,9 @@ namespace TERG.Forms
                 listPatternReferences.SelectedIndex < listPatternReferences.Items.Count - 1)
             {
                 int index = listPatternReferences.SelectedIndex;
-                IReference temp = engine.Patterns[IndexInPatternEditor].References[index];
-                engine.Patterns[IndexInPatternEditor].References[index] = engine.Patterns[IndexInPatternEditor].References[index + 1];
-                engine.Patterns[IndexInPatternEditor].References[index + 1] = temp;
+                IReference temp = Patterns.ToArray()[IndexInPatternEditor].References[index];
+                Patterns.ToArray()[IndexInPatternEditor].References[index] = Patterns.ToArray()[IndexInPatternEditor].References[index + 1];
+                Patterns.ToArray()[IndexInPatternEditor].References[index + 1] = temp;
                 SaveDatabase();
                 LoadPattern();
                 listPatternReferences.SelectedIndex = index + 1;
@@ -686,8 +692,8 @@ namespace TERG.Forms
 
                 if (result == DialogResult.Yes)
                 {
-                    engine.Patterns[IndexInPatternEditor].References.RemoveAt(listPatternReferences.SelectedIndex);
-                    PushDatabaseStatus("Deleted reference in pattern [" + engine.Patterns[IndexInPatternEditor].Name + "]");
+                    Patterns.ToArray()[IndexInPatternEditor].References.RemoveAt(listPatternReferences.SelectedIndex);
+                    PushDatabaseStatus("Deleted reference in pattern [" + Patterns.ToArray()[IndexInPatternEditor].Name + "]");
                     SaveDatabase();
                     LoadPattern();
                 }
@@ -702,7 +708,7 @@ namespace TERG.Forms
                 {
                     it = 1;
                 }
-                Pattern p = engine.Patterns[comboExportPattern.SelectedIndex];
+                Pattern p = Patterns.ToArray()[comboExportPattern.SelectedIndex];
 
                 textExport.Clear();
 
@@ -747,7 +753,7 @@ namespace TERG.Forms
                     {
                         MessageBox.Show("Invalid number of iterations. Defaulting to 1.");
                     }
-                    Pattern p = engine.Patterns[comboExportPattern.SelectedIndex];
+                    Pattern p = Patterns.ToArray()[comboExportPattern.SelectedIndex];
 
                     List<string> results = engine.Composer.Compose(p, it, Composer.HeaderAndFooterSetting.NONE);
 
@@ -768,17 +774,24 @@ namespace TERG.Forms
         {
             if (IndexInPatternEditor != -1)
             {
-                Pattern patt = engine.Patterns[IndexInPatternEditor];
-                Pattern npat = new Pattern(engine.GetNextPatternID(), patt.Name + "_2")
+                Pattern patt = Patterns.ToArray()[IndexInPatternEditor];
+                Pattern npat = new Pattern()
                 {
+                    ID = -1,
+                    Name = $"Copy of {patt.Name}",
                     Desc = patt.Desc,
+                    Header = patt.Header,
                     Body = patt.Body,
+                    Footer = patt.Footer,
                     References = patt.References
                 };
-                engine.Patterns.Add(npat);
-                PushDatabaseStatus("Copied pattern \"" + patt.Name + "\"");
-                SaveDatabase();
-                LoadPatternLists();
+                var ret = engine.AddPattern(npat);
+                if (ret.ID > 0)
+                {
+                    PushDatabaseStatus("Copied pattern \"" + patt.Name + "\"");
+                    SaveDatabase();
+                    LoadPatternLists();
+                }
             }
             else
             {

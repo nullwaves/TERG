@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using TERG.Core.Managers;
 using TERG.Core.Models;
 
 namespace TERG.Core
@@ -10,7 +11,7 @@ namespace TERG.Core
     public class Engine
     {
         public List<Pool> Pools;
-        public List<Pattern> Patterns;
+        internal PatternManager PatternManager;
         public Composer Composer { get; }
 
         public static Random RNG = new Random();
@@ -23,9 +24,17 @@ namespace TERG.Core
         public Engine()
         {
             Pools = new List<Pool>();
-            Patterns = new List<Pattern>();
+            PatternManager = new PatternManager();
             Composer = new Composer(this);
         }
+
+        public Pattern AddPattern(Pattern p) => PatternManager.Add(p);
+
+        public IEnumerable<Pattern> GetPatterns() => PatternManager.GetAll();
+
+        public Pattern GetPatternByID(int id) => PatternManager.GetByID(id);
+
+        public bool RemovePattern(int id) => PatternManager.RemovePattern(id);
 
         public static Engine Load(string file)
         {

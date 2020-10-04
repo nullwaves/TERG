@@ -82,7 +82,7 @@ namespace TERG.Core
 
         public JobSettings()
         {
-            Pattern = new Pattern(-1, "empty");
+            Pattern = new Pattern() { ID = -1 };
             Iterations = 1;
             HeaderAndFooter = Composer.HeaderAndFooterSetting.NONE;
         }

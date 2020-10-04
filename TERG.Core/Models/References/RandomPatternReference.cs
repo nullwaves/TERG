@@ -23,7 +23,7 @@ namespace TERG.Core.Models.References
         public string Pull(Engine e)
         {
             if (PatternList.Count < 1) return string.Empty;
-            Pattern p = e.FindPatternById(PatternList[Engine.RNG.Next(0, PatternList.Count)]);
+            Pattern p = e.GetPatternByID(PatternList[Engine.RNG.Next(0, PatternList.Count)]);
             return p?.Fill(e);
         }
 

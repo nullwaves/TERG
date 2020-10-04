@@ -21,12 +21,12 @@ namespace TERG.Core.Models.References
 
         public string Pull(Engine e)
         {
-            return e.FindPatternById(PatternID)?.Fill(e);
+            return e.GetPatternByID(PatternID)?.Fill(e);
         }
 
         public string ToString(Engine e)
         {
-            return "PATTERN: " + e.FindPatternById(PatternID)?.Name;
+            return "PATTERN: " + e.GetPatternByID(PatternID)?.Name;
         }
     }
 }

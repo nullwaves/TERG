@@ -35,7 +35,7 @@ namespace TERG.Core.Models.References
 
         public string Pull(Engine e)
         {
-            Pattern p = e.FindPatternById(PatternID);
+            Pattern p = e.GetPatternByID(PatternID);
             if (p == null)
             {
                 return string.Empty;
@@ -54,7 +54,7 @@ namespace TERG.Core.Models.References
 
         public string ToString(Engine e)
         {
-            var pat = e.FindPatternById(PatternID);
+            var pat = e.GetPatternByID(PatternID);
             return "IPAT: m" + MinimumIterations +
                 (Random ? " M" + MaximumIterations : string.Empty) +
                 " " + (pat != null ? pat.Name : "Empty");

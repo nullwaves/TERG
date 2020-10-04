@@ -83,13 +83,13 @@ namespace TERG.Forms
                         PatternReference pattr = (PatternReference)r;
 
                         // Setup form
-                        foreach (Pattern p in e.Patterns)
+                        foreach (Pattern p in e.GetPatterns())
                         {
                             form.PATTcomboPattern.Items.Add(p.Name);
                         }
                         if (!n)
                         {
-                            form.PATTcomboPattern.SelectedIndex = form.PATTcomboPattern.Items.IndexOf(e.FindPatternById(pattr.PatternID).Name);
+                            form.PATTcomboPattern.SelectedIndex = form.PATTcomboPattern.Items.IndexOf(e.GetPatternByID(pattr.PatternID).Name);
                         }
                         else
                         {
@@ -101,7 +101,7 @@ namespace TERG.Forms
 
                         if (result == DialogResult.OK)
                         {
-                            pattr.PatternID = e.Patterns[form.PATTcomboPattern.SelectedIndex].ID;
+                            pattr.PatternID = e.GetPatterns().ToArray()[form.PATTcomboPattern.SelectedIndex].ID;
                         }
 
                         return pattr;
@@ -149,7 +149,7 @@ namespace TERG.Forms
                         RandomPatternReference rpatr = (RandomPatternReference)r;
 
                         // Setup form
-                        foreach (Pattern p in e.Patterns)
+                        foreach (Pattern p in e.GetPatterns())
                         {
                             form.RPATlistPatterns.Items.Add(p.Name);
                         }
@@ -158,7 +158,7 @@ namespace TERG.Forms
                         {
                             foreach (int id in rpatr.PatternList)
                             {
-                                form.RPATlistSelected.Items.Add(e.FindPatternById(id).Name);
+                                form.RPATlistSelected.Items.Add(e.GetPatternByID(id).Name);
                             }
                         }
 
@@ -170,7 +170,7 @@ namespace TERG.Forms
                             foreach (string s in form.RPATlistSelected.Items)
                             {
                                 int index = form.RPATlistPatterns.Items.IndexOf(s);
-                                plist.Add(e.Patterns[index].ID);
+                                plist.Add(e.GetPatterns().ToArray()[index].ID);
                             }
 
                             rpatr.PatternList = plist;
@@ -188,13 +188,13 @@ namespace TERG.Forms
                         IteratedPatternReference ipatr = (IteratedPatternReference)r;
 
                         // Setup form
-                        foreach (Pattern p in e.Patterns)
+                        foreach (Pattern p in e.GetPatterns())
                         {
                             form.IPATcomboPattern.Items.Add(p.Name);
                         }
                         if (!n)
                         {
-                            var pat = e.FindPatternById(ipatr.PatternID);
+                            var pat = e.GetPatternByID(ipatr.PatternID);
                             form.IPATcomboPattern.SelectedIndex = pat != null ? form.IPATcomboPattern.Items.IndexOf(pat.Name) : -1;
                             form.IPATtextMin.Text = ipatr.MinimumIterations.ToString();
                             form.IPATtextMax.Text = ipatr.MaximumIterations.ToString();
@@ -213,7 +213,7 @@ namespace TERG.Forms
 
                         if (result == DialogResult.OK)
                         {
-                            ipatr.PatternID = e.Patterns[form.IPATcomboPattern.SelectedIndex].ID;
+                            ipatr.PatternID = e.GetPatterns().ToArray()[form.IPATcomboPattern.SelectedIndex].ID;
                             ipatr.MinimumIterations = int.Parse(form.IPATtextMin.Text);
                             ipatr.MaximumIterations = int.Parse(form.IPATtextMax.Text);
                         }
