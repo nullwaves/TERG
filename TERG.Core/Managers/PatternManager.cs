@@ -17,5 +17,21 @@ namespace TERG.Core.Managers
         {
             return _patterns;
         }
+
+        public Pattern GetByID(int id)
+        {
+            return _patterns.Where(x => id == x.ID).FirstOrDefault();
+        }
+
+        internal int GetNextID()
+        {
+            int i = 0;
+            foreach (Pattern p in _patterns)
+            {
+                if (p.ID >= i) i = p.ID;
+            }
+
+            return i + 1;
+        }
     }
 }

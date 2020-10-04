@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Composer.cs" />
     <Compile Include="Engine.cs" />
+    <Compile Include="Managers\PatternManager.cs" />
     <Compile Include="ReferenceFactory.cs" />
     <Compile Include="Models\References\DistributionTableReference.cs" />
     <Compile Include="Interfaces\IReference.cs" />

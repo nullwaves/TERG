@@ -62,22 +62,5 @@ namespace TERG.Core
         {
             return Pools.Where(x => id == x.ID).FirstOrDefault();
         }
-
-        public int GetNextPatternID()
-        {
-            //Find the Pattern with the highest ID number and return the next.
-            int i = 0;
-            foreach (Pattern p in Patterns)
-            {
-                if (p.ID >= i) i = p.ID;
-            }
-
-            return i + 1;
-        }
-
-        public Pattern FindPatternById(int id)
-        {
-            return Patterns.Where(x => id == x.ID).FirstOrDefault();
-        }
     }
 }
