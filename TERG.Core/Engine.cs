@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using TERG.Core.Managers;
 using TERG.Core.Models;
+using TERG.Core.Services;
 
 namespace TERG.Core
 {
@@ -12,6 +13,7 @@ namespace TERG.Core
         internal PoolManager PoolManager;
         internal PatternManager PatternManager;
         public Composer Composer { get; }
+        public ShorthandService ShorthandService { get; }
 
         public static Random RNG = new Random();
 
@@ -25,6 +27,7 @@ namespace TERG.Core
             PoolManager = new PoolManager();
             PatternManager = new PatternManager();
             Composer = new Composer(this);
+            ShorthandService = new ShorthandService(this);
         }
 
         // Pattern Methods

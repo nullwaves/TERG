@@ -32,35 +32,24 @@ namespace TERG.Forms
          *      Reference   r:  Reference to be edited
         */
 
-        public static IReference Show(bool n, Engine e, IReference r)
+        public static IReference Show(bool newFlag, Engine e, IReference r)
         {
             using (ReferenceEditor form = new ReferenceEditor())
             {
                 DialogResult result;
                 form.SetPage(r.Type);
                 form.engine = e;
+
                 switch (r.Type)
                 {
-                    #region PoolRef
-
                     case "POOL":
-
                         // Convert to type
                         PoolReference poolr = (PoolReference)r;
 
                         // Setup form
-                        foreach (Pool p in e.Pools)
-                        {
-                            form.POOLcomboPool.Items.Add(p.Name);
-                        }
-                        if (!n)
-                        {
-                            form.POOLcomboPool.SelectedIndex = form.POOLcomboPool.Items.IndexOf(e.FindPoolById(poolr.PoolID).Name);
-                        }
-                        else
-                        {
-                            form.POOLcomboPool.SelectedIndex = 0;
-                        }
+                        form.POOLcomboPool.DisplayMember = "Name";
+                        form.POOLcomboPool.Items.AddRange(e.GetPools().ToArray());
+                        form.POOLcomboPool.SelectedIndex = newFlag ? 0 : form.POOLcomboPool.Items.IndexOf(e.GetPoolByID(poolr.PoolID));
 
                         // Show Form and return results
                         result = form.ShowDialog();
@@ -68,55 +57,36 @@ namespace TERG.Forms
                         if (result == DialogResult.OK)
                         {
                             // All's good return the new reference
-                            poolr.PoolID = e.Pools[form.POOLcomboPool.SelectedIndex].ID;
+                            poolr.PoolID = ((Pool)form.POOLcomboPool.SelectedItem).ID;
                         }
 
                         return poolr;
 
-                    #endregion PoolRef
-
-                    #region PatternRef
-
                     case "PATT":
-
                         // Convert to type
                         PatternReference pattr = (PatternReference)r;
 
                         // Setup form
-                        foreach (Pattern p in e.GetPatterns())
-                        {
-                            form.PATTcomboPattern.Items.Add(p.Name);
-                        }
-                        if (!n)
-                        {
-                            form.PATTcomboPattern.SelectedIndex = form.PATTcomboPattern.Items.IndexOf(e.GetPatternByID(pattr.PatternID).Name);
-                        }
-                        else
-                        {
-                            form.PATTcomboPattern.SelectedIndex = 0;
-                        }
+                        form.PATTcomboPattern.DisplayMember = "Name";
+                        form.PATTcomboPattern.Items.AddRange(e.GetPatterns().ToArray());
+                        form.PATTcomboPattern.SelectedIndex = newFlag ? 0 : form.PATTcomboPattern.Items.IndexOf(e.GetPatternByID(pattr.PatternID));
 
                         // Show form and return results
                         result = form.ShowDialog();
 
                         if (result == DialogResult.OK)
                         {
-                            pattr.PatternID = e.GetPatterns().ToArray()[form.PATTcomboPattern.SelectedIndex].ID;
+                            pattr.PatternID = ((Pattern)form.PATTcomboPattern.SelectedItem).ID;
                         }
 
                         return pattr;
 
-                    #endregion PatternRef
-
-                    #region RIntegerRef
-
                     case "RINT":
-
                         // Convert to type
                         RandomIntegerReference rintr = (RandomIntegerReference)r;
 
                         // Setup form
-                        if (n)
+                        if (newFlag)
                         {
                             form.RINTtextMin.Text = "0";
                             form.RINTtextMax.Text = "9";
@@ -140,26 +110,17 @@ namespace TERG.Forms
 
                         return rintr;
 
-                    #endregion RIntegerRef
-
-                    #region RPAT
-
                     case "RPAT":
                         // Convert to type
                         RandomPatternReference rpatr = (RandomPatternReference)r;
 
                         // Setup form
-                        foreach (Pattern p in e.GetPatterns())
+                        form.RPATlistPatterns.DisplayMember = "Name";
+                        form.RPATlistPatterns.Items.AddRange(e.GetPatterns().ToArray());
+                        form.RPATlistSelected.DisplayMember = "Name";
+                        foreach (int id in rpatr.PatternList)
                         {
-                            form.RPATlistPatterns.Items.Add(p.Name);
-                        }
-
-                        if (!n)
-                        {
-                            foreach (int id in rpatr.PatternList)
-                            {
-                                form.RPATlistSelected.Items.Add(e.GetPatternByID(id).Name);
-                            }
+                            form.RPATlistSelected.Items.Add(e.GetPatternByID(id));
                         }
 
                         result = form.ShowDialog();
@@ -167,10 +128,9 @@ namespace TERG.Forms
                         if (result == DialogResult.OK)
                         {
                             var plist = new List<int>();
-                            foreach (string s in form.RPATlistSelected.Items)
+                            foreach (Pattern p in form.RPATlistSelected.Items)
                             {
-                                int index = form.RPATlistPatterns.Items.IndexOf(s);
-                                plist.Add(e.GetPatterns().ToArray()[index].ID);
+                                plist.Add(p.ID);
                             }
 
                             rpatr.PatternList = plist;
@@ -178,51 +138,30 @@ namespace TERG.Forms
 
                         return rpatr;
 
-                    #endregion RPAT
-
-                    #region IPAT
-
                     case "IPAT":
 
                         // Convert to type
                         IteratedPatternReference ipatr = (IteratedPatternReference)r;
 
                         // Setup form
-                        foreach (Pattern p in e.GetPatterns())
-                        {
-                            form.IPATcomboPattern.Items.Add(p.Name);
-                        }
-                        if (!n)
-                        {
-                            var pat = e.GetPatternByID(ipatr.PatternID);
-                            form.IPATcomboPattern.SelectedIndex = pat != null ? form.IPATcomboPattern.Items.IndexOf(pat.Name) : -1;
-                            form.IPATtextMin.Text = ipatr.MinimumIterations.ToString();
-                            form.IPATtextMax.Text = ipatr.MaximumIterations.ToString();
-                            form.IPATcheckRandom.Checked = ipatr.Random;
-                        }
-                        else
-                        {
-                            form.IPATcomboPattern.SelectedIndex = 0;
-                            form.IPATtextMin.Text = "1";
-                            form.IPATtextMax.Text = "1";
-                            form.IPATcheckRandom.Checked = false;
-                        }
+                        form.IPATcomboPattern.Items.AddRange(e.GetPatterns().ToArray());
+                        var pat = e.GetPatternByID(ipatr.PatternID);
+                        form.IPATcomboPattern.SelectedIndex = pat != null ? form.IPATcomboPattern.Items.IndexOf(pat.Name) : 0;
+                        form.IPATtextMin.Text = ipatr.MinimumIterations.ToString();
+                        form.IPATtextMax.Text = ipatr.MaximumIterations.ToString();
+                        form.IPATcheckRandom.Checked = ipatr.Random;
 
                         // Show form and return results
                         result = form.ShowDialog();
 
                         if (result == DialogResult.OK)
                         {
-                            ipatr.PatternID = e.GetPatterns().ToArray()[form.IPATcomboPattern.SelectedIndex].ID;
+                            ipatr.PatternID = ((Pattern)form.IPATcomboPattern.SelectedItem).ID;
                             ipatr.MinimumIterations = int.Parse(form.IPATtextMin.Text);
                             ipatr.MaximumIterations = int.Parse(form.IPATtextMax.Text);
                         }
 
                         return ipatr;
-
-                    #endregion IPAT
-
-                    #region DTBL
 
                     case "DTBL":
 
@@ -230,14 +169,14 @@ namespace TERG.Forms
                         DistributionTableReference dtblr = (DistributionTableReference)r;
 
                         // Setup form
-                        if (!n)
+                        if (!newFlag)
                         {
                             form.DTBL_setRows(dtblr.Rows);
                             form.DTBLlstRows_SelectedIndexChanged(form, new EventArgs());
                         }
                         else
                         {
-                            form.DTBL_setRows(new List<DistributionRow>() { new DistributionRow() { Start = 1, End = 100, Value = "Empty" } });
+                            form.DTBL_setRows(new List<DistributionRow>() { new DistributionRow() });
                         }
 
                         result = form.ShowDialog();
@@ -250,8 +189,6 @@ namespace TERG.Forms
                         if (dtblr.Rows.Count < 1) dtblr.Rows.Add(new DistributionRow());
 
                         return dtblr;
-
-                        #endregion DTBL
                 }
 
                 throw new Exception("Invalid Reference Type: " + r.Type);
@@ -274,7 +211,7 @@ namespace TERG.Forms
 
         private void PATTbtnOK_Click(object sender, EventArgs e)
         {
-            if (PATTcomboPattern.SelectedIndex != -1)
+            if (PATTcomboPattern.SelectedItem.GetType() == typeof(Pattern))
             {
                 DialogResult = DialogResult.OK;
                 Close();
@@ -287,7 +224,7 @@ namespace TERG.Forms
 
         private void POOLbtnOK_Click(object sender, EventArgs e)
         {
-            if (POOLcomboPool.SelectedIndex != -1)
+            if (POOLcomboPool.SelectedItem.GetType() == typeof(Pool))
             {
                 DialogResult = DialogResult.OK;
                 Close();
@@ -320,8 +257,6 @@ namespace TERG.Forms
             Close();
         }
 
-        #region RPAT Functions
-
         private void RPATbtnOK_Click(object sender, EventArgs e)
         {
             if (RPATlistSelected.Items.Count < 1)
@@ -336,12 +271,12 @@ namespace TERG.Forms
 
         private void RPATbtnAdd_Click(object sender, EventArgs e)
         {
-            if (RPATlistPatterns.SelectedIndex != -1)
+            if (RPATlistPatterns.SelectedItem.GetType() == typeof(Pattern))
             {
-                string s = RPATlistPatterns.Items[RPATlistPatterns.SelectedIndex].ToString();
-                if (!(RPATlistSelected.Items.Contains(s)))
+                var pattern = RPATlistPatterns.SelectedItem;
+                if (!RPATlistSelected.Items.Contains(pattern))
                 {
-                    RPATlistSelected.Items.Add(s);
+                    RPATlistSelected.Items.Add(pattern);
                 }
             }
         }
@@ -364,10 +299,6 @@ namespace TERG.Forms
             }
         }
 
-        #endregion RPAT Functions
-
-        #region IPAT Functions
-
         private void IPATbtnOK_Click(object sender, EventArgs e)
         {
             if (!int.TryParse(IPATtextMin.Text, out _))
@@ -380,7 +311,7 @@ namespace TERG.Forms
                 MessageBox.Show("Invalid data in Maximum Iterations field, please correct before continuing.");
                 return;
             }
-            if (IPATcomboPattern.SelectedIndex != -1)
+            if (IPATcomboPattern.SelectedItem.GetType() == typeof(Pattern))
             {
                 if (!IPATcheckRandom.Checked)
                 {
@@ -399,10 +330,6 @@ namespace TERG.Forms
             }
             IPATtextMax.Enabled = IPATcheckRandom.Checked;
         }
-
-        #endregion IPAT Functions
-
-        #region DTBL Functions
 
         private void DTBLbtnOk_Click(object sender, EventArgs e)
         {
@@ -423,10 +350,8 @@ namespace TERG.Forms
             DTBLlstRows.Items.Clear();
             foreach (var row in DTBLRows)
             {
-                DTBLlstRows.Items.Add(row.ToString(engine));
+                DTBLlstRows.Items.Add(engine.ShorthandService.PrettyDistributionRow(row));
             }
-            //DTBLlstRows.SelectedIndex = -1;
-            //DTBLIndexInEditor = -1;
         }
 
         private void DTBL_saveCurrentRow()
@@ -637,6 +562,6 @@ namespace TERG.Forms
             }
         }
 
-        #endregion DTBL Functions
+#endregion DTBL Functions
     }
 }

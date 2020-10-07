@@ -47,7 +47,7 @@ namespace TERG.Forms
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.ToString());
+                    _ = MessageBox.Show(ex.ToString());
                     Close();
                 }
             }
@@ -77,7 +77,7 @@ namespace TERG.Forms
 
             // Add updated list of items
             listPatterns.Items.AddRange(Patterns.ToArray());
-            comboExportPattern.Items.Add(Patterns.ToArray());
+            _ = comboExportPattern.Items.Add(Patterns.ToArray());
 
             // Reload any current pattern/clear fields
             LoadPattern();
@@ -102,7 +102,7 @@ namespace TERG.Forms
                 textPatternName.Text = p.Name;
                 foreach (IReference r in p.References)
                 {
-                    _ = listPatternReferences.Items.Add(r.ToString(engine));
+                    _ = listPatternReferences.Items.Add(engine.ShorthandService.PrettyReference(r));
                 }
 
                 btnDeletePattern.Enabled = true;
@@ -126,9 +126,9 @@ namespace TERG.Forms
             comboPoolParent.Items.Clear();
 
             // Add updated list of items
-            comboPoolParent.Items.Add("None");
+            _ = comboPoolParent.Items.Add("None");
             listPools.Items.AddRange(Pools.ToArray());
-            comboPoolParent.Items.Add(Pools.ToArray());
+            _ = comboPoolParent.Items.Add(Pools.ToArray());
 
             // Reload any current pool/clear fields
             LoadPool();
@@ -227,7 +227,7 @@ namespace TERG.Forms
 
         private void SaveDatabase()
         {
-            SaveDatabase(DBFileLocation);
+            _ = SaveDatabase(DBFileLocation);
         }
 
         private bool SaveDatabase(string file)
@@ -248,7 +248,7 @@ namespace TERG.Forms
                 {
                     //Unless we don't.
                     PushDatabaseStatus("Error Creating Database: " + e.Message);
-                    MessageBox.Show(e.Message);
+                    _ = MessageBox.Show(e.Message);
                     return false;
                 }
             }
@@ -308,7 +308,7 @@ namespace TERG.Forms
         {
             using (var ab = new TERGAboutBox())
             {
-                ab.ShowDialog();
+                _ = ab.ShowDialog();
             }
         }
 
@@ -410,13 +410,15 @@ namespace TERG.Forms
 
         private void ListPatternReferences_DoubleClick(object sender, EventArgs e)
         {
-            if (listPatterns.SelectedIndex.GetType() == typeof(Pattern) && listPatternReferences.SelectedIndex >= 0)
+            if (listPatterns.SelectedItem.GetType() == typeof(Pattern) && listPatternReferences.SelectedIndex >= 0)
             {
                 int index = listPatternReferences.SelectedIndex;
+                Pattern pattern = (Pattern)listPatterns.SelectedItem;
 
-                IReference r = ReferenceEditor.Show(false, engine, Patterns.ToArray()[IndexInPatternEditor].References[index]);
-                Patterns.ToArray()[IndexInPatternEditor].References[index] = r;
-                PushDatabaseStatus("Updated Reference in Pattern [" + Patterns.ToArray()[IndexInPatternEditor].Name + "]");
+                IReference r = ReferenceEditor.Show(false, engine, pattern.References[index]);
+                pattern.References[index] = r;
+                _ = engine.UpdatePattern(pattern);
+                PushDatabaseStatus($"Updated Reference in [{pattern.ID}] {pattern.Name}");
                 SaveDatabase();
                 LoadPattern();
             }
@@ -444,15 +446,16 @@ namespace TERG.Forms
 
         private void BtnOpenTemplateEditor_Click(object sender, EventArgs e)
         {
-            if (IndexInPatternEditor != -1)
+            if (listPatterns.SelectedItem.GetType() == typeof(Pattern))
             {
-                Pattern patt = Patterns.ToArray()[IndexInPatternEditor];
+                Pattern patt = (Pattern)listPatterns.SelectedItem;
                 BaseEditorResult result = BaseEditor.Show(patt.Name, patt.Body);
 
                 if (result.OK)
                 {
-                    Patterns.ToArray()[IndexInPatternEditor].Body = result.Text;
-                    PushDatabaseStatus("Updated template for [" + patt.Name + "]");
+                    patt.Body = result.Text;
+                    _ = engine.UpdatePattern(patt);
+                    PushDatabaseStatus($"Updated template for [{patt.ID}] {patt.Name}");
                     SaveDatabase();
                 }
             }
@@ -460,13 +463,17 @@ namespace TERG.Forms
 
         private void BtnAddReference_Click(object sender, EventArgs e)
         {
-            if (IndexInPatternEditor != -1 && comboAddReferenceType.Text.Length == 4)
+            if (listPatterns.SelectedItem.GetType() == typeof(Pattern) && comboAddReferenceType.Text.Length == 4)
             {
+                Pattern pattern = (Pattern)listPatterns.SelectedItem;
+
                 string s = comboAddReferenceType.Text.Trim();
                 IReference nref = ReferenceFactory.Create(s);
                 nref = ReferenceEditor.Show(true, engine, nref);
-                Patterns.ToArray()[IndexInPatternEditor].References.Add(nref);
-                PushDatabaseStatus("Added Reference of type [" + s + "] to pattern [" + Patterns.ToArray()[IndexInPatternEditor].Name + "]");
+
+                pattern.References.Add(nref);
+                _ = engine.UpdatePattern(pattern);
+                PushDatabaseStatus($"Added Reference of type [{s}] to [{pattern.ID}] {pattern.Name}");
                 SaveDatabase();
                 LoadPattern();
             }
@@ -476,15 +483,15 @@ namespace TERG.Forms
         {
             if (IndexInPatternEditor != -1)
             {
-                MessageBox.Show(Patterns.ToArray()[IndexInPatternEditor].Fill(engine));
+                _ = MessageBox.Show(Patterns.ToArray()[IndexInPatternEditor].Fill(engine));
             }
         }
 
         private void BtnDeletePool_Click(object sender, EventArgs e)
         {
-            if (IndexInPoolEditor != -1)
+            if (listPools.SelectedItem.GetType() == typeof(Pool))
             {
-                int PoolID = engine.Pools[IndexInPoolEditor].ID;
+                Pool pool = (Pool)listPools.SelectedItem;
 
                 int pattConflicts = 0;
                 int poolConflicts = 0;
@@ -496,7 +503,7 @@ namespace TERG.Forms
                     {
                         if (r.Type == "POOL")
                         {
-                            if (((PoolReference)r).PoolID == PoolID)
+                            if (((PoolReference)r).PoolID == pool.ID)
                             {
                                 pattConflicts++;
                             }
@@ -505,17 +512,17 @@ namespace TERG.Forms
                 }
 
                 // Check how many children this pool has
-                foreach (Pool p in engine.Pools)
+                foreach (Pool p in Pools)
                 {
-                    if (p.ParentID == PoolID)
+                    if (p.ParentID == pool.ID)
                     {
                         poolConflicts++;
                     }
                 }
 
-                MessageBox.Show("Deleting this pool will affect and possibly break " + pattConflicts + " Patterns and will clear the parent property of " + poolConflicts + " Pools.");
+                _ = MessageBox.Show($"Deleting this pool will affect and possibly break {pattConflicts} Patterns and will clear the parent property of {poolConflicts} Pools.");
                 InputBoxResult result = InputBox.Show("Type the pool name to confirm deletion.", Text);
-                if (result.OK && result.Text == engine.Pools[IndexInPoolEditor].Name)
+                if (result.OK && result.Text == pool.Name)
                 {
                     // Delete any patterns references to this pool
                     foreach (Pattern p in Patterns)
@@ -525,7 +532,7 @@ namespace TERG.Forms
                         {
                             if (r.Type == "POOL")
                             {
-                                if (((PoolReference)r).PoolID == PoolID)
+                                if (((PoolReference)r).PoolID == pool.ID)
                                 {
                                     removal.Add(r);
                                 }
@@ -533,24 +540,24 @@ namespace TERG.Forms
                         }
                         foreach (IReference r in removal)
                         {
-                            p.References.Remove(r);
+                            _ = p.References.Remove(r);
                         }
+                        _ = engine.UpdatePattern(p);
                     }
 
                     // Clear parentids for any former children
-                    foreach (Pool p in engine.Pools)
+                    foreach (Pool p in Pools)
                     {
-                        if (p.ParentID == PoolID)
+                        if (p.ParentID == pool.ID)
                         {
                             p.ParentID = -1;
                         }
+                        _ = engine.UpdatePool(p);
                     }
 
-                    string oldName = engine.Pools[IndexInPoolEditor].Name;
-
-                    engine.Pools.RemoveAt(IndexInPoolEditor);
+                    _ = engine.RemovePool(pool.ID);
                     IndexInPoolEditor = -1;
-                    PushDatabaseStatus("Deleted Pool [" + oldName + "]");
+                    PushDatabaseStatus($"Deleted Pool [{pool.ID}] {pool.Name}");
                     SaveDatabase();
                     LoadPoolLists();
                 }
@@ -559,9 +566,9 @@ namespace TERG.Forms
 
         private void BtnDeletePattern_Click(object sender, EventArgs e)
         {
-            if (IndexInPatternEditor != -1)
+            if (listPatterns.SelectedItem.GetType() == typeof(Pattern))
             {
-                int PatternID = Patterns.ToArray()[IndexInPatternEditor].ID;
+                Pattern pattern = (Pattern)listPatterns.SelectedItem;
 
                 int pattConflicts = 0;
 
@@ -573,7 +580,7 @@ namespace TERG.Forms
                         if (p.References[i].Type == "PATT")
                         {
                             PatternReference r = (PatternReference)p.References[i];
-                            if (r.PatternID == PatternID)
+                            if (r.PatternID == pattern.ID)
                             {
                                 pattConflicts++;
                             }
@@ -581,7 +588,7 @@ namespace TERG.Forms
                     }
                 }
 
-                MessageBox.Show("Deleting this pattern will affect " + pattConflicts + " Patterns.");
+                _ = MessageBox.Show("Deleting this pattern will affect " + pattConflicts + " Patterns.");
                 InputBoxResult result = InputBox.Show("Type the pattern name to continue with deletion.", Text);
                 if (result.OK && result.Text == Patterns.ToArray()[IndexInPatternEditor].Name)
                 {
@@ -592,20 +599,19 @@ namespace TERG.Forms
                             if (p.References[i].Type == "PATT")
                             {
                                 PatternReference r = (PatternReference)p.References[i];
-                                if (r.PatternID == PatternID)
+                                if (r.PatternID == pattern.ID)
                                 {
                                     p.References.RemoveAt(i);
                                     i--;
                                 }
                             }
                         }
+                        _ = engine.UpdatePattern(p);
                     }
 
-                    Pattern oldpatt = Patterns.ToArray()[IndexInPatternEditor];
-
-                    engine.RemovePattern(PatternID);
+                    _ = engine.RemovePattern(pattern.ID);
                     IndexInPatternEditor = -1;
-                    PushDatabaseStatus($"Deleted Pattern [{oldpatt.Name}]");
+                    PushDatabaseStatus($"Deleted Pattern [{pattern.ID}] {pattern.Name}");
                     SaveDatabase();
                     LoadPatternLists();
                 }
@@ -623,7 +629,7 @@ namespace TERG.Forms
                     // Implement
                     Properties.Settings.Default["DatabaseFileLocation"] = Path.GetFullPath(dialog.FileName);
                     Properties.Settings.Default.Save();
-                    MessageBox.Show("Restarting...");
+                    _ = MessageBox.Show("Restarting...");
                     Application.Restart();
                     Environment.Exit(0);
                 }
@@ -632,12 +638,16 @@ namespace TERG.Forms
 
         private void BtnMoveRefUp_Click(object sender, EventArgs e)
         {
-            if (IndexInPatternEditor != -1 && listPatternReferences.SelectedIndex > 0)
+            if (listPatterns.SelectedItem.GetType() == typeof(Pattern) &&
+                listPatternReferences.SelectedIndex > 0)
             {
+                Pattern pattern = (Pattern)listPatterns.SelectedItem;
                 int index = listPatternReferences.SelectedIndex;
-                IReference temp = Patterns.ToArray()[IndexInPatternEditor].References[index];
-                Patterns.ToArray()[IndexInPatternEditor].References[index] = Patterns.ToArray()[IndexInPatternEditor].References[index - 1];
-                Patterns.ToArray()[IndexInPatternEditor].References[index - 1] = temp;
+
+                IReference temp = pattern.References[index];
+                pattern.References[index] = pattern.References[index - 1];
+                pattern.References[index - 1] = temp;
+                _ = engine.UpdatePattern(pattern);
                 SaveDatabase();
                 LoadPattern();
                 listPatternReferences.SelectedIndex = index - 1;
@@ -646,14 +656,17 @@ namespace TERG.Forms
 
         private void BtnMoveRefDown_Click(object sender, EventArgs e)
         {
-            if (IndexInPatternEditor != -1 &&
+            if (listPatterns.SelectedItem.GetType() == typeof(Pattern) &&
                 listPatternReferences.Items.Count > 1 &&
                 listPatternReferences.SelectedIndex < listPatternReferences.Items.Count - 1)
             {
+                Pattern pattern = (Pattern)listPatterns.SelectedItem;
                 int index = listPatternReferences.SelectedIndex;
-                IReference temp = Patterns.ToArray()[IndexInPatternEditor].References[index];
-                Patterns.ToArray()[IndexInPatternEditor].References[index] = Patterns.ToArray()[IndexInPatternEditor].References[index + 1];
-                Patterns.ToArray()[IndexInPatternEditor].References[index + 1] = temp;
+
+                IReference temp = pattern.References[index];
+                pattern.References[index] = pattern.References[index + 1];
+                pattern.References[index + 1] = temp;
+                _ = engine.UpdatePattern(pattern);
                 SaveDatabase();
                 LoadPattern();
                 listPatternReferences.SelectedIndex = index + 1;
@@ -662,15 +675,17 @@ namespace TERG.Forms
 
         private void BtnDeleteReference_Click(object sender, EventArgs e)
         {
-            if (IndexInPatternEditor != -1 &&
+            if (listPatterns.SelectedItem.GetType() == typeof(Pattern) &&
                 listPatternReferences.SelectedIndex != -1)
             {
                 DialogResult result = MessageBox.Show("Are you sure you'd like to delete this reference?", Text, MessageBoxButtons.YesNoCancel);
 
                 if (result == DialogResult.Yes)
                 {
-                    Patterns.ToArray()[IndexInPatternEditor].References.RemoveAt(listPatternReferences.SelectedIndex);
-                    PushDatabaseStatus("Deleted reference in pattern [" + Patterns.ToArray()[IndexInPatternEditor].Name + "]");
+                    Pattern pattern = (Pattern)listPatterns.SelectedItem;
+                    pattern.References.RemoveAt(listPatternReferences.SelectedIndex);
+                    _ = engine.UpdatePattern(pattern);
+                    PushDatabaseStatus($"Deleted reference in pattern [{pattern.ID}] {pattern.Name}");
                     SaveDatabase();
                     LoadPattern();
                 }
@@ -679,21 +694,21 @@ namespace TERG.Forms
 
         private void BtnRunExport_Click(object sender, EventArgs e)
         {
-            if (comboExportPattern.SelectedIndex != -1)
+            if (comboExportPattern.SelectedItem.GetType() == typeof(Pattern))
             {
-                if (!(int.TryParse(textExportIterations.Text, out int it)))
+                if (!int.TryParse(textExportIterations.Text, out int it))
                 {
                     it = 1;
                 }
-                Pattern p = Patterns.ToArray()[comboExportPattern.SelectedIndex];
-
-                textExport.Clear();
+                Pattern p = (Pattern)comboExportPattern.SelectedItem;
 
                 List<string> results = engine.Composer.Compose(p, it, Composer.HeaderAndFooterSetting.NONE);
 
+                textExport.Clear();
+
                 foreach (string result in results)
                 {
-                    textExport.Text += result + Environment.NewLine + ((checkExportSeperators.Checked) ? "----END OF RESULT----" + Environment.NewLine : string.Empty);
+                    textExport.Text += result + Environment.NewLine + (checkExportSeperators.Checked ? "----END OF RESULT----" + Environment.NewLine : string.Empty);
                 }
                 PushDatabaseStatus("Generated " + results.Count + " iterations of " + p.Name);
             }
@@ -706,7 +721,7 @@ namespace TERG.Forms
 
         private void BtnExportOut_Click(object sender, EventArgs e)
         {
-            if (comboExportPattern.SelectedIndex != -1)
+            if (comboExportPattern.SelectedItem.GetType() == typeof(Pattern))
             {
                 SaveFileDialog save = new SaveFileDialog
                 {
@@ -726,11 +741,11 @@ namespace TERG.Forms
                     StreamWriter o = new StreamWriter(save.FileName);
 
                     // Running
-                    if (!(int.TryParse(textExportIterations.Text, out int it)))
+                    if (!int.TryParse(textExportIterations.Text, out int it))
                     {
-                        MessageBox.Show("Invalid number of iterations. Defaulting to 1.");
+                        it = 1;
                     }
-                    Pattern p = Patterns.ToArray()[comboExportPattern.SelectedIndex];
+                    Pattern p = (Pattern)comboExportPattern.SelectedItem;
 
                     List<string> results = engine.Composer.Compose(p, it, Composer.HeaderAndFooterSetting.NONE);
 
@@ -741,7 +756,7 @@ namespace TERG.Forms
                         o.Flush();
                     }
                     o.Close();
-                    PushDatabaseStatus("Wrote " + it + " iterations of " + p.Name + " to " + save.FileName);
+                    PushDatabaseStatus($"Wrote {it} iterations of {p.Name} to {save.FileName}");
                 }
                 save.Dispose();
             }
@@ -749,9 +764,9 @@ namespace TERG.Forms
 
         private void BtnCopyPattern_Click(object sender, EventArgs e)
         {
-            if (IndexInPatternEditor != -1)
+            if (listPatterns.SelectedItem.GetType() == typeof(Pattern))
             {
-                Pattern patt = Patterns.ToArray()[IndexInPatternEditor];
+                Pattern patt = (Pattern)listPatterns.SelectedItem;
                 Pattern npat = new Pattern()
                 {
                     ID = -1,
@@ -765,7 +780,7 @@ namespace TERG.Forms
                 var ret = engine.AddPattern(npat);
                 if (ret.ID > 0)
                 {
-                    PushDatabaseStatus("Copied pattern \"" + patt.Name + "\"");
+                    PushDatabaseStatus($"Copied pattern [{patt.ID}] {patt.Name} to [{npat.ID}] {npat.Name}");
                     SaveDatabase();
                     LoadPatternLists();
                 }
