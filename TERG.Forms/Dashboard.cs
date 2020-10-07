@@ -185,7 +185,8 @@ namespace TERG.Forms
             if (!selectedItem.Name.Equals(name))
             {
                 string oldName = selectedItem.Name;
-                Patterns.ToArray()[IndexInPatternEditor].Name = name;
+                selectedItem.Name = name;
+                engine.UpdatePattern(selectedItem);
                 PushDatabaseStatus("Updated pattern name from [" + oldName + "] to [" + name + "]");
             }
 
