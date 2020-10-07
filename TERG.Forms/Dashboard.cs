@@ -221,7 +221,7 @@ namespace TERG.Forms
 
             SaveDatabase();
             LoadPoolLists();
-            listPools.SelectedIndex = IndexInPoolEditor;
+            listPools.SelectedItem = pool;
             FlagPoolChanged = false;
         }
 
@@ -273,7 +273,7 @@ namespace TERG.Forms
 
             int newIndex = listPools.SelectedIndex;
 
-            if (IndexInPoolEditor != -1)
+            if (listPools.SelectedItem.GetType() == typeof(Pool))
             {
                 //If the pool has been modified we want to check to see if changes should be saved
                 if (FlagPoolChanged)
@@ -335,7 +335,7 @@ namespace TERG.Forms
 
         private void TextBoxPoolEditor_TextChanged(object sender, EventArgs e)
         {
-            if (IndexInPoolEditor != -1)
+            if (listPools.SelectedItem.GetType() == typeof(Pool))
             {
                 FlagPoolChanged = true;
             }
@@ -343,7 +343,7 @@ namespace TERG.Forms
 
         private void TextPoolName_TextChanged(object sender, EventArgs e)
         {
-            if (IndexInPoolEditor != -1)
+            if (listPools.SelectedItem.GetType() == typeof(Pool))
             {
                 FlagPoolChanged = true;
             }
@@ -351,7 +351,7 @@ namespace TERG.Forms
 
         private void ComboPoolParent_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (IndexInPoolEditor != -1)
+            if (listPools.SelectedItem.GetType() == typeof(Pool))
             {
                 FlagPoolChanged = true;
                 if (comboPoolParent.SelectedIndex == 0)
@@ -377,7 +377,7 @@ namespace TERG.Forms
 
             int newIndex = listPatterns.SelectedIndex;
 
-            if (IndexInPatternEditor != -1)
+            if (listPatterns.SelectedItem.GetType() == typeof(Pattern))
             {
                 //If the pool has been modified we want to check to see if changes should be saved
                 if (FlagPatternChanged)
@@ -481,9 +481,9 @@ namespace TERG.Forms
 
         private void PatternRunToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (IndexInPatternEditor != -1)
+            if (listPatterns.SelectedItem.GetType() == typeof(Pattern))
             {
-                _ = MessageBox.Show(Patterns.ToArray()[IndexInPatternEditor].Fill(engine));
+                _ = MessageBox.Show(((Pattern)listPatterns.SelectedItem).Fill(engine));
             }
         }
 
@@ -590,7 +590,7 @@ namespace TERG.Forms
 
                 _ = MessageBox.Show("Deleting this pattern will affect " + pattConflicts + " Patterns.");
                 InputBoxResult result = InputBox.Show("Type the pattern name to continue with deletion.", Text);
-                if (result.OK && result.Text == Patterns.ToArray()[IndexInPatternEditor].Name)
+                if (result.OK && result.Text == pattern.Name)
                 {
                     foreach (Pattern p in Patterns)
                     {

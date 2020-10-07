@@ -469,28 +469,8 @@ namespace TERG.Forms
         {
             if (int.TryParse(DTBLtxtStart.Text, out int start))
             {
-                /*
-                if (DTBLIndexInEditor != 0 || start == 1)
-                {
-                    if (start <= DTBLRows[DTBLIndexInEditor].End)
-                    {
-                    */
                 DTBLRows[DTBLIndexInEditor].Start = start;
                 DTBL_updateList();
-                /*
-                    }
-                    else
-                    {
-                        MessageBox.Show("Starting point cannot be greater than endpoint.", "TERG", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        DTBLtxtStart.Focus();
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Starting point for first row must be 1.", "TERG", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    DTBLtxtStart.Focus();
-                }
-                */
             }
             else
             {
@@ -503,10 +483,6 @@ namespace TERG.Forms
         {
             if (int.TryParse(DTBLtxtEnd.Text, out int end))
             {
-                /*
-                if (DTBLIndexInEditor != DTBLRows.Count - 1 || end == 100)
-                {
-                */
                 if (end >= DTBLRows[DTBLIndexInEditor].Start)
                 {
                     DTBLRows[DTBLIndexInEditor].End = end;
@@ -517,14 +493,6 @@ namespace TERG.Forms
                     MessageBox.Show("Ending point cannot be less than starting point.", "TERG", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     DTBLtxtEnd.Focus();
                 }
-                /*
-                }
-                else
-                {
-                    MessageBox.Show("Ending point for last row must be 100.", "TERG", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    DTBLtxtEnd.Focus();
-                }
-                */
             }
             else
             {
@@ -555,13 +523,11 @@ namespace TERG.Forms
                     if (res != null)
                     {
                         DTBLRows[DTBLIndexInEditor].Reference = res;
-                        DTBLtxtValue.Text = res.ToString(engine);
+                        DTBLtxtValue.Text = engine.ShorthandService.PrettyReference(res);
                         DTBL_updateList();
                     }
                 }
             }
         }
-
-#endregion DTBL Functions
     }
 }
