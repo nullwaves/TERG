@@ -21,12 +21,12 @@ namespace TERG.Core.Models.References
 
         public string Pull(Engine e)
         {
-            return e.FindPoolById(PoolID)?.Pull(e);
+            return e.GetPoolByID(PoolID)?.Pull(e);
         }
 
         public string ToString(Engine e)
         {
-            return "POOL: " + e.FindPoolById(PoolID)?.Name;
+            return "POOL: " + e.GetPoolByID(PoolID)?.Name;
         }
     }
 }

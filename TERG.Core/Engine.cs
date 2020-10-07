@@ -10,7 +10,7 @@ namespace TERG.Core
 {
     public class Engine
     {
-        public List<Pool> Pools;
+        internal PoolManager PoolManager;
         internal PatternManager PatternManager;
         public Composer Composer { get; }
 
@@ -23,11 +23,12 @@ namespace TERG.Core
 
         public Engine()
         {
-            Pools = new List<Pool>();
+            PoolManager = new PoolManager();
             PatternManager = new PatternManager();
             Composer = new Composer(this);
         }
 
+        // Pattern Methods
         public Pattern AddPattern(Pattern p) => PatternManager.Add(p);
 
         public IEnumerable<Pattern> GetPatterns() => PatternManager.GetAll();
@@ -36,6 +37,16 @@ namespace TERG.Core
 
         public bool RemovePattern(int id) => PatternManager.RemovePattern(id);
 
+        // Pool Methods
+        public Pool AddPool(Pool p) => PoolManager.Add(p);
+
+        public IEnumerable<Pool> GetPools() => PoolManager.GetAll();
+
+        public Pool GetPoolByID(int id) => PoolManager.GetByID(id);
+
+        public bool RemovePool(int id) => PoolManager.RemovePool(id);
+
+        // TODO: Refactor Saving/Loading an engine state
         public static Engine Load(string file)
         {
             StreamReader reader = new StreamReader(file);
@@ -53,23 +64,6 @@ namespace TERG.Core
                 writer.Write(JsonConvert.SerializeObject(this, Formatting.Indented, SerializerSettings));
                 writer.Flush();
             }
-        }
-
-        public int GetNextPoolID()
-        {
-            //Find the pool with the highest ID number and return the next.
-            int i = 0;
-            foreach (Pool p in Pools)
-            {
-                if (p.ID >= i) i = p.ID;
-            }
-
-            return i + 1;
-        }
-
-        public Pool FindPoolById(int id)
-        {
-            return Pools.Where(x => id == x.ID).FirstOrDefault();
         }
     }
 }
