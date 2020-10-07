@@ -276,8 +276,8 @@ namespace TERG.Forms
         {
             if (PATTcomboPattern.SelectedIndex != -1)
             {
-                this.DialogResult = DialogResult.OK;
-                this.Close();
+                DialogResult = DialogResult.OK;
+                Close();
             }
             else
             {
@@ -289,8 +289,8 @@ namespace TERG.Forms
         {
             if (POOLcomboPool.SelectedIndex != -1)
             {
-                this.DialogResult = DialogResult.OK;
-                this.Close();
+                DialogResult = DialogResult.OK;
+                Close();
             }
             else
             {
@@ -316,8 +316,8 @@ namespace TERG.Forms
                 return;
             }
 
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            DialogResult = DialogResult.OK;
+            Close();
         }
 
         #region RPAT Functions
@@ -330,8 +330,8 @@ namespace TERG.Forms
                 return;
             }
 
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            DialogResult = DialogResult.OK;
+            Close();
         }
 
         private void RPATbtnAdd_Click(object sender, EventArgs e)
@@ -356,7 +356,7 @@ namespace TERG.Forms
 
         private void RPATbtnClear_Click(object sender, EventArgs e)
         {
-            DialogResult r = MessageBox.Show("Are you sure you'd like to clear all selected patterns?", this.Text, MessageBoxButtons.YesNoCancel);
+            DialogResult r = MessageBox.Show("Are you sure you'd like to clear all selected patterns?", Text, MessageBoxButtons.YesNoCancel);
 
             if (r == DialogResult.Yes)
             {
@@ -386,8 +386,8 @@ namespace TERG.Forms
                 {
                     IPATtextMax.Text = IPATtextMin.Text;
                 }
-                this.DialogResult = DialogResult.OK;
-                this.Close();
+                DialogResult = DialogResult.OK;
+                Close();
             }
         }
 
@@ -407,8 +407,8 @@ namespace TERG.Forms
         private void DTBLbtnOk_Click(object sender, EventArgs e)
         {
             DTBL_saveCurrentRow();
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            DialogResult = DialogResult.OK;
+            Close();
         }
 
         public void DTBL_setRows(List<DistributionRow> rows)

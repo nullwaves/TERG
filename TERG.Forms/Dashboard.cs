@@ -15,6 +15,7 @@ namespace TERG.Forms
         private Engine engine;
 
         private IEnumerable<Pattern> Patterns => engine.GetPatterns();
+        private IEnumerable<Pool> Pools => engine.GetPools();
 
         // Variables for Pool Editor
         private int IndexInPoolEditor = -1;
@@ -42,12 +43,12 @@ namespace TERG.Forms
                 try
                 {
                     engine = Engine.Load(DBFileLocation);
-                    PushDatabaseStatus("Database loaded from [" + Path.GetFullPath(DBFileLocation) + "]. Pools: " + engine.Pools.Count + " Patterns: " + Patterns.Count());
+                    PushDatabaseStatus($"Database loaded from [{Path.GetFullPath(DBFileLocation)}]. Pools: {Pools.Count()} Patterns: {Patterns.Count()}");
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.ToString());
-                    this.Close();
+                    Close();
                 }
             }
             else
@@ -56,6 +57,10 @@ namespace TERG.Forms
                 SaveDatabase();
             }
 
+            listPatterns.DisplayMember = "Name";
+            comboExportPattern.DisplayMember = "Name";
+            listPools.DisplayMember = "Name";
+            comboPoolParent.DisplayMember = "Name";
             comboAddReferenceType.Items.AddRange(ReferenceFactory.typeMap.Keys.ToArray<string>());
 
             /* Load Lists */
@@ -65,15 +70,16 @@ namespace TERG.Forms
 
         private void LoadPatternLists()
         {
-            listPatterns.Items.Clear();                                    // Clear Patterns list
+            // Clear old lists
+            listPatterns.Items.Clear();
+            listPatterns.ClearSelected();
             comboExportPattern.Items.Clear();
-            foreach (Pattern p in Patterns)
-            {
-                listPatterns.Items.Add(p.Name);                             // Add each Pattern back to the list
-                comboExportPattern.Items.Add(p.Name);
-            }
-            listPatterns.ClearSelected();                                   // Unload any Pattern's that could've been leftover
 
+            // Add updated list of items
+            listPatterns.Items.AddRange(Patterns.ToArray());
+            comboExportPattern.Items.Add(Patterns.ToArray());
+
+            // Reload any current pattern/clear fields
             LoadPattern();
         }
 
@@ -90,13 +96,13 @@ namespace TERG.Forms
             textPatternName.Clear();                                        // Clear Name field
             listPatternReferences.Items.Clear();                            // Clear Reference list
 
-            if (IndexInPatternEditor != -1)                                 // 3, 2, 1, Let's Jam!
+            if (listPatterns.SelectedItem.GetType() == typeof(Pattern))
             {
-                Pattern p = Patterns.ToArray()[IndexInPatternEditor];          // Fetch pattern for easy reference
-                textPatternName.Text = p.Name;                              // Fill TextBox textPatternName
+                Pattern p = (Pattern)listPatterns.SelectedItem;
+                textPatternName.Text = p.Name;
                 foreach (IReference r in p.References)
                 {
-                    listPatternReferences.Items.Add(r.ToString(engine));          // Add Each Reference to the ListBox for References
+                    _ = listPatternReferences.Items.Add(r.ToString(engine));
                 }
 
                 btnDeletePattern.Enabled = true;
@@ -114,17 +120,17 @@ namespace TERG.Forms
 
         private void LoadPoolLists()
         {
-            // Load Pool Names
+            // Clear Old Lists
             listPools.Items.Clear();
-            comboPoolParent.Items.Clear();
-            comboPoolParent.Items.Add("None");
-            foreach (Pool pool in engine.Pools)
-            {
-                listPools.Items.Add(pool.Name);
-                comboPoolParent.Items.Add(pool.Name);
-            }
             listPools.ClearSelected();
+            comboPoolParent.Items.Clear();
 
+            // Add updated list of items
+            comboPoolParent.Items.Add("None");
+            listPools.Items.AddRange(Pools.ToArray());
+            comboPoolParent.Items.Add(Pools.ToArray());
+
+            // Reload any current pool/clear fields
             LoadPool();
         }
 
@@ -136,9 +142,9 @@ namespace TERG.Forms
             textBoxPoolEditor.Enabled = false;
             comboPoolParent.Enabled = false;
 
-            if (IndexInPoolEditor != -1)
+            if (listPools.SelectedItem.GetType() == typeof(Pool))
             {
-                Pool p = engine.Pools[IndexInPoolEditor];
+                Pool p = (Pool)listPools.SelectedItem;
 
                 textBoxPoolEditor.Clear();
                 textBoxPoolEditor.Lines = p.List;
@@ -152,7 +158,8 @@ namespace TERG.Forms
                 }
                 else
                 {
-                    comboPoolParent.SelectedIndex = comboPoolParent.Items.IndexOf(engine.FindPoolById(p.ParentID).Name);
+                    int indexOfParent = comboPoolParent.Items.IndexOf(Pools.Where(x => x.ID == p.ParentID).First());
+                    comboPoolParent.SelectedIndex = indexOfParent;
                 }
 
                 // Enable everything
@@ -174,9 +181,10 @@ namespace TERG.Forms
         {
             // Save Pattern Name
             string name = textPatternName.Text.Trim();
-            if (!Patterns.ToArray()[IndexInPatternEditor].Name.Equals(name))
+            Pattern selectedItem = (Pattern)listPatterns.SelectedItem;
+            if (!selectedItem.Name.Equals(name))
             {
-                string oldName = Patterns.ToArray()[IndexInPatternEditor].Name;
+                string oldName = selectedItem.Name;
                 Patterns.ToArray()[IndexInPatternEditor].Name = name;
                 PushDatabaseStatus("Updated pattern name from [" + oldName + "] to [" + name + "]");
             }
@@ -189,6 +197,7 @@ namespace TERG.Forms
 
         private void SavePool()
         {
+            var updatedPool = new Pool();
             // Save Pool Items
             string[] update = textBoxPoolEditor.Lines;
             for (int i = 0; i < update.Length; i++)
@@ -342,7 +351,7 @@ namespace TERG.Forms
 
         private void AddNewPoolToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            InputBoxResult result = InputBox.Show("New Pool name:", this.Text);
+            InputBoxResult result = InputBox.Show("New Pool name:", Text);
             if (result.OK)
             {
                 string name = result.Text.Trim();
@@ -447,7 +456,7 @@ namespace TERG.Forms
 
         private void AddNewPatternToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            InputBoxResult result = InputBox.Show("New Pattern Name:", this.Text);
+            InputBoxResult result = InputBox.Show("New Pattern Name:", Text);
             if (result.OK)
             {
                 string name = result.Text.Trim();
@@ -537,7 +546,7 @@ namespace TERG.Forms
                 }
 
                 MessageBox.Show("Deleting this pool will affect and possibly break " + pattConflicts + " Patterns and will clear the parent property of " + poolConflicts + " Pools.");
-                InputBoxResult result = InputBox.Show("Type the pool name to confirm deletion.", this.Text);
+                InputBoxResult result = InputBox.Show("Type the pool name to confirm deletion.", Text);
                 if (result.OK && result.Text == engine.Pools[IndexInPoolEditor].Name)
                 {
                     // Delete any patterns references to this pool
@@ -605,7 +614,7 @@ namespace TERG.Forms
                 }
 
                 MessageBox.Show("Deleting this pattern will affect " + pattConflicts + " Patterns.");
-                InputBoxResult result = InputBox.Show("Type the pattern name to continue with deletion.", this.Text);
+                InputBoxResult result = InputBox.Show("Type the pattern name to continue with deletion.", Text);
                 if (result.OK && result.Text == Patterns.ToArray()[IndexInPatternEditor].Name)
                 {
                     foreach (Pattern p in Patterns)
@@ -688,7 +697,7 @@ namespace TERG.Forms
             if (IndexInPatternEditor != -1 &&
                 listPatternReferences.SelectedIndex != -1)
             {
-                DialogResult result = MessageBox.Show("Are you sure you'd like to delete this reference?", this.Text, MessageBoxButtons.YesNoCancel);
+                DialogResult result = MessageBox.Show("Are you sure you'd like to delete this reference?", Text, MessageBoxButtons.YesNoCancel);
 
                 if (result == DialogResult.Yes)
                 {

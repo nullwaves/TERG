@@ -38,8 +38,8 @@ namespace TERG.Forms
 
         private void btnSavePool_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            DialogResult = DialogResult.OK;
+            Close();
         }
 
         private void btnRefreshPool_Click(object sender, EventArgs e)

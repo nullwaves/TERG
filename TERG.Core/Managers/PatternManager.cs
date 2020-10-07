@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using TERG.Core.Models;
 
 namespace TERG.Core.Managers
@@ -48,6 +50,18 @@ namespace TERG.Core.Managers
         internal bool RemovePattern(int id)
         {
             return _patterns.Remove(GetByID(id));
+        }
+
+        internal bool Update(Pattern p)
+        {
+            Pattern patternToUpdate = _patterns.Where(x => x.ID == p?.ID).FirstOrDefault();
+            if (patternToUpdate != null)
+            {
+                int index = _patterns.IndexOf(patternToUpdate);
+                _patterns[index] = p;
+                return p == _patterns.Where(x => x.ID == p.ID).FirstOrDefault();
+            }
+            return false;
         }
 
         internal bool Validate(Pattern p) => p != null && p.ID > 0 && !_patterns.Any(x => x.ID == p.ID);

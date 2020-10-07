@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using TERG.Core.Managers;
 using TERG.Core.Models;
 
@@ -36,6 +35,8 @@ namespace TERG.Core
         public Pattern GetPatternByID(int id) => PatternManager.GetByID(id);
 
         public bool RemovePattern(int id) => PatternManager.RemovePattern(id);
+
+        public bool UpdatePattern(Pattern p) => PatternManager.Update(p);
 
         // Pool Methods
         public Pool AddPool(Pool p) => PoolManager.Add(p);
