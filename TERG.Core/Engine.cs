@@ -47,6 +47,8 @@ namespace TERG.Core
 
         public bool RemovePool(int id) => PoolManager.RemovePool(id);
 
+        public bool UpdatePool(Pool p) => PoolManager.Update(p);
+
         // TODO: Refactor Saving/Loading an engine state
         public static Engine Load(string file)
         {

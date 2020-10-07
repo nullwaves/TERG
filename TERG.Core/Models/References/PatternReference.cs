@@ -23,10 +23,5 @@ namespace TERG.Core.Models.References
         {
             return e.GetPatternByID(PatternID)?.Fill(e);
         }
-
-        public string ToString(Engine e)
-        {
-            return "PATTERN: " + e.GetPatternByID(PatternID)?.Name;
-        }
     }
 }

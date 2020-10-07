@@ -59,6 +59,7 @@
     <Compile Include="Models\References\PoolReference.cs" />
     <Compile Include="Models\References\RandomIntegerReference.cs" />
     <Compile Include="Models\References\RandomPatternReference.cs" />
+    <Compile Include="Services\ShorthandService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

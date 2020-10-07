@@ -21,12 +21,7 @@ namespace TERG.Core.Models.References
 
         public string Pull(Engine e)
         {
-            return e.GetPoolByID(PoolID)?.Pull(e);
-        }
-
-        public string ToString(Engine e)
-        {
-            return "POOL: " + e.GetPoolByID(PoolID)?.Name;
+            return e.PoolManager.Pull(PoolID);
         }
     }
 }

@@ -26,10 +26,5 @@ namespace TERG.Core.Models.References
             Pattern p = e.GetPatternByID(PatternList[Engine.RNG.Next(0, PatternList.Count)]);
             return p?.Fill(e);
         }
-
-        public string ToString(Engine e)
-        {
-            return "RPAT: " + PatternList.Count + " patterns";
-        }
     }
 }

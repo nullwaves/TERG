@@ -50,6 +50,18 @@ namespace TERG.Core.Managers
             return _pools.Remove(GetByID(id));
         }
 
+        internal bool Update(Pool p)
+        {
+            Pool poolToUpdate = _pools.Where(x => x.ID == p?.ID).FirstOrDefault();
+            if (poolToUpdate != null)
+            {
+                int index = _pools.IndexOf(poolToUpdate);
+                _pools[index] = p;
+                return p == _pools.Where(x => x.ID == p.ID).FirstOrDefault();
+            }
+            return false;
+        }
+
         internal bool Validate(Pool p) => p != null && p.ID > 0 && !_pools.Any(x => x.ID == p.ID);
 
         internal string Pull(int id)

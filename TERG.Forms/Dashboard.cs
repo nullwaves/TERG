@@ -186,7 +186,7 @@ namespace TERG.Forms
             {
                 string oldName = selectedItem.Name;
                 selectedItem.Name = name;
-                engine.UpdatePattern(selectedItem);
+                _ = engine.UpdatePattern(selectedItem);
                 PushDatabaseStatus("Updated pattern name from [" + oldName + "] to [" + name + "]");
             }
 
@@ -198,59 +198,26 @@ namespace TERG.Forms
 
         private void SavePool()
         {
-            var updatedPool = new Pool();
+            Pool pool = (Pool)listPools.SelectedItem;
+
             // Save Pool Items
-            string[] update = textBoxPoolEditor.Lines;
-            for (int i = 0; i < update.Length; i++)
+            string[] newList = textBoxPoolEditor.Lines;
+            for (int i = 0; i < newList.Length; i++)
             {
-                update[i] = update[i].Trim();
+                newList[i] = newList[i].Trim();
             }
-            engine.Pools[IndexInPoolEditor].List = update;
-            PushDatabaseStatus("Pool [" + engine.Pools[IndexInPoolEditor].Name + "] has been updated");
 
             // Save Pool Name
-            string name = textPoolName.Text.Trim();
-            if (!engine.Pools[IndexInPoolEditor].Name.Equals(name))
-            {
-                string oldName = engine.Pools[IndexInPoolEditor].Name;
-                engine.Pools[IndexInPoolEditor].Name = name;
-                PushDatabaseStatus("Updated pool name from [" + oldName + "] to [" + name + "]");
-            }
+            string newName = textPoolName.Text.Trim();
 
-            // Save Parent Pool
+            // Save Parent ID
+            int newParentID = comboPoolParent.SelectedItem.GetType() == typeof(Pool) ? -1 : ((Pool)comboPoolParent.SelectedItem).ID;
 
-            int newParentID;
-            if (comboPoolParent.SelectedIndex == -1 || comboPoolParent.SelectedIndex == 0)
-            {
-                newParentID = -1;
-            }
-            else
-            {
-                newParentID = engine.Pools[comboPoolParent.SelectedIndex - 1].ID;
-            }
-            if (engine.Pools[IndexInPoolEditor].ParentID != newParentID)
-            {
-                string oldParent;
-                if (engine.Pools[IndexInPoolEditor].ParentID != -1)
-                {
-                    oldParent = engine.FindPoolById(engine.Pools[IndexInPoolEditor].ParentID).Name;
-                }
-                else
-                {
-                    oldParent = "None";
-                }
-                string newParent;
-                if (newParentID == -1)
-                {
-                    newParent = "None";
-                }
-                else
-                {
-                    newParent = engine.FindPoolById(newParentID).Name;
-                }
-                engine.Pools[IndexInPoolEditor].ParentID = newParentID;
-                PushDatabaseStatus("Updated [" + engine.Pools[IndexInPoolEditor].Name + "] Parent from [" + oldParent + "] to [" + newParent + "]");
-            }
+            pool.ParentID = newParentID;
+            pool.Name = newName;
+            pool.List = newList;
+
+            _ = engine.UpdatePool(pool);
 
             SaveDatabase();
             LoadPoolLists();
@@ -358,8 +325,8 @@ namespace TERG.Forms
                 string name = result.Text.Trim();
                 if (name.Length > 0)
                 {
-                    engine.Pools.Add(new Pool(engine.GetNextPoolID(), name));
-                    PushDatabaseStatus("Added pool \"" + result.Text + "\"");
+                    Pool newPool = engine.AddPool(new Pool() { Name = name });
+                    PushDatabaseStatus($"Added pool [{newPool.ID}] {newPool.Name}");
                     SaveDatabase();
                     LoadPoolLists();
                 }
@@ -443,7 +410,7 @@ namespace TERG.Forms
 
         private void ListPatternReferences_DoubleClick(object sender, EventArgs e)
         {
-            if (IndexInPatternEditor != -1 && listPatternReferences.SelectedIndex != -1)
+            if (listPatterns.SelectedIndex.GetType() == typeof(Pattern) && listPatternReferences.SelectedIndex >= 0)
             {
                 int index = listPatternReferences.SelectedIndex;
 

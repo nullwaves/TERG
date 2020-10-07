@@ -34,11 +34,6 @@ namespace TERG.Core.Models.References
             }
             return output ?? "DTBL ERROR";
         }
-
-        public string ToString(Engine e)
-        {
-            return "DTBL r" + Rows.Count();
-        }
     }
 
     public class DistributionRow
@@ -47,7 +42,5 @@ namespace TERG.Core.Models.References
         public int End = 100;
         public string Value = "Empty";
         public IReference Reference = null;
-
-        public string ToString(Engine e) => $"{Start}-{End} " + (Value ?? Reference.ToString(e));
     }
 }

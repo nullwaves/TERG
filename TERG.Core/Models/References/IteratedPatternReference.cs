@@ -51,13 +51,5 @@ namespace TERG.Core.Models.References
 
             return s.ToString();
         }
-
-        public string ToString(Engine e)
-        {
-            var pat = e.GetPatternByID(PatternID);
-            return "IPAT: m" + MinimumIterations +
-                (Random ? " M" + MaximumIterations : string.Empty) +
-                " " + (pat != null ? pat.Name : "Empty");
-        }
     }
 }

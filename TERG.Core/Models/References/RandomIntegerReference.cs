@@ -38,10 +38,5 @@ namespace TERG.Core.Models.References
             }
             return r.ToString();
         }
-
-        public string ToString(Engine e)
-        {
-            return "RINT: m" + Min + " M" + Max + " Z" + MinLength;
-        }
     }
 }
