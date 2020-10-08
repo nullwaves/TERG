@@ -1,5 +1,4 @@
-﻿using System;
-using TERG.Core.Interfaces;
+﻿using TERG.Core.Interfaces;
 using TERG.Core.Models.References;
 
 namespace TERG.Core.Services
