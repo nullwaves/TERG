@@ -51,6 +51,7 @@
             // PoolMenuSplit
             // 
             this.PoolMenuSplit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PoolMenuSplit.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.PoolMenuSplit.Location = new System.Drawing.Point(3, 16);
             this.PoolMenuSplit.Name = "PoolMenuSplit";
             // 
