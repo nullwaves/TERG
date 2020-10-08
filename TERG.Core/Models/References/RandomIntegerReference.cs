@@ -13,9 +13,7 @@ namespace TERG.Core.Models.References
             }
         }
 
-        // Reference Settings
         public int Min;
-
         public int Max;
         public int MinLength;
 

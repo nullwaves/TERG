@@ -49,21 +49,20 @@ namespace TERG.Core
             return results;
         }
 
-        internal static Pattern.HeaderAndFooterSetting CalcHF(HeaderAndFooterSetting setting, int it, int its)
+        internal static Pattern.HeaderAndFooterSetting CalcHF(HeaderAndFooterSetting setting, int currentIteration, int Iterations)
         {
             Pattern.HeaderAndFooterSetting hf;
             switch (setting)
             {
                 case HeaderAndFooterSetting.ALL:
-                    // All the Headers and Footers
                     hf = Pattern.HeaderAndFooterSetting.BOTH;
                     break;
 
                 case HeaderAndFooterSetting.FIRST_LAST:
-                    if (it == 0 && its > 1) hf = Pattern.HeaderAndFooterSetting.HEADER_ONLY;                          // First
-                    else if (it == its - 1 && its > 1) hf = Pattern.HeaderAndFooterSetting.FOOTER_ONLY;    // Last
-                    else if (its == 1) hf = Pattern.HeaderAndFooterSetting.BOTH;                                     // Both because there is only one pattern
-                    else hf = Pattern.HeaderAndFooterSetting.NONE;                                                              // Middle pattern, append neither
+                    if (currentIteration == 0 && Iterations > 1) hf = Pattern.HeaderAndFooterSetting.HEADER_ONLY; // First
+                    else if (currentIteration == Iterations - 1 && Iterations > 1) hf = Pattern.HeaderAndFooterSetting.FOOTER_ONLY; // Last
+                    else if (Iterations == 1) hf = Pattern.HeaderAndFooterSetting.BOTH; // Both because there is only one pattern
+                    else hf = Pattern.HeaderAndFooterSetting.NONE; // Middle pattern, append neither
                     break;
 
                 default:
