@@ -37,6 +37,9 @@
             this.TextBoxPoolName = new System.Windows.Forms.TextBox();
             this.LabelPoolName = new System.Windows.Forms.Label();
             this.SplitPoolEditor = new System.Windows.Forms.SplitContainer();
+            this.ButtonDelete = new System.Windows.Forms.Button();
+            this.ButtonRefresh = new System.Windows.Forms.Button();
+            this.ButtonSave = new System.Windows.Forms.Button();
             this.GroupPoolEditor.SuspendLayout();
             this.GroupPoolItems.SuspendLayout();
             this.GroupPoolDetail.SuspendLayout();
@@ -80,6 +83,9 @@
             // 
             // GroupPoolDetail
             // 
+            this.GroupPoolDetail.Controls.Add(this.ButtonDelete);
+            this.GroupPoolDetail.Controls.Add(this.ButtonRefresh);
+            this.GroupPoolDetail.Controls.Add(this.ButtonSave);
             this.GroupPoolDetail.Controls.Add(this.TextBoxPoolName);
             this.GroupPoolDetail.Controls.Add(this.LabelPoolName);
             this.GroupPoolDetail.Controls.Add(this.TextBoxPoolID);
@@ -95,7 +101,7 @@
             // LabelPoolID
             // 
             this.LabelPoolID.AutoSize = true;
-            this.LabelPoolID.Location = new System.Drawing.Point(6, 22);
+            this.LabelPoolID.Location = new System.Drawing.Point(6, 51);
             this.LabelPoolID.Name = "LabelPoolID";
             this.LabelPoolID.Size = new System.Drawing.Size(21, 13);
             this.LabelPoolID.TabIndex = 1;
@@ -104,7 +110,7 @@
             // TextBoxPoolID
             // 
             this.TextBoxPoolID.Enabled = false;
-            this.TextBoxPoolID.Location = new System.Drawing.Point(58, 19);
+            this.TextBoxPoolID.Location = new System.Drawing.Point(58, 48);
             this.TextBoxPoolID.Name = "TextBoxPoolID";
             this.TextBoxPoolID.Size = new System.Drawing.Size(136, 20);
             this.TextBoxPoolID.TabIndex = 2;
@@ -113,7 +119,7 @@
             // TextBoxPoolName
             // 
             this.TextBoxPoolName.Enabled = false;
-            this.TextBoxPoolName.Location = new System.Drawing.Point(58, 45);
+            this.TextBoxPoolName.Location = new System.Drawing.Point(58, 74);
             this.TextBoxPoolName.Name = "TextBoxPoolName";
             this.TextBoxPoolName.Size = new System.Drawing.Size(136, 20);
             this.TextBoxPoolName.TabIndex = 4;
@@ -121,7 +127,7 @@
             // LabelPoolName
             // 
             this.LabelPoolName.AutoSize = true;
-            this.LabelPoolName.Location = new System.Drawing.Point(6, 48);
+            this.LabelPoolName.Location = new System.Drawing.Point(6, 77);
             this.LabelPoolName.Name = "LabelPoolName";
             this.LabelPoolName.Size = new System.Drawing.Size(38, 13);
             this.LabelPoolName.TabIndex = 3;
@@ -145,6 +151,36 @@
             this.SplitPoolEditor.SplitterDistance = 200;
             this.SplitPoolEditor.TabIndex = 2;
             this.SplitPoolEditor.TabStop = false;
+            // 
+            // ButtonDelete
+            // 
+            this.ButtonDelete.AccessibleDescription = "Delete the currently selected pool.";
+            this.ButtonDelete.AccessibleName = "Delete Pool";
+            this.ButtonDelete.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.ButtonDelete.Image = global::TERG.Forms.Properties.Resources.table_delete;
+            this.ButtonDelete.Location = new System.Drawing.Point(165, 19);
+            this.ButtonDelete.Name = "ButtonDelete";
+            this.ButtonDelete.Size = new System.Drawing.Size(29, 23);
+            this.ButtonDelete.TabIndex = 7;
+            this.ButtonDelete.UseVisualStyleBackColor = true;
+            // 
+            // ButtonRefresh
+            // 
+            this.ButtonRefresh.Image = global::TERG.Forms.Properties.Resources.action_refresh;
+            this.ButtonRefresh.Location = new System.Drawing.Point(41, 19);
+            this.ButtonRefresh.Name = "ButtonRefresh";
+            this.ButtonRefresh.Size = new System.Drawing.Size(29, 23);
+            this.ButtonRefresh.TabIndex = 6;
+            this.ButtonRefresh.UseVisualStyleBackColor = true;
+            // 
+            // ButtonSave
+            // 
+            this.ButtonSave.Image = global::TERG.Forms.Properties.Resources.action_save;
+            this.ButtonSave.Location = new System.Drawing.Point(6, 19);
+            this.ButtonSave.Name = "ButtonSave";
+            this.ButtonSave.Size = new System.Drawing.Size(29, 23);
+            this.ButtonSave.TabIndex = 5;
+            this.ButtonSave.UseVisualStyleBackColor = true;
             // 
             // PoolEditor
             // 
@@ -176,5 +212,8 @@
         private System.Windows.Forms.TextBox TextBoxPoolID;
         private System.Windows.Forms.Label LabelPoolID;
         private System.Windows.Forms.SplitContainer SplitPoolEditor;
+        private System.Windows.Forms.Button ButtonDelete;
+        private System.Windows.Forms.Button ButtonRefresh;
+        private System.Windows.Forms.Button ButtonSave;
     }
 }

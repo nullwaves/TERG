@@ -56,6 +56,18 @@
     <Compile Include="BaseEditor.Designer.cs">
       <DependentUpon>BaseEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\PoolEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\PoolEditor.Designer.cs">
+      <DependentUpon>PoolEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PoolMenu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\PoolMenu.Designer.cs">
+      <DependentUpon>PoolMenu.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dashboard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,6 +97,12 @@
     </Compile>
     <EmbeddedResource Include="BaseEditor.resx">
       <DependentUpon>BaseEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\PoolEditor.resx">
+      <DependentUpon>PoolEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\PoolMenu.resx">
+      <DependentUpon>PoolMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dashboard.resx">
       <DependentUpon>Dashboard.cs</DependentUpon>
@@ -142,6 +160,9 @@
       <Project>{BB9A9D99-02A5-4F55-BE3A-07B527F7FB26}</Project>
       <Name>TERG.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\table_delete.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
