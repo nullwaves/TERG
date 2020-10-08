@@ -7,6 +7,7 @@ using TERG.Core;
 using TERG.Core.Interfaces;
 using TERG.Core.Models;
 using TERG.Core.Models.References;
+using TERG.Forms.Controls;
 
 namespace TERG.Forms
 {
@@ -16,11 +17,6 @@ namespace TERG.Forms
 
         private IEnumerable<Pattern> Patterns => engine.GetPatterns();
         private IEnumerable<Pool> Pools => engine.GetPools();
-
-        // Variables for Pool Editor
-        private int IndexInPoolEditor = -1;
-
-        private bool FlagPoolChanged = false;
 
         //Variables for Pattern Editor
         private int IndexInPatternEditor = -1;
@@ -57,14 +53,14 @@ namespace TERG.Forms
                 SaveDatabase();
             }
 
+            PoolMenu poolMenu = new PoolMenu(engine);
+            tabPoolEditor.Controls.Add(poolMenu);
+
             listPatterns.DisplayMember = "Name";
             comboExportPattern.DisplayMember = "Name";
-            listPools.DisplayMember = "Name";
-            comboPoolParent.DisplayMember = "Name";
             comboAddReferenceType.Items.AddRange(ReferenceFactory.typeMap.Keys.ToArray<string>());
 
             /* Load Lists */
-            LoadPoolLists();
             LoadPatternLists();
         }
 
@@ -96,7 +92,7 @@ namespace TERG.Forms
             textPatternName.Clear();                                        // Clear Name field
             listPatternReferences.Items.Clear();                            // Clear Reference list
 
-            if (listPatterns.SelectedItem.GetType() == typeof(Pattern))
+            if (listPatterns.SelectedItem != null)
             {
                 Pattern p = (Pattern)listPatterns.SelectedItem;
                 textPatternName.Text = p.Name;
@@ -118,65 +114,6 @@ namespace TERG.Forms
             }
         }
 
-        private void LoadPoolLists()
-        {
-            // Clear Old Lists
-            listPools.Items.Clear();
-            listPools.ClearSelected();
-            comboPoolParent.Items.Clear();
-
-            // Add updated list of items
-            _ = comboPoolParent.Items.Add("None");
-            listPools.Items.AddRange(Pools.ToArray());
-            _ = comboPoolParent.Items.Add(Pools.ToArray());
-
-            // Reload any current pool/clear fields
-            LoadPool();
-        }
-
-        private void LoadPool()
-        {
-            // Disable everything
-            btnDeletePool.Enabled = false;
-            textPoolName.Enabled = false;
-            textBoxPoolEditor.Enabled = false;
-            comboPoolParent.Enabled = false;
-
-            if (listPools.SelectedItem.GetType() == typeof(Pool))
-            {
-                Pool p = (Pool)listPools.SelectedItem;
-
-                textBoxPoolEditor.Clear();
-                textBoxPoolEditor.Lines = p.List;
-
-                textPoolName.Clear();
-                textPoolName.Text = p.Name;
-
-                if (p.ParentID == -1)
-                {
-                    comboPoolParent.SelectedIndex = 0;
-                }
-                else
-                {
-                    int indexOfParent = comboPoolParent.Items.IndexOf(Pools.Where(x => x.ID == p.ParentID).First());
-                    comboPoolParent.SelectedIndex = indexOfParent;
-                }
-
-                // Enable everything
-                btnDeletePool.Enabled = true;
-                textPoolName.Enabled = true;
-                textBoxPoolEditor.Enabled = true;
-                comboPoolParent.Enabled = true;
-                FlagPoolChanged = false;
-            }
-            else
-            {
-                textBoxPoolEditor.Clear();
-                textPoolName.Clear();
-                comboPoolParent.SelectedIndex = 0;
-            }
-        }
-
         private void SavePattern()
         {
             // Save Pattern Name
@@ -194,35 +131,6 @@ namespace TERG.Forms
             LoadPatternLists();
             listPatterns.SelectedIndex = IndexInPatternEditor;
             FlagPatternChanged = false;
-        }
-
-        private void SavePool()
-        {
-            Pool pool = (Pool)listPools.SelectedItem;
-
-            // Save Pool Items
-            string[] newList = textBoxPoolEditor.Lines;
-            for (int i = 0; i < newList.Length; i++)
-            {
-                newList[i] = newList[i].Trim();
-            }
-
-            // Save Pool Name
-            string newName = textPoolName.Text.Trim();
-
-            // Save Parent ID
-            int newParentID = comboPoolParent.SelectedItem.GetType() == typeof(Pool) ? -1 : ((Pool)comboPoolParent.SelectedItem).ID;
-
-            pool.ParentID = newParentID;
-            pool.Name = newName;
-            pool.List = newList;
-
-            _ = engine.UpdatePool(pool);
-
-            SaveDatabase();
-            LoadPoolLists();
-            listPools.SelectedItem = pool;
-            FlagPoolChanged = false;
         }
 
         private void SaveDatabase()
@@ -267,43 +175,6 @@ namespace TERG.Forms
             txtEventLog.ScrollToCaret();
         }
 
-        private void ListPools_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (IndexInPoolEditor == listPools.SelectedIndex) return;
-
-            int newIndex = listPools.SelectedIndex;
-
-            if (listPools.SelectedItem.GetType() == typeof(Pool))
-            {
-                //If the pool has been modified we want to check to see if changes should be saved
-                if (FlagPoolChanged)
-                {
-                    DialogResult result = MessageBox.Show(
-                        "You have unsaved changes to a pool. Would you like to save these before continuing?",
-                        Text,
-                        MessageBoxButtons.YesNoCancel,
-                        MessageBoxIcon.Exclamation);
-                    switch (result)
-                    {
-                        case DialogResult.Yes:                              // Save changes and proceed
-                            SavePool();
-                            break;
-
-                        case DialogResult.No:                               //Don't Save Changes, just skip to loading the next pool
-                            break;
-
-                        default:                                            //Neither, reset the index back to the previous and abort mission
-                            listPools.SelectedIndex = IndexInPoolEditor;
-                            return;
-                    }
-                }
-            }
-
-            listPools.SelectedIndex = newIndex;
-            IndexInPoolEditor = listPools.SelectedIndex;
-            LoadPool();
-        }
-
         private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (var ab = new TERGAboutBox())
@@ -328,47 +199,8 @@ namespace TERG.Forms
                     Pool newPool = engine.AddPool(new Pool() { Name = name });
                     PushDatabaseStatus($"Added pool [{newPool.ID}] {newPool.Name}");
                     SaveDatabase();
-                    LoadPoolLists();
                 }
             }
-        }
-
-        private void TextBoxPoolEditor_TextChanged(object sender, EventArgs e)
-        {
-            if (listPools.SelectedItem.GetType() == typeof(Pool))
-            {
-                FlagPoolChanged = true;
-            }
-        }
-
-        private void TextPoolName_TextChanged(object sender, EventArgs e)
-        {
-            if (listPools.SelectedItem.GetType() == typeof(Pool))
-            {
-                FlagPoolChanged = true;
-            }
-        }
-
-        private void ComboPoolParent_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (listPools.SelectedItem.GetType() == typeof(Pool))
-            {
-                FlagPoolChanged = true;
-                if (comboPoolParent.SelectedIndex == 0)
-                {
-                    comboPoolParent.SelectedIndex = -1;
-                }
-            }
-        }
-
-        private void BtnSavePool_Click(object sender, EventArgs e)
-        {
-            SavePool();
-        }
-
-        private void BtnRefreshPool_Click(object sender, EventArgs e)
-        {
-            LoadPool();
         }
 
         private void ListPatterns_SelectedIndexChanged(object sender, EventArgs e)
@@ -377,7 +209,7 @@ namespace TERG.Forms
 
             int newIndex = listPatterns.SelectedIndex;
 
-            if (listPatterns.SelectedItem.GetType() == typeof(Pattern))
+            if (listPatterns.SelectedItem != null)
             {
                 //If the pool has been modified we want to check to see if changes should be saved
                 if (FlagPatternChanged)
@@ -410,7 +242,7 @@ namespace TERG.Forms
 
         private void ListPatternReferences_DoubleClick(object sender, EventArgs e)
         {
-            if (listPatterns.SelectedItem.GetType() == typeof(Pattern) && listPatternReferences.SelectedIndex >= 0)
+            if (listPatterns.SelectedItem != null && listPatternReferences.SelectedIndex >= 0)
             {
                 int index = listPatternReferences.SelectedIndex;
                 Pattern pattern = (Pattern)listPatterns.SelectedItem;
@@ -446,7 +278,7 @@ namespace TERG.Forms
 
         private void BtnOpenTemplateEditor_Click(object sender, EventArgs e)
         {
-            if (listPatterns.SelectedItem.GetType() == typeof(Pattern))
+            if (listPatterns.SelectedItem != null)
             {
                 Pattern patt = (Pattern)listPatterns.SelectedItem;
                 BaseEditorResult result = BaseEditor.Show(patt.Name, patt.Body);
@@ -463,7 +295,7 @@ namespace TERG.Forms
 
         private void BtnAddReference_Click(object sender, EventArgs e)
         {
-            if (listPatterns.SelectedItem.GetType() == typeof(Pattern) && comboAddReferenceType.Text.Length == 4)
+            if (listPatterns.SelectedItem != null && comboAddReferenceType.Text.Length == 4)
             {
                 Pattern pattern = (Pattern)listPatterns.SelectedItem;
 
@@ -481,92 +313,15 @@ namespace TERG.Forms
 
         private void PatternRunToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (listPatterns.SelectedItem.GetType() == typeof(Pattern))
+            if (listPatterns.SelectedItem != null)
             {
                 _ = MessageBox.Show(((Pattern)listPatterns.SelectedItem).Fill(engine));
             }
         }
 
-        private void BtnDeletePool_Click(object sender, EventArgs e)
-        {
-            if (listPools.SelectedItem.GetType() == typeof(Pool))
-            {
-                Pool pool = (Pool)listPools.SelectedItem;
-
-                int pattConflicts = 0;
-                int poolConflicts = 0;
-
-                // Check how many patterns reference this pool
-                foreach (Pattern p in Patterns)
-                {
-                    foreach (IReference r in p.References)
-                    {
-                        if (r.Type == "POOL")
-                        {
-                            if (((PoolReference)r).PoolID == pool.ID)
-                            {
-                                pattConflicts++;
-                            }
-                        }
-                    }
-                }
-
-                // Check how many children this pool has
-                foreach (Pool p in Pools)
-                {
-                    if (p.ParentID == pool.ID)
-                    {
-                        poolConflicts++;
-                    }
-                }
-
-                _ = MessageBox.Show($"Deleting this pool will affect and possibly break {pattConflicts} Patterns and will clear the parent property of {poolConflicts} Pools.");
-                InputBoxResult result = InputBox.Show("Type the pool name to confirm deletion.", Text);
-                if (result.OK && result.Text == pool.Name)
-                {
-                    // Delete any patterns references to this pool
-                    foreach (Pattern p in Patterns)
-                    {
-                        List<IReference> removal = new List<IReference>();
-                        foreach (IReference r in p.References)
-                        {
-                            if (r.Type == "POOL")
-                            {
-                                if (((PoolReference)r).PoolID == pool.ID)
-                                {
-                                    removal.Add(r);
-                                }
-                            }
-                        }
-                        foreach (IReference r in removal)
-                        {
-                            _ = p.References.Remove(r);
-                        }
-                        _ = engine.UpdatePattern(p);
-                    }
-
-                    // Clear parentids for any former children
-                    foreach (Pool p in Pools)
-                    {
-                        if (p.ParentID == pool.ID)
-                        {
-                            p.ParentID = -1;
-                        }
-                        _ = engine.UpdatePool(p);
-                    }
-
-                    _ = engine.RemovePool(pool.ID);
-                    IndexInPoolEditor = -1;
-                    PushDatabaseStatus($"Deleted Pool [{pool.ID}] {pool.Name}");
-                    SaveDatabase();
-                    LoadPoolLists();
-                }
-            }
-        }
-
         private void BtnDeletePattern_Click(object sender, EventArgs e)
         {
-            if (listPatterns.SelectedItem.GetType() == typeof(Pattern))
+            if (listPatterns.SelectedItem != null)
             {
                 Pattern pattern = (Pattern)listPatterns.SelectedItem;
 
@@ -638,7 +393,7 @@ namespace TERG.Forms
 
         private void BtnMoveRefUp_Click(object sender, EventArgs e)
         {
-            if (listPatterns.SelectedItem.GetType() == typeof(Pattern) &&
+            if (listPatterns.SelectedItem != null &&
                 listPatternReferences.SelectedIndex > 0)
             {
                 Pattern pattern = (Pattern)listPatterns.SelectedItem;
@@ -656,7 +411,7 @@ namespace TERG.Forms
 
         private void BtnMoveRefDown_Click(object sender, EventArgs e)
         {
-            if (listPatterns.SelectedItem.GetType() == typeof(Pattern) &&
+            if (listPatterns.SelectedItem != null &&
                 listPatternReferences.Items.Count > 1 &&
                 listPatternReferences.SelectedIndex < listPatternReferences.Items.Count - 1)
             {
@@ -675,7 +430,7 @@ namespace TERG.Forms
 
         private void BtnDeleteReference_Click(object sender, EventArgs e)
         {
-            if (listPatterns.SelectedItem.GetType() == typeof(Pattern) &&
+            if (listPatterns.SelectedItem != null &&
                 listPatternReferences.SelectedIndex != -1)
             {
                 DialogResult result = MessageBox.Show("Are you sure you'd like to delete this reference?", Text, MessageBoxButtons.YesNoCancel);
@@ -764,7 +519,7 @@ namespace TERG.Forms
 
         private void BtnCopyPattern_Click(object sender, EventArgs e)
         {
-            if (listPatterns.SelectedItem.GetType() == typeof(Pattern))
+            if (listPatterns.SelectedItem != null)
             {
                 Pattern patt = (Pattern)listPatterns.SelectedItem;
                 Pattern npat = new Pattern()

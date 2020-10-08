@@ -30,15 +30,8 @@ namespace TERG.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            this.listPools = new System.Windows.Forms.ListBox();
             this.mainStatusStrip = new System.Windows.Forms.StatusStrip();
             this.statusDatabase = new System.Windows.Forms.ToolStripStatusLabel();
-            this.comboPoolParent = new System.Windows.Forms.ComboBox();
-            this.textPoolName = new System.Windows.Forms.TextBox();
-            this.textBoxPoolEditor = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.databseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,9 +48,6 @@ namespace TERG.Forms
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabControlEditors = new System.Windows.Forms.TabControl();
             this.tabPoolEditor = new System.Windows.Forms.TabPage();
-            this.btnDeletePool = new System.Windows.Forms.Button();
-            this.btnRefreshPool = new System.Windows.Forms.Button();
-            this.btnSavePool = new System.Windows.Forms.Button();
             this.tabPatternEditor = new System.Windows.Forms.TabPage();
             this.btnCopyPattern = new System.Windows.Forms.Button();
             this.btnNewPattern = new System.Windows.Forms.Button();
@@ -87,20 +77,9 @@ namespace TERG.Forms
             this.tabEventLog.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabControlEditors.SuspendLayout();
-            this.tabPoolEditor.SuspendLayout();
             this.tabPatternEditor.SuspendLayout();
             this.tabExport.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // listPools
-            // 
-            this.listPools.FormattingEnabled = true;
-            this.listPools.Location = new System.Drawing.Point(0, 0);
-            this.listPools.Name = "listPools";
-            this.listPools.ScrollAlwaysVisible = true;
-            this.listPools.Size = new System.Drawing.Size(173, 277);
-            this.listPools.TabIndex = 0;
-            this.listPools.SelectedIndexChanged += new System.EventHandler(this.ListPools_SelectedIndexChanged);
             // 
             // mainStatusStrip
             // 
@@ -118,60 +97,6 @@ namespace TERG.Forms
             this.statusDatabase.Name = "statusDatabase";
             this.statusDatabase.Size = new System.Drawing.Size(119, 17);
             this.statusDatabase.Text = "7/23/2017 5:26:22 PM";
-            // 
-            // comboPoolParent
-            // 
-            this.comboPoolParent.FormattingEnabled = true;
-            this.comboPoolParent.Location = new System.Drawing.Point(360, 75);
-            this.comboPoolParent.Name = "comboPoolParent";
-            this.comboPoolParent.Size = new System.Drawing.Size(172, 21);
-            this.comboPoolParent.TabIndex = 5;
-            this.comboPoolParent.SelectedIndexChanged += new System.EventHandler(this.ComboPoolParent_SelectedIndexChanged);
-            // 
-            // textPoolName
-            // 
-            this.textPoolName.Location = new System.Drawing.Point(360, 35);
-            this.textPoolName.Name = "textPoolName";
-            this.textPoolName.Size = new System.Drawing.Size(172, 20);
-            this.textPoolName.TabIndex = 2;
-            this.textPoolName.TextChanged += new System.EventHandler(this.TextPoolName_TextChanged);
-            // 
-            // textBoxPoolEditor
-            // 
-            this.textBoxPoolEditor.Location = new System.Drawing.Point(179, 28);
-            this.textBoxPoolEditor.Multiline = true;
-            this.textBoxPoolEditor.Name = "textBoxPoolEditor";
-            this.textBoxPoolEditor.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxPoolEditor.Size = new System.Drawing.Size(172, 242);
-            this.textBoxPoolEditor.TabIndex = 2;
-            this.textBoxPoolEditor.TextChanged += new System.EventHandler(this.TextBoxPoolEditor_TextChanged);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(357, 59);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(65, 13);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Parent Pool:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(357, 19);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(38, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Name:";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(179, 11);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(32, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Items";
             // 
             // menuStrip1
             // 
@@ -309,52 +234,12 @@ namespace TERG.Forms
             // tabPoolEditor
             // 
             this.tabPoolEditor.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPoolEditor.Controls.Add(this.btnDeletePool);
-            this.tabPoolEditor.Controls.Add(this.comboPoolParent);
-            this.tabPoolEditor.Controls.Add(this.listPools);
-            this.tabPoolEditor.Controls.Add(this.btnRefreshPool);
-            this.tabPoolEditor.Controls.Add(this.label1);
-            this.tabPoolEditor.Controls.Add(this.btnSavePool);
-            this.tabPoolEditor.Controls.Add(this.label2);
-            this.tabPoolEditor.Controls.Add(this.textPoolName);
-            this.tabPoolEditor.Controls.Add(this.label3);
-            this.tabPoolEditor.Controls.Add(this.textBoxPoolEditor);
             this.tabPoolEditor.Location = new System.Drawing.Point(4, 22);
             this.tabPoolEditor.Name = "tabPoolEditor";
             this.tabPoolEditor.Padding = new System.Windows.Forms.Padding(3);
             this.tabPoolEditor.Size = new System.Drawing.Size(538, 276);
             this.tabPoolEditor.TabIndex = 0;
             this.tabPoolEditor.Text = "Pools";
-            // 
-            // btnDeletePool
-            // 
-            this.btnDeletePool.Location = new System.Drawing.Point(411, 247);
-            this.btnDeletePool.Name = "btnDeletePool";
-            this.btnDeletePool.Size = new System.Drawing.Size(121, 23);
-            this.btnDeletePool.TabIndex = 12;
-            this.btnDeletePool.Text = "Delete Pool";
-            this.btnDeletePool.UseVisualStyleBackColor = true;
-            this.btnDeletePool.Click += new System.EventHandler(this.BtnDeletePool_Click);
-            // 
-            // btnRefreshPool
-            // 
-            this.btnRefreshPool.Image = global::TERG.Forms.Properties.Resources.action_refresh;
-            this.btnRefreshPool.Location = new System.Drawing.Point(463, 6);
-            this.btnRefreshPool.Name = "btnRefreshPool";
-            this.btnRefreshPool.Size = new System.Drawing.Size(29, 23);
-            this.btnRefreshPool.TabIndex = 4;
-            this.btnRefreshPool.UseVisualStyleBackColor = true;
-            this.btnRefreshPool.Click += new System.EventHandler(this.BtnRefreshPool_Click);
-            // 
-            // btnSavePool
-            // 
-            this.btnSavePool.Image = global::TERG.Forms.Properties.Resources.action_save;
-            this.btnSavePool.Location = new System.Drawing.Point(498, 6);
-            this.btnSavePool.Name = "btnSavePool";
-            this.btnSavePool.Size = new System.Drawing.Size(29, 23);
-            this.btnSavePool.TabIndex = 3;
-            this.btnSavePool.UseVisualStyleBackColor = true;
-            this.btnSavePool.Click += new System.EventHandler(this.BtnSavePool_Click);
             // 
             // tabPatternEditor
             // 
@@ -604,7 +489,7 @@ namespace TERG.Forms
             this.comboExportPattern.Size = new System.Drawing.Size(146, 21);
             this.comboExportPattern.TabIndex = 0;
             // 
-            // frmMain
+            // Dashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -616,7 +501,7 @@ namespace TERG.Forms
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
-            this.Name = "frmMain";
+            this.Name = "Dashboard";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "The Encyclopedia of Random Generation";
             this.Load += new System.EventHandler(this.Dashboard_Load);
@@ -628,8 +513,6 @@ namespace TERG.Forms
             this.tabEventLog.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabControlEditors.ResumeLayout(false);
-            this.tabPoolEditor.ResumeLayout(false);
-            this.tabPoolEditor.PerformLayout();
             this.tabPatternEditor.ResumeLayout(false);
             this.tabPatternEditor.PerformLayout();
             this.tabExport.ResumeLayout(false);
@@ -640,8 +523,6 @@ namespace TERG.Forms
         }
 
         #endregion
-
-        private System.Windows.Forms.ListBox listPools;
         private System.Windows.Forms.StatusStrip mainStatusStrip;
         private System.Windows.Forms.ToolStripStatusLabel statusDatabase;
         private System.Windows.Forms.MenuStrip menuStrip1;
@@ -651,17 +532,9 @@ namespace TERG.Forms
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem addNewPoolToolStripMenuItem;
-        private System.Windows.Forms.Button btnSavePool;
-        private System.Windows.Forms.TextBox textBoxPoolEditor;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnRefreshPool;
         private System.Windows.Forms.TabPage tabEventLog;
         private System.Windows.Forms.TextBox txtEventLog;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TextBox textPoolName;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox comboPoolParent;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TabControl tabControlEditors;
         private System.Windows.Forms.TabPage tabPoolEditor;
         private System.Windows.Forms.TabPage tabPatternEditor;
@@ -676,7 +549,6 @@ namespace TERG.Forms
         private System.Windows.Forms.Button btnAddReference;
         private System.Windows.Forms.ToolStripMenuItem runToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem patternRunToolStripMenuItem;
-        private System.Windows.Forms.Button btnDeletePool;
         private System.Windows.Forms.Button btnDeletePattern;
         private System.Windows.Forms.ToolStripMenuItem changeDatabaseLocationToolStripMenuItem;
         private System.Windows.Forms.Button btnMoveRefDown;
