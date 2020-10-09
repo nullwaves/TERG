@@ -85,9 +85,9 @@ namespace TERG.Forms
             // 
             this.mainStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusDatabase});
-            this.mainStatusStrip.Location = new System.Drawing.Point(0, 481);
+            this.mainStatusStrip.Location = new System.Drawing.Point(0, 566);
             this.mainStatusStrip.Name = "mainStatusStrip";
-            this.mainStatusStrip.Size = new System.Drawing.Size(565, 22);
+            this.mainStatusStrip.Size = new System.Drawing.Size(760, 22);
             this.mainStatusStrip.SizingGrip = false;
             this.mainStatusStrip.TabIndex = 2;
             this.mainStatusStrip.Text = "statusStrip1";
@@ -106,7 +106,7 @@ namespace TERG.Forms
             this.tERGToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(565, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(760, 24);
             this.menuStrip1.TabIndex = 5;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -196,7 +196,7 @@ namespace TERG.Forms
             this.tabEventLog.Location = new System.Drawing.Point(4, 22);
             this.tabEventLog.Name = "tabEventLog";
             this.tabEventLog.Padding = new System.Windows.Forms.Padding(3);
-            this.tabEventLog.Size = new System.Drawing.Size(538, 116);
+            this.tabEventLog.Size = new System.Drawing.Size(752, 116);
             this.tabEventLog.TabIndex = 1;
             this.tabEventLog.Text = "Event Log";
             this.tabEventLog.UseVisualStyleBackColor = true;
@@ -214,10 +214,11 @@ namespace TERG.Forms
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabEventLog);
-            this.tabControl1.Location = new System.Drawing.Point(12, 336);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tabControl1.Location = new System.Drawing.Point(0, 424);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(546, 142);
+            this.tabControl1.Size = new System.Drawing.Size(760, 142);
             this.tabControl1.TabIndex = 6;
             // 
             // tabControlEditors
@@ -225,10 +226,11 @@ namespace TERG.Forms
             this.tabControlEditors.Controls.Add(this.tabPoolEditor);
             this.tabControlEditors.Controls.Add(this.tabPatternEditor);
             this.tabControlEditors.Controls.Add(this.tabExport);
-            this.tabControlEditors.Location = new System.Drawing.Point(12, 27);
+            this.tabControlEditors.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tabControlEditors.Location = new System.Drawing.Point(0, 24);
             this.tabControlEditors.Name = "tabControlEditors";
             this.tabControlEditors.SelectedIndex = 0;
-            this.tabControlEditors.Size = new System.Drawing.Size(546, 302);
+            this.tabControlEditors.Size = new System.Drawing.Size(760, 394);
             this.tabControlEditors.TabIndex = 7;
             // 
             // tabPoolEditor
@@ -237,7 +239,7 @@ namespace TERG.Forms
             this.tabPoolEditor.Location = new System.Drawing.Point(4, 22);
             this.tabPoolEditor.Name = "tabPoolEditor";
             this.tabPoolEditor.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPoolEditor.Size = new System.Drawing.Size(538, 276);
+            this.tabPoolEditor.Size = new System.Drawing.Size(752, 368);
             this.tabPoolEditor.TabIndex = 0;
             this.tabPoolEditor.Text = "Pools";
             // 
@@ -493,7 +495,8 @@ namespace TERG.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(565, 503);
+            this.AutoSize = true;
+            this.ClientSize = new System.Drawing.Size(760, 588);
             this.Controls.Add(this.tabControlEditors);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.mainStatusStrip);

@@ -10,8 +10,9 @@ namespace TERG.Forms.Controls
     {
         private readonly Engine Engine;
 
-        private object SelectedPool => ListboxPools.SelectedItem;
+        private Pool SelectedPool => ListboxPools.SelectedItem != null ? (Pool)ListboxPools.SelectedItem : null;
         private IEnumerable<Pool> Pools => Engine.GetPools();
+        private PoolEditor _editor;
 
         private PoolMenu()
         {
@@ -20,19 +21,31 @@ namespace TERG.Forms.Controls
         public PoolMenu(Engine e)
         {
             Engine = e;
+
             InitializeComponent();
-            ListboxPools.DisplayMember = "Name";
-            ListboxPools.DataSource = Pools.ToArray();
-            // RefreshPoolList();
+
+            RefreshPoolList();
+            _editor = new PoolEditor
+            {
+                Dock = DockStyle.Fill
+            };
+            PoolMenuSplit.Panel2.Controls.Add(_editor);
         }
 
         public void RefreshPoolList()
         {
-            int oldId = SelectedPool != null ? ((Pool)SelectedPool).ID : -1;
+            int oldId = SelectedPool != null ? SelectedPool.ID : -1;
             ListboxPools.Items.Clear();
-            ListboxPools.Items.AddRange(Engine.GetPools().ToArray());
-            ListboxPools.DisplayMember = "Name";
+            ListboxPools.Items.AddRange(Pools.ToArray());
             ListboxPools.SelectedIndex = oldId != -1 ? ListboxPools.Items.IndexOf(Engine.GetPoolByID(oldId)) : -1;
+        }
+
+        private void ListboxPools_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            if (ListboxPools.SelectedIndex > -1)
+            {
+                _editor.LoadPool(SelectedPool);
+            }
         }
     }
 }

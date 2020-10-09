@@ -14,5 +14,7 @@
             ParentID = -1;
             List = new string[0];
         }
+
+        public override string ToString() => $"[{ID}] {Name}";
     }
 }

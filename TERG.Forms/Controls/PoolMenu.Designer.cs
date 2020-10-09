@@ -39,11 +39,12 @@
             // 
             // PoolMenuGroup
             // 
+            this.PoolMenuGroup.AutoSize = true;
             this.PoolMenuGroup.Controls.Add(this.PoolMenuSplit);
             this.PoolMenuGroup.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PoolMenuGroup.Location = new System.Drawing.Point(0, 0);
             this.PoolMenuGroup.Name = "PoolMenuGroup";
-            this.PoolMenuGroup.Size = new System.Drawing.Size(356, 328);
+            this.PoolMenuGroup.Size = new System.Drawing.Size(684, 464);
             this.PoolMenuGroup.TabIndex = 0;
             this.PoolMenuGroup.TabStop = false;
             this.PoolMenuGroup.Text = "Pools";
@@ -59,31 +60,33 @@
             // 
             this.PoolMenuSplit.Panel1.Controls.Add(this.ListboxPools);
             this.PoolMenuSplit.Panel1MinSize = 150;
-            this.PoolMenuSplit.Size = new System.Drawing.Size(350, 309);
+            this.PoolMenuSplit.Size = new System.Drawing.Size(678, 445);
             this.PoolMenuSplit.SplitterDistance = 150;
             this.PoolMenuSplit.TabIndex = 0;
             // 
             // ListboxPools
             // 
             this.ListboxPools.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ListboxPools.FormattingEnabled = true;
             this.ListboxPools.Location = new System.Drawing.Point(0, 0);
             this.ListboxPools.Name = "ListboxPools";
-            this.ListboxPools.Size = new System.Drawing.Size(150, 309);
+            this.ListboxPools.Size = new System.Drawing.Size(150, 445);
             this.ListboxPools.TabIndex = 0;
+            this.ListboxPools.SelectedIndexChanged += new System.EventHandler(this.ListboxPools_SelectedIndexChanged);
             // 
             // PoolMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.Controls.Add(this.PoolMenuGroup);
             this.Name = "PoolMenu";
-            this.Size = new System.Drawing.Size(356, 328);
+            this.Size = new System.Drawing.Size(684, 464);
             this.PoolMenuGroup.ResumeLayout(false);
             this.PoolMenuSplit.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.PoolMenuSplit)).EndInit();
             this.PoolMenuSplit.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

@@ -31,5 +31,7 @@ namespace TERG.Core.Models
             Body = new string[0];
             Footer = new string[0];
         }
+
+        public override string ToString() => $"[{ID}] {Name}";
     }
 }

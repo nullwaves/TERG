@@ -53,7 +53,10 @@ namespace TERG.Forms
                 SaveDatabase();
             }
 
-            PoolMenu poolMenu = new PoolMenu(engine);
+            PoolMenu poolMenu = new PoolMenu(engine)
+            {
+                Dock = DockStyle.Fill
+            };
             tabPoolEditor.Controls.Add(poolMenu);
 
             listPatterns.DisplayMember = "Name";
