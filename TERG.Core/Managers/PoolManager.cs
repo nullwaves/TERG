@@ -13,6 +13,11 @@ namespace TERG.Core.Managers
             _pools = new List<Pool>();
         }
 
+        internal PoolManager(IEnumerable<Pool> pools)
+        {
+            _pools = pools.ToList();
+        }
+
         internal Pool Add(Pool p)
         {
             p.ID = GetNextID();

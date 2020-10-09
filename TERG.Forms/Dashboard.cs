@@ -140,30 +140,9 @@ namespace TERG.Forms
 
         private bool SaveDatabase(string file)
         {
-            PushDatabaseStatus("Preparing to save database");
-
-            //Check to see if database exists
-            if (!File.Exists(file))
-            {
-                //It doesn't exist, so we make one
-                PushDatabaseStatus("Database does not exist; Attempting to create");
-                try
-                {
-                    File.Create(file).Close();
-                    PushDatabaseStatus("Database created");
-                }
-                catch (Exception e)
-                {
-                    //Unless we don't.
-                    PushDatabaseStatus("Error Creating Database: " + e.Message);
-                    _ = MessageBox.Show(e.Message);
-                    return false;
-                }
-            }
-
-            //Save the data to the file.
-            engine.Save(file);
-            PushDatabaseStatus("Database saved");
+            bool result = engine.Save(file);
+            string message = result ? "Database Saved" : "ERROR: Could not save database!";
+            PushDatabaseStatus(message);
             return true;
         }
 
@@ -199,6 +178,7 @@ namespace TERG.Forms
                     Pool newPool = engine.AddPool(new Pool() { Name = name });
                     PushDatabaseStatus($"Added pool [{newPool.ID}] {newPool.Name}");
                     SaveDatabase();
+                    ((PoolMenu)tabPoolEditor.Controls[0]).RefreshPoolList();
                 }
             }
         }

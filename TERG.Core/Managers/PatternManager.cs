@@ -6,11 +6,16 @@ namespace TERG.Core.Managers
 {
     internal class PatternManager
     {
-        private readonly List<Pattern> _patterns;
+        internal readonly List<Pattern> _patterns;
 
         internal PatternManager()
         {
             _patterns = new List<Pattern>();
+        }
+
+        internal PatternManager(IEnumerable<Pattern> patterns)
+        {
+            _patterns = patterns.ToList();
         }
 
         internal Pattern Add(Pattern p)
