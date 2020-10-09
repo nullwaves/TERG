@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
+using TERG.Core.Interfaces;
 using TERG.Core.Models;
 
 namespace TERG.Core
@@ -38,8 +41,7 @@ namespace TERG.Core
                 {
                     tasks.Add(Task.Run(() =>
                     {
-                        var hf = CalcHF(job.HeaderAndFooter, i, job.Iterations);
-                        string filled = job.Pattern.Fill(e, hf);
+                        string filled = FillPattern(job, i);
                         results.Add(filled);
                     }));
                 }
@@ -47,6 +49,47 @@ namespace TERG.Core
                 Task.WaitAll(tasks.ToArray());
             }
             return results;
+        }
+
+        private string FillPattern(JobSettings job, int currentIteration = 0)
+        {
+            List<IReference> references = job.Pattern.References;
+
+            //Time to draw straws
+            string[] data = new string[references.Count];
+
+            for (int i = 0; i < references.Count; i++)
+            {
+                data[i] = references[i].Pull(e);
+            }
+
+            StringBuilder output = new StringBuilder(string.Join(Environment.NewLine, job.Pattern.Body));
+
+            for (int i = 0; i < references.Count; i++)
+            {
+                output.Replace("[@" + i + "]", data[i]);
+            }
+
+            switch (CalcHF(job.HeaderAndFooter, currentIteration, job.Iterations))
+            {
+                case Pattern.HeaderAndFooterSetting.BOTH:
+                    output.Insert(0, string.Join(Environment.NewLine, job.Pattern.Header));
+                    output.Append(string.Join(Environment.NewLine, job.Pattern.Footer));
+                    break;
+
+                case Pattern.HeaderAndFooterSetting.HEADER_ONLY:
+                    output.Insert(0, string.Join(Environment.NewLine, job.Pattern.Header));
+                    break;
+
+                case Pattern.HeaderAndFooterSetting.FOOTER_ONLY:
+                    output.Append(string.Join(Environment.NewLine, job.Pattern.Footer));
+                    break;
+
+                default:
+                    break;
+            }
+
+            return output.ToString();
         }
 
         internal static Pattern.HeaderAndFooterSetting CalcHF(HeaderAndFooterSetting setting, int currentIteration, int Iterations)

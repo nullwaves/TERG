@@ -46,7 +46,7 @@ namespace TERG.Core.Models.References
 
             for (int i = 0; i < t; i++)
             {
-                s.Append(p.Fill(e) + Environment.NewLine);
+                s.Append(e.Composer.Compose(p, 1, Composer.HeaderAndFooterSetting.NONE) + Environment.NewLine);
             }
 
             return s.ToString();

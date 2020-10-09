@@ -33,44 +33,5 @@ namespace TERG.Core.Models
             Body = new string[0];
             Footer = new string[0];
         }
-
-        public string Fill(Engine e, HeaderAndFooterSetting HeadAndFoot = HeaderAndFooterSetting.NONE)
-        {
-            //Time to draw straws
-            string[] data = new string[References.Count];
-
-            for (int i = 0; i < References.Count; i++)
-            {
-                data[i] = References[i].Pull(e);
-            }
-
-            StringBuilder output = new StringBuilder(string.Join(Environment.NewLine, Body));
-
-            for (int i = 0; i < References.Count; i++)
-            {
-                output.Replace("[@" + i + "]", data[i]);
-            }
-
-            switch (HeadAndFoot)
-            {
-                case HeaderAndFooterSetting.BOTH:
-                    output.Insert(0, string.Join(Environment.NewLine, Header));
-                    output.Append(string.Join(Environment.NewLine, Footer));
-                    break;
-
-                case HeaderAndFooterSetting.HEADER_ONLY:
-                    output.Insert(0, string.Join(Environment.NewLine, Header));
-                    break;
-
-                case HeaderAndFooterSetting.FOOTER_ONLY:
-                    output.Append(string.Join(Environment.NewLine, Footer));
-                    break;
-
-                default:
-                    break;
-            }
-
-            return output.ToString();
-        }
     }
 }

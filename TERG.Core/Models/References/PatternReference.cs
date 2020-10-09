@@ -1,4 +1,5 @@
-﻿using TERG.Core.Interfaces;
+﻿using System.Linq;
+using TERG.Core.Interfaces;
 
 namespace TERG.Core.Models.References
 {
@@ -21,7 +22,8 @@ namespace TERG.Core.Models.References
 
         public string Pull(Engine e)
         {
-            return e.GetPatternByID(PatternID)?.Fill(e);
+            var pattern = e.GetPatternByID(PatternID);
+            return pattern != null ? e.Composer.Compose(pattern, 1, Composer.HeaderAndFooterSetting.NONE).First() : string.Empty;
         }
     }
 }

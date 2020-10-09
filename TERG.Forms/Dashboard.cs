@@ -315,7 +315,7 @@ namespace TERG.Forms
         {
             if (listPatterns.SelectedItem != null)
             {
-                _ = MessageBox.Show(((Pattern)listPatterns.SelectedItem).Fill(engine));
+                _ = MessageBox.Show(engine.Composer.Compose((Pattern)listPatterns.SelectedItem, 1, Composer.HeaderAndFooterSetting.ALL).First());
             }
         }
 

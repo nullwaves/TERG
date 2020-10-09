@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using TERG.Core.Interfaces;
 
 namespace TERG.Core.Models.References
@@ -24,7 +25,7 @@ namespace TERG.Core.Models.References
         {
             if (PatternList.Count < 1) return string.Empty;
             Pattern p = e.GetPatternByID(PatternList[Engine.RNG.Next(0, PatternList.Count)]);
-            return p?.Fill(e);
+            return p != null ? e.Composer.Compose(p, 1, Composer.HeaderAndFooterSetting.NONE).First() : string.Empty;
         }
     }
 }
