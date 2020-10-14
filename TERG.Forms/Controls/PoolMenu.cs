@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using TERG.Core;
@@ -12,7 +13,7 @@ namespace TERG.Forms.Controls
 
         private Pool SelectedPool => ListboxPools.SelectedItem != null ? (Pool)ListboxPools.SelectedItem : null;
         private IEnumerable<Pool> Pools => Engine.GetPools();
-        private PoolEditor _editor;
+        private readonly PoolEditor _editor;
 
         private PoolMenu()
         {
@@ -29,7 +30,26 @@ namespace TERG.Forms.Controls
             {
                 Dock = DockStyle.Fill
             };
+            _editor.PoolSaved += new EventHandler<Pool>(PoolEditor_PoolSaved);
+            _editor.PoolDeleted += new EventHandler<Pool>(PoolEditor_PoolDeleted);
             PoolMenuSplit.Panel2.Controls.Add(_editor);
+        }
+
+        private void PoolEditor_PoolDeleted(object sender, Pool pool)
+        {
+            if (Engine.RemovePool(pool.ID))
+            {
+                ListboxPools.SelectedIndex = -1;
+                RefreshPoolList();
+            }
+        }
+
+        private void PoolEditor_PoolSaved(object sender, Pool pool)
+        {
+            if (Engine.UpdatePool(pool))
+            {
+                RefreshPoolList();
+            }
         }
 
         public void RefreshPoolList()

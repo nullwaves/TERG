@@ -104,11 +104,12 @@
             this.ButtonDelete.AccessibleName = "Delete Pool";
             this.ButtonDelete.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.ButtonDelete.Image = global::TERG.Forms.Properties.Resources.table_delete;
-            this.ButtonDelete.Location = new System.Drawing.Point(165, 19);
+            this.ButtonDelete.Location = new System.Drawing.Point(76, 19);
             this.ButtonDelete.Name = "ButtonDelete";
             this.ButtonDelete.Size = new System.Drawing.Size(29, 23);
             this.ButtonDelete.TabIndex = 7;
             this.ButtonDelete.UseVisualStyleBackColor = true;
+            this.ButtonDelete.Click += new System.EventHandler(this.ButtonDelete_Click);
             // 
             // ButtonRefresh
             // 
@@ -118,6 +119,7 @@
             this.ButtonRefresh.Size = new System.Drawing.Size(29, 23);
             this.ButtonRefresh.TabIndex = 6;
             this.ButtonRefresh.UseVisualStyleBackColor = true;
+            this.ButtonRefresh.Click += new System.EventHandler(this.ButtonRefresh_Click);
             // 
             // ButtonSave
             // 
@@ -127,6 +129,7 @@
             this.ButtonSave.Size = new System.Drawing.Size(29, 23);
             this.ButtonSave.TabIndex = 5;
             this.ButtonSave.UseVisualStyleBackColor = true;
+            this.ButtonSave.Click += new System.EventHandler(this.ButtonSave_Click);
             // 
             // TextBoxPoolName
             // 
@@ -179,6 +182,7 @@
             // TextBoxList
             // 
             this.TextBoxList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TextBoxList.Enabled = false;
             this.TextBoxList.Location = new System.Drawing.Point(3, 16);
             this.TextBoxList.Multiline = true;
             this.TextBoxList.Name = "TextBoxList";
