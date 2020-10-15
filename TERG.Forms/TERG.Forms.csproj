@@ -56,6 +56,12 @@
     <Compile Include="BaseEditor.Designer.cs">
       <DependentUpon>BaseEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\PatternEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\PatternEditor.Designer.cs">
+      <DependentUpon>PatternEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\PoolEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -97,6 +103,9 @@
     </Compile>
     <EmbeddedResource Include="BaseEditor.resx">
       <DependentUpon>BaseEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\PatternEditor.resx">
+      <DependentUpon>PatternEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\PoolEditor.resx">
       <DependentUpon>PoolEditor.cs</DependentUpon>
