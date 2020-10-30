@@ -38,6 +38,9 @@
             this.LabelName = new System.Windows.Forms.Label();
             this.TextBoxID = new System.Windows.Forms.TextBox();
             this.LabelID = new System.Windows.Forms.Label();
+            this.ButtonEditHeader = new System.Windows.Forms.Button();
+            this.ButtonEditBody = new System.Windows.Forms.Button();
+            this.ButtonEditFooter = new System.Windows.Forms.Button();
             this.GroupPatternEditor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SplitPatternEditor)).BeginInit();
             this.SplitPatternEditor.Panel1.SuspendLayout();
@@ -52,7 +55,7 @@
             this.GroupPatternEditor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GroupPatternEditor.Location = new System.Drawing.Point(0, 0);
             this.GroupPatternEditor.Name = "GroupPatternEditor";
-            this.GroupPatternEditor.Size = new System.Drawing.Size(726, 331);
+            this.GroupPatternEditor.Size = new System.Drawing.Size(707, 331);
             this.GroupPatternEditor.TabIndex = 0;
             this.GroupPatternEditor.TabStop = false;
             this.GroupPatternEditor.Text = "PatternEditor";
@@ -66,14 +69,17 @@
             // SplitPatternEditor.Panel1
             // 
             this.SplitPatternEditor.Panel1.Controls.Add(this.GroupPatternDetail);
-            this.SplitPatternEditor.Panel1MinSize = 165;
-            this.SplitPatternEditor.Size = new System.Drawing.Size(720, 312);
-            this.SplitPatternEditor.SplitterDistance = 203;
+            this.SplitPatternEditor.Panel1MinSize = 200;
+            this.SplitPatternEditor.Size = new System.Drawing.Size(701, 312);
+            this.SplitPatternEditor.SplitterDistance = 200;
             this.SplitPatternEditor.TabIndex = 0;
             // 
             // GroupPatternDetail
             // 
             this.GroupPatternDetail.AutoSize = true;
+            this.GroupPatternDetail.Controls.Add(this.ButtonEditFooter);
+            this.GroupPatternDetail.Controls.Add(this.ButtonEditBody);
+            this.GroupPatternDetail.Controls.Add(this.ButtonEditHeader);
             this.GroupPatternDetail.Controls.Add(this.ButtonDelete);
             this.GroupPatternDetail.Controls.Add(this.ButtonRefresh);
             this.GroupPatternDetail.Controls.Add(this.ButtonSave);
@@ -84,7 +90,7 @@
             this.GroupPatternDetail.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GroupPatternDetail.Location = new System.Drawing.Point(0, 0);
             this.GroupPatternDetail.Name = "GroupPatternDetail";
-            this.GroupPatternDetail.Size = new System.Drawing.Size(203, 312);
+            this.GroupPatternDetail.Size = new System.Drawing.Size(200, 312);
             this.GroupPatternDetail.TabIndex = 2;
             this.GroupPatternDetail.TabStop = false;
             this.GroupPatternDetail.Text = "Pattern Details";
@@ -153,13 +159,43 @@
             this.LabelID.TabIndex = 1;
             this.LabelID.Text = "ID:";
             // 
+            // ButtonEditHeader
+            // 
+            this.ButtonEditHeader.Location = new System.Drawing.Point(6, 100);
+            this.ButtonEditHeader.Name = "ButtonEditHeader";
+            this.ButtonEditHeader.Size = new System.Drawing.Size(54, 23);
+            this.ButtonEditHeader.TabIndex = 1;
+            this.ButtonEditHeader.Text = "Header";
+            this.ButtonEditHeader.UseVisualStyleBackColor = true;
+            this.ButtonEditHeader.Click += new System.EventHandler(this.ButtonEditHeader_Click);
+            // 
+            // ButtonEditBody
+            // 
+            this.ButtonEditBody.Location = new System.Drawing.Point(66, 100);
+            this.ButtonEditBody.Name = "ButtonEditBody";
+            this.ButtonEditBody.Size = new System.Drawing.Size(54, 23);
+            this.ButtonEditBody.TabIndex = 8;
+            this.ButtonEditBody.Text = "Body";
+            this.ButtonEditBody.UseVisualStyleBackColor = true;
+            this.ButtonEditBody.Click += new System.EventHandler(this.ButtonEditBody_Click);
+            // 
+            // ButtonEditFooter
+            // 
+            this.ButtonEditFooter.Location = new System.Drawing.Point(126, 100);
+            this.ButtonEditFooter.Name = "ButtonEditFooter";
+            this.ButtonEditFooter.Size = new System.Drawing.Size(54, 23);
+            this.ButtonEditFooter.TabIndex = 9;
+            this.ButtonEditFooter.Text = "Footer";
+            this.ButtonEditFooter.UseVisualStyleBackColor = true;
+            this.ButtonEditFooter.Click += new System.EventHandler(this.ButtonEditFooter_Click);
+            // 
             // PatternEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.GroupPatternEditor);
             this.Name = "PatternEditor";
-            this.Size = new System.Drawing.Size(726, 331);
+            this.Size = new System.Drawing.Size(707, 331);
             this.GroupPatternEditor.ResumeLayout(false);
             this.SplitPatternEditor.Panel1.ResumeLayout(false);
             this.SplitPatternEditor.Panel1.PerformLayout();
@@ -184,5 +220,8 @@
         private System.Windows.Forms.Label LabelName;
         private System.Windows.Forms.TextBox TextBoxID;
         private System.Windows.Forms.Label LabelID;
+        private System.Windows.Forms.Button ButtonEditFooter;
+        private System.Windows.Forms.Button ButtonEditBody;
+        private System.Windows.Forms.Button ButtonEditHeader;
     }
 }

@@ -54,7 +54,6 @@ namespace TERG.Core
 
         public bool UpdatePool(Pool p) => PoolManager.Update(p);
 
-        // TODO: Refactor Saving/Loading an engine state
         internal static IStorageService GetDefaultStorageServiceInstance()
         {
             return new FlatfileStorageService();
