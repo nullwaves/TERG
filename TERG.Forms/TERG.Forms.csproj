@@ -62,6 +62,12 @@
     <Compile Include="Controls\PatternEditor.Designer.cs">
       <DependentUpon>PatternEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\PatternMenu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\PatternMenu.Designer.cs">
+      <DependentUpon>PatternMenu.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\PoolEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -106,6 +112,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\PatternEditor.resx">
       <DependentUpon>PatternEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\PatternMenu.resx">
+      <DependentUpon>PatternMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\PoolEditor.resx">
       <DependentUpon>PoolEditor.cs</DependentUpon>

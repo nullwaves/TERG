@@ -1,10 +1,15 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using TERG.Core.Models;
 
 namespace TERG.Forms.Controls
 {
     public partial class PatternEditor : UserControl
     {
+        public event EventHandler<Pattern> PatternSaved;
+
+        public event EventHandler<Pattern> PatternDeleted;
+
         private Pattern CurrentPattern;
 
         public PatternEditor()
