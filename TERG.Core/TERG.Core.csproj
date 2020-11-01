@@ -54,6 +54,7 @@
     <Compile Include="Interfaces\IStorageService.cs" />
     <Compile Include="Managers\PoolManager.cs" />
     <Compile Include="Managers\PatternManager.cs" />
+    <Compile Include="Models\References\BaseReference.cs" />
     <Compile Include="ReferenceFactory.cs" />
     <Compile Include="Models\References\DistributionTableReference.cs" />
     <Compile Include="Interfaces\IReference.cs" />

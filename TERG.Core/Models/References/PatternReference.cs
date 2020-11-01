@@ -1,11 +1,10 @@
 ﻿using System.Linq;
-using TERG.Core.Interfaces;
 
 namespace TERG.Core.Models.References
 {
-    public class PatternReference : IReference
+    public class PatternReference : BaseReference
     {
-        public string Type
+        public new string Type
         {
             get
             {
@@ -20,7 +19,7 @@ namespace TERG.Core.Models.References
             PatternID = -1;
         }
 
-        public string Pull(Engine e)
+        public override string Pull(Engine e)
         {
             var pattern = e.GetPatternByID(PatternID);
             return pattern != null ? e.Composer.Compose(pattern, 1, Composer.HeaderAndFooterSetting.NONE).First() : string.Empty;

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Text;
-using TERG.Core.Interfaces;
 
 namespace TERG.Core.Models.References
 {
-    public class IteratedPatternReference : IReference
+    public class IteratedPatternReference : BaseReference
     {
         public int PatternID;
         public int MinimumIterations;
@@ -18,7 +17,7 @@ namespace TERG.Core.Models.References
             }
         }
 
-        public string Type
+        public new string Type
         {
             get
             {
@@ -33,7 +32,7 @@ namespace TERG.Core.Models.References
             MaximumIterations = 1;
         }
 
-        public string Pull(Engine e)
+        public override string Pull(Engine e)
         {
             Pattern p = e.GetPatternByID(PatternID);
             if (p == null)

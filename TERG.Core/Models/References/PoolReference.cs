@@ -1,10 +1,8 @@
-﻿using TERG.Core.Interfaces;
-
-namespace TERG.Core.Models.References
+﻿namespace TERG.Core.Models.References
 {
-    public class PoolReference : IReference
+    public class PoolReference : BaseReference
     {
-        public string Type
+        public new string Type
         {
             get
             {
@@ -19,7 +17,7 @@ namespace TERG.Core.Models.References
             PoolID = -1;
         }
 
-        public string Pull(Engine e)
+        public override string Pull(Engine e)
         {
             return e.PoolManager.Pull(PoolID);
         }

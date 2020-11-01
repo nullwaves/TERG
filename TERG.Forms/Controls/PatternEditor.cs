@@ -24,6 +24,8 @@ namespace TERG.Forms.Controls
         {
             TextBoxID.Text = CurrentPattern.ID.ToString();
             TextBoxName.Text = CurrentPattern.Name;
+            ListReferences.Items.Clear();
+            ListReferences.Items.AddRange(CurrentPattern.References.ToArray());
         }
 
         private void ButtonEditHeader_Click(object sender, System.EventArgs e)

@@ -1,11 +1,10 @@
 ﻿using System.Text;
-using TERG.Core.Interfaces;
 
 namespace TERG.Core.Models.References
 {
-    public class RandomIntegerReference : IReference
+    public class RandomIntegerReference : BaseReference
     {
-        public string Type
+        public new string Type
         {
             get
             {
@@ -24,7 +23,7 @@ namespace TERG.Core.Models.References
             MinLength = 0;
         }
 
-        public string Pull(Engine e)
+        public override string Pull(Engine e)
         {
             int num = Engine.RNG.Next(Min, Max);
             StringBuilder r = new StringBuilder(num.ToString());

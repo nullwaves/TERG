@@ -31,6 +31,9 @@
             this.GroupPatternEditor = new System.Windows.Forms.GroupBox();
             this.SplitPatternEditor = new System.Windows.Forms.SplitContainer();
             this.GroupPatternDetail = new System.Windows.Forms.GroupBox();
+            this.ButtonEditFooter = new System.Windows.Forms.Button();
+            this.ButtonEditBody = new System.Windows.Forms.Button();
+            this.ButtonEditHeader = new System.Windows.Forms.Button();
             this.ButtonDelete = new System.Windows.Forms.Button();
             this.ButtonRefresh = new System.Windows.Forms.Button();
             this.ButtonSave = new System.Windows.Forms.Button();
@@ -38,14 +41,19 @@
             this.LabelName = new System.Windows.Forms.Label();
             this.TextBoxID = new System.Windows.Forms.TextBox();
             this.LabelID = new System.Windows.Forms.Label();
-            this.ButtonEditHeader = new System.Windows.Forms.Button();
-            this.ButtonEditBody = new System.Windows.Forms.Button();
-            this.ButtonEditFooter = new System.Windows.Forms.Button();
+            this.SplitPatternReferences = new System.Windows.Forms.SplitContainer();
+            this.GroupReferences = new System.Windows.Forms.GroupBox();
+            this.ListReferences = new System.Windows.Forms.ListBox();
             this.GroupPatternEditor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SplitPatternEditor)).BeginInit();
             this.SplitPatternEditor.Panel1.SuspendLayout();
+            this.SplitPatternEditor.Panel2.SuspendLayout();
             this.SplitPatternEditor.SuspendLayout();
             this.GroupPatternDetail.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SplitPatternReferences)).BeginInit();
+            this.SplitPatternReferences.Panel1.SuspendLayout();
+            this.SplitPatternReferences.SuspendLayout();
+            this.GroupReferences.SuspendLayout();
             this.SuspendLayout();
             // 
             // GroupPatternEditor
@@ -70,6 +78,10 @@
             // 
             this.SplitPatternEditor.Panel1.Controls.Add(this.GroupPatternDetail);
             this.SplitPatternEditor.Panel1MinSize = 200;
+            // 
+            // SplitPatternEditor.Panel2
+            // 
+            this.SplitPatternEditor.Panel2.Controls.Add(this.SplitPatternReferences);
             this.SplitPatternEditor.Size = new System.Drawing.Size(701, 312);
             this.SplitPatternEditor.SplitterDistance = 200;
             this.SplitPatternEditor.TabIndex = 0;
@@ -94,6 +106,36 @@
             this.GroupPatternDetail.TabIndex = 2;
             this.GroupPatternDetail.TabStop = false;
             this.GroupPatternDetail.Text = "Pattern Details";
+            // 
+            // ButtonEditFooter
+            // 
+            this.ButtonEditFooter.Location = new System.Drawing.Point(126, 100);
+            this.ButtonEditFooter.Name = "ButtonEditFooter";
+            this.ButtonEditFooter.Size = new System.Drawing.Size(54, 23);
+            this.ButtonEditFooter.TabIndex = 9;
+            this.ButtonEditFooter.Text = "Footer";
+            this.ButtonEditFooter.UseVisualStyleBackColor = true;
+            this.ButtonEditFooter.Click += new System.EventHandler(this.ButtonEditFooter_Click);
+            // 
+            // ButtonEditBody
+            // 
+            this.ButtonEditBody.Location = new System.Drawing.Point(66, 100);
+            this.ButtonEditBody.Name = "ButtonEditBody";
+            this.ButtonEditBody.Size = new System.Drawing.Size(54, 23);
+            this.ButtonEditBody.TabIndex = 8;
+            this.ButtonEditBody.Text = "Body";
+            this.ButtonEditBody.UseVisualStyleBackColor = true;
+            this.ButtonEditBody.Click += new System.EventHandler(this.ButtonEditBody_Click);
+            // 
+            // ButtonEditHeader
+            // 
+            this.ButtonEditHeader.Location = new System.Drawing.Point(6, 100);
+            this.ButtonEditHeader.Name = "ButtonEditHeader";
+            this.ButtonEditHeader.Size = new System.Drawing.Size(54, 23);
+            this.ButtonEditHeader.TabIndex = 1;
+            this.ButtonEditHeader.Text = "Header";
+            this.ButtonEditHeader.UseVisualStyleBackColor = true;
+            this.ButtonEditHeader.Click += new System.EventHandler(this.ButtonEditHeader_Click);
             // 
             // ButtonDelete
             // 
@@ -159,35 +201,38 @@
             this.LabelID.TabIndex = 1;
             this.LabelID.Text = "ID:";
             // 
-            // ButtonEditHeader
+            // SplitPatternReferences
             // 
-            this.ButtonEditHeader.Location = new System.Drawing.Point(6, 100);
-            this.ButtonEditHeader.Name = "ButtonEditHeader";
-            this.ButtonEditHeader.Size = new System.Drawing.Size(54, 23);
-            this.ButtonEditHeader.TabIndex = 1;
-            this.ButtonEditHeader.Text = "Header";
-            this.ButtonEditHeader.UseVisualStyleBackColor = true;
-            this.ButtonEditHeader.Click += new System.EventHandler(this.ButtonEditHeader_Click);
+            this.SplitPatternReferences.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SplitPatternReferences.Location = new System.Drawing.Point(0, 0);
+            this.SplitPatternReferences.Name = "SplitPatternReferences";
             // 
-            // ButtonEditBody
+            // SplitPatternReferences.Panel1
             // 
-            this.ButtonEditBody.Location = new System.Drawing.Point(66, 100);
-            this.ButtonEditBody.Name = "ButtonEditBody";
-            this.ButtonEditBody.Size = new System.Drawing.Size(54, 23);
-            this.ButtonEditBody.TabIndex = 8;
-            this.ButtonEditBody.Text = "Body";
-            this.ButtonEditBody.UseVisualStyleBackColor = true;
-            this.ButtonEditBody.Click += new System.EventHandler(this.ButtonEditBody_Click);
+            this.SplitPatternReferences.Panel1.Controls.Add(this.GroupReferences);
+            this.SplitPatternReferences.Size = new System.Drawing.Size(497, 312);
+            this.SplitPatternReferences.SplitterDistance = 165;
+            this.SplitPatternReferences.TabIndex = 0;
             // 
-            // ButtonEditFooter
+            // GroupReferences
             // 
-            this.ButtonEditFooter.Location = new System.Drawing.Point(126, 100);
-            this.ButtonEditFooter.Name = "ButtonEditFooter";
-            this.ButtonEditFooter.Size = new System.Drawing.Size(54, 23);
-            this.ButtonEditFooter.TabIndex = 9;
-            this.ButtonEditFooter.Text = "Footer";
-            this.ButtonEditFooter.UseVisualStyleBackColor = true;
-            this.ButtonEditFooter.Click += new System.EventHandler(this.ButtonEditFooter_Click);
+            this.GroupReferences.Controls.Add(this.ListReferences);
+            this.GroupReferences.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GroupReferences.Location = new System.Drawing.Point(0, 0);
+            this.GroupReferences.Name = "GroupReferences";
+            this.GroupReferences.Size = new System.Drawing.Size(165, 312);
+            this.GroupReferences.TabIndex = 0;
+            this.GroupReferences.TabStop = false;
+            this.GroupReferences.Text = "References";
+            // 
+            // ListReferences
+            // 
+            this.ListReferences.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ListReferences.FormattingEnabled = true;
+            this.ListReferences.Location = new System.Drawing.Point(3, 16);
+            this.ListReferences.Name = "ListReferences";
+            this.ListReferences.Size = new System.Drawing.Size(159, 293);
+            this.ListReferences.TabIndex = 0;
             // 
             // PatternEditor
             // 
@@ -199,10 +244,15 @@
             this.GroupPatternEditor.ResumeLayout(false);
             this.SplitPatternEditor.Panel1.ResumeLayout(false);
             this.SplitPatternEditor.Panel1.PerformLayout();
+            this.SplitPatternEditor.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.SplitPatternEditor)).EndInit();
             this.SplitPatternEditor.ResumeLayout(false);
             this.GroupPatternDetail.ResumeLayout(false);
             this.GroupPatternDetail.PerformLayout();
+            this.SplitPatternReferences.Panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.SplitPatternReferences)).EndInit();
+            this.SplitPatternReferences.ResumeLayout(false);
+            this.GroupReferences.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -223,5 +273,8 @@
         private System.Windows.Forms.Button ButtonEditFooter;
         private System.Windows.Forms.Button ButtonEditBody;
         private System.Windows.Forms.Button ButtonEditHeader;
+        private System.Windows.Forms.SplitContainer SplitPatternReferences;
+        private System.Windows.Forms.GroupBox GroupReferences;
+        private System.Windows.Forms.ListBox ListReferences;
     }
 }

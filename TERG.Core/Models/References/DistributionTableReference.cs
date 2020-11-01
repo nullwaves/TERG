@@ -3,11 +3,11 @@ using TERG.Core.Interfaces;
 
 namespace TERG.Core.Models.References
 {
-    public class DistributionTableReference : IReference
+    public class DistributionTableReference : BaseReference
     {
         public List<DistributionRow> Rows;
 
-        public string Type
+        public new string Type
         {
             get
             {
@@ -20,7 +20,7 @@ namespace TERG.Core.Models.References
             Rows = new List<DistributionRow>();
         }
 
-        public string Pull(Engine e)
+        public override string Pull(Engine e)
         {
             int roll = Engine.RNG.Next(1, 101);
             string output = null;

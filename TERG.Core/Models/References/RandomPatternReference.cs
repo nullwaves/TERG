@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using TERG.Core.Interfaces;
 
 namespace TERG.Core.Models.References
 {
-    public class RandomPatternReference : IReference
+    public class RandomPatternReference : BaseReference
     {
         public List<int> PatternList;
 
-        public string Type
+        public new string Type
         {
             get
             {
@@ -21,7 +20,7 @@ namespace TERG.Core.Models.References
             PatternList = new List<int>();
         }
 
-        public string Pull(Engine e)
+        public override string Pull(Engine e)
         {
             if (PatternList.Count < 1) return string.Empty;
             Pattern p = e.GetPatternByID(PatternList[Engine.RNG.Next(0, PatternList.Count)]);
