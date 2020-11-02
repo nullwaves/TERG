@@ -49,20 +49,6 @@ namespace TERG.Forms
             this.tabControlEditors = new System.Windows.Forms.TabControl();
             this.tabPoolEditor = new System.Windows.Forms.TabPage();
             this.tabPatternEditor = new System.Windows.Forms.TabPage();
-            this.btnCopyPattern = new System.Windows.Forms.Button();
-            this.btnNewPattern = new System.Windows.Forms.Button();
-            this.btnDeleteReference = new System.Windows.Forms.Button();
-            this.btnMoveRefDown = new System.Windows.Forms.Button();
-            this.btnMoveRefUp = new System.Windows.Forms.Button();
-            this.btnDeletePattern = new System.Windows.Forms.Button();
-            this.comboAddReferenceType = new System.Windows.Forms.ComboBox();
-            this.listPatternReferences = new System.Windows.Forms.ListBox();
-            this.btnAddReference = new System.Windows.Forms.Button();
-            this.btnOpenTemplateEditor = new System.Windows.Forms.Button();
-            this.listPatterns = new System.Windows.Forms.ListBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.textPatternName = new System.Windows.Forms.TextBox();
             this.tabExport = new System.Windows.Forms.TabPage();
             this.btnExportOut = new System.Windows.Forms.Button();
             this.checkExportSeperators = new System.Windows.Forms.CheckBox();
@@ -77,7 +63,6 @@ namespace TERG.Forms
             this.tabEventLog.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabControlEditors.SuspendLayout();
-            this.tabPatternEditor.SuspendLayout();
             this.tabExport.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -246,160 +231,12 @@ namespace TERG.Forms
             // tabPatternEditor
             // 
             this.tabPatternEditor.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPatternEditor.Controls.Add(this.btnCopyPattern);
-            this.tabPatternEditor.Controls.Add(this.btnNewPattern);
-            this.tabPatternEditor.Controls.Add(this.btnDeleteReference);
-            this.tabPatternEditor.Controls.Add(this.btnMoveRefDown);
-            this.tabPatternEditor.Controls.Add(this.btnMoveRefUp);
-            this.tabPatternEditor.Controls.Add(this.btnDeletePattern);
-            this.tabPatternEditor.Controls.Add(this.comboAddReferenceType);
-            this.tabPatternEditor.Controls.Add(this.listPatternReferences);
-            this.tabPatternEditor.Controls.Add(this.btnAddReference);
-            this.tabPatternEditor.Controls.Add(this.btnOpenTemplateEditor);
-            this.tabPatternEditor.Controls.Add(this.listPatterns);
-            this.tabPatternEditor.Controls.Add(this.label6);
-            this.tabPatternEditor.Controls.Add(this.label5);
-            this.tabPatternEditor.Controls.Add(this.textPatternName);
             this.tabPatternEditor.Location = new System.Drawing.Point(4, 22);
             this.tabPatternEditor.Name = "tabPatternEditor";
             this.tabPatternEditor.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPatternEditor.Size = new System.Drawing.Size(538, 276);
+            this.tabPatternEditor.Size = new System.Drawing.Size(752, 368);
             this.tabPatternEditor.TabIndex = 1;
             this.tabPatternEditor.Text = "Patterns";
-            // 
-            // btnCopyPattern
-            // 
-            this.btnCopyPattern.Location = new System.Drawing.Point(406, 183);
-            this.btnCopyPattern.Name = "btnCopyPattern";
-            this.btnCopyPattern.Size = new System.Drawing.Size(121, 24);
-            this.btnCopyPattern.TabIndex = 16;
-            this.btnCopyPattern.Text = "Copy Pattern";
-            this.btnCopyPattern.UseVisualStyleBackColor = true;
-            this.btnCopyPattern.Click += new System.EventHandler(this.BtnCopyPattern_Click);
-            // 
-            // btnNewPattern
-            // 
-            this.btnNewPattern.Location = new System.Drawing.Point(407, 213);
-            this.btnNewPattern.Name = "btnNewPattern";
-            this.btnNewPattern.Size = new System.Drawing.Size(121, 24);
-            this.btnNewPattern.TabIndex = 15;
-            this.btnNewPattern.Text = "New Pattern";
-            this.btnNewPattern.UseVisualStyleBackColor = true;
-            this.btnNewPattern.Click += new System.EventHandler(this.AddNewPatternToolStripMenuItem_Click);
-            // 
-            // btnDeleteReference
-            // 
-            this.btnDeleteReference.Location = new System.Drawing.Point(406, 121);
-            this.btnDeleteReference.Name = "btnDeleteReference";
-            this.btnDeleteReference.Size = new System.Drawing.Size(121, 24);
-            this.btnDeleteReference.TabIndex = 14;
-            this.btnDeleteReference.Text = "Delete Reference";
-            this.btnDeleteReference.UseVisualStyleBackColor = true;
-            this.btnDeleteReference.Click += new System.EventHandler(this.BtnDeleteReference_Click);
-            // 
-            // btnMoveRefDown
-            // 
-            this.btnMoveRefDown.Image = global::TERG.Forms.Properties.Resources.arrow_down;
-            this.btnMoveRefDown.Location = new System.Drawing.Point(357, 150);
-            this.btnMoveRefDown.Name = "btnMoveRefDown";
-            this.btnMoveRefDown.Size = new System.Drawing.Size(43, 23);
-            this.btnMoveRefDown.TabIndex = 13;
-            this.btnMoveRefDown.UseVisualStyleBackColor = true;
-            this.btnMoveRefDown.Click += new System.EventHandler(this.BtnMoveRefDown_Click);
-            // 
-            // btnMoveRefUp
-            // 
-            this.btnMoveRefUp.Image = global::TERG.Forms.Properties.Resources.arrow_up;
-            this.btnMoveRefUp.Location = new System.Drawing.Point(357, 121);
-            this.btnMoveRefUp.Name = "btnMoveRefUp";
-            this.btnMoveRefUp.Size = new System.Drawing.Size(43, 23);
-            this.btnMoveRefUp.TabIndex = 12;
-            this.btnMoveRefUp.UseVisualStyleBackColor = true;
-            this.btnMoveRefUp.Click += new System.EventHandler(this.BtnMoveRefUp_Click);
-            // 
-            // btnDeletePattern
-            // 
-            this.btnDeletePattern.Location = new System.Drawing.Point(406, 243);
-            this.btnDeletePattern.Name = "btnDeletePattern";
-            this.btnDeletePattern.Size = new System.Drawing.Size(121, 23);
-            this.btnDeletePattern.TabIndex = 11;
-            this.btnDeletePattern.Text = "Delete Pattern";
-            this.btnDeletePattern.UseVisualStyleBackColor = true;
-            this.btnDeletePattern.Click += new System.EventHandler(this.BtnDeletePattern_Click);
-            // 
-            // comboAddReferenceType
-            // 
-            this.comboAddReferenceType.FormattingEnabled = true;
-            this.comboAddReferenceType.Location = new System.Drawing.Point(406, 94);
-            this.comboAddReferenceType.Name = "comboAddReferenceType";
-            this.comboAddReferenceType.Size = new System.Drawing.Size(121, 21);
-            this.comboAddReferenceType.TabIndex = 10;
-            // 
-            // listPatternReferences
-            // 
-            this.listPatternReferences.FormattingEnabled = true;
-            this.listPatternReferences.Location = new System.Drawing.Point(175, 28);
-            this.listPatternReferences.Name = "listPatternReferences";
-            this.listPatternReferences.ScrollAlwaysVisible = true;
-            this.listPatternReferences.Size = new System.Drawing.Size(172, 238);
-            this.listPatternReferences.TabIndex = 9;
-            this.listPatternReferences.DoubleClick += new System.EventHandler(this.ListPatternReferences_DoubleClick);
-            // 
-            // btnAddReference
-            // 
-            this.btnAddReference.Location = new System.Drawing.Point(357, 91);
-            this.btnAddReference.Name = "btnAddReference";
-            this.btnAddReference.Size = new System.Drawing.Size(43, 24);
-            this.btnAddReference.TabIndex = 8;
-            this.btnAddReference.Text = "+ Ref";
-            this.btnAddReference.UseVisualStyleBackColor = true;
-            this.btnAddReference.Click += new System.EventHandler(this.BtnAddReference_Click);
-            // 
-            // btnOpenTemplateEditor
-            // 
-            this.btnOpenTemplateEditor.Location = new System.Drawing.Point(357, 64);
-            this.btnOpenTemplateEditor.Name = "btnOpenTemplateEditor";
-            this.btnOpenTemplateEditor.Size = new System.Drawing.Size(171, 24);
-            this.btnOpenTemplateEditor.TabIndex = 8;
-            this.btnOpenTemplateEditor.Text = "Edit Pattern Body";
-            this.btnOpenTemplateEditor.UseVisualStyleBackColor = true;
-            this.btnOpenTemplateEditor.Click += new System.EventHandler(this.BtnOpenTemplateEditor_Click);
-            // 
-            // listPatterns
-            // 
-            this.listPatterns.FormattingEnabled = true;
-            this.listPatterns.Location = new System.Drawing.Point(-4, 0);
-            this.listPatterns.Name = "listPatterns";
-            this.listPatterns.ScrollAlwaysVisible = true;
-            this.listPatterns.Size = new System.Drawing.Size(173, 277);
-            this.listPatterns.TabIndex = 3;
-            this.listPatterns.SelectedIndexChanged += new System.EventHandler(this.ListPatterns_SelectedIndexChanged);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(175, 11);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(62, 13);
-            this.label6.TabIndex = 4;
-            this.label6.Text = "References";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(353, 19);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(38, 13);
-            this.label5.TabIndex = 5;
-            this.label5.Text = "Name:";
-            // 
-            // textPatternName
-            // 
-            this.textPatternName.Location = new System.Drawing.Point(356, 35);
-            this.textPatternName.Name = "textPatternName";
-            this.textPatternName.Size = new System.Drawing.Size(172, 20);
-            this.textPatternName.TabIndex = 6;
-            this.textPatternName.TextChanged += new System.EventHandler(this.TextPatternName_TextChanged);
             // 
             // tabExport
             // 
@@ -414,7 +251,7 @@ namespace TERG.Forms
             this.tabExport.Controls.Add(this.comboExportPattern);
             this.tabExport.Location = new System.Drawing.Point(4, 22);
             this.tabExport.Name = "tabExport";
-            this.tabExport.Size = new System.Drawing.Size(538, 276);
+            this.tabExport.Size = new System.Drawing.Size(752, 368);
             this.tabExport.TabIndex = 2;
             this.tabExport.Text = "Export";
             // 
@@ -516,8 +353,6 @@ namespace TERG.Forms
             this.tabEventLog.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabControlEditors.ResumeLayout(false);
-            this.tabPatternEditor.ResumeLayout(false);
-            this.tabPatternEditor.PerformLayout();
             this.tabExport.ResumeLayout(false);
             this.tabExport.PerformLayout();
             this.ResumeLayout(false);
@@ -541,22 +376,10 @@ namespace TERG.Forms
         private System.Windows.Forms.TabControl tabControlEditors;
         private System.Windows.Forms.TabPage tabPoolEditor;
         private System.Windows.Forms.TabPage tabPatternEditor;
-        private System.Windows.Forms.Button btnOpenTemplateEditor;
-        private System.Windows.Forms.ListBox listPatterns;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textPatternName;
-        private System.Windows.Forms.ListBox listPatternReferences;
         private System.Windows.Forms.ToolStripMenuItem addNewPatternToolStripMenuItem;
-        private System.Windows.Forms.ComboBox comboAddReferenceType;
-        private System.Windows.Forms.Button btnAddReference;
         private System.Windows.Forms.ToolStripMenuItem runToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem patternRunToolStripMenuItem;
-        private System.Windows.Forms.Button btnDeletePattern;
         private System.Windows.Forms.ToolStripMenuItem changeDatabaseLocationToolStripMenuItem;
-        private System.Windows.Forms.Button btnMoveRefDown;
-        private System.Windows.Forms.Button btnMoveRefUp;
-        private System.Windows.Forms.Button btnDeleteReference;
         private System.Windows.Forms.TabPage tabExport;
         private System.Windows.Forms.TextBox textExport;
         private System.Windows.Forms.Button btnRunExport;
@@ -566,8 +389,6 @@ namespace TERG.Forms
         private System.Windows.Forms.ComboBox comboExportPattern;
         private System.Windows.Forms.CheckBox checkExportSeperators;
         private System.Windows.Forms.Button btnExportOut;
-        private System.Windows.Forms.Button btnNewPattern;
-        private System.Windows.Forms.Button btnCopyPattern;
     }
 }
 

@@ -10,10 +10,12 @@ namespace TERG.Forms.Controls
     public partial class PatternMenu : UserControl
     {
         private readonly Engine Engine;
+        private readonly PatternEditor _editor;
+
         private IEnumerable<Pattern> Patterns => Engine.GetPatterns();
         private Pattern SelectedPattern => ListPatterns.SelectedItem != null ? (Pattern)ListPatterns.SelectedItem : null;
 
-        private readonly PatternEditor _editor;
+        public Pattern Selected => SelectedPattern;
 
         private PatternMenu()
         {
@@ -57,15 +59,7 @@ namespace TERG.Forms.Controls
             int oldId = SelectedPattern != null ? SelectedPattern.ID : -1;
             ListPatterns.Items.Clear();
             ListPatterns.Items.AddRange(Patterns.ToArray());
-            ListPatterns.SelectedIndex = oldId != -1 ? ListPatterns.Items.IndexOf(Engine.GetPoolByID(oldId)) : -1;
-        }
-
-        private void ListPatterns_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ListPatterns.SelectedIndex >= 0)
-            {
-                _editor.LoadPattern(SelectedPattern);
-            }
+            ListPatterns.SelectedIndex = oldId != -1 ? ListPatterns.Items.IndexOf(Engine.GetPatternByID(oldId)) : -1;
         }
     }
 }

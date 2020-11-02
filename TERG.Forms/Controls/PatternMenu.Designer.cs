@@ -71,7 +71,6 @@
             this.ListPatterns.Name = "ListPatterns";
             this.ListPatterns.Size = new System.Drawing.Size(150, 383);
             this.ListPatterns.TabIndex = 0;
-            this.ListPatterns.SelectedIndexChanged += new System.EventHandler(this.ListPatterns_SelectedIndexChanged);
             // 
             // PatternMenu
             // 

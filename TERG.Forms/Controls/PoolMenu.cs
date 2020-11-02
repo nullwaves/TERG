@@ -60,7 +60,7 @@ namespace TERG.Forms.Controls
             ListboxPools.SelectedIndex = oldId != -1 ? ListboxPools.Items.IndexOf(Engine.GetPoolByID(oldId)) : -1;
         }
 
-        private void ListboxPools_SelectedIndexChanged(object sender, System.EventArgs e)
+        private void ListboxPools_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ListboxPools.SelectedIndex > -1)
             {

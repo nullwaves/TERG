@@ -44,6 +44,10 @@
             this.SplitPatternReferences = new System.Windows.Forms.SplitContainer();
             this.GroupReferences = new System.Windows.Forms.GroupBox();
             this.ListReferences = new System.Windows.Forms.ListBox();
+            this.SplitReferenceControls = new System.Windows.Forms.SplitContainer();
+            this.ButtonReferenceDown = new System.Windows.Forms.Button();
+            this.ButtonReferenceUp = new System.Windows.Forms.Button();
+            this.ButtonNewReference = new System.Windows.Forms.Button();
             this.GroupPatternEditor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SplitPatternEditor)).BeginInit();
             this.SplitPatternEditor.Panel1.SuspendLayout();
@@ -54,6 +58,10 @@
             this.SplitPatternReferences.Panel1.SuspendLayout();
             this.SplitPatternReferences.SuspendLayout();
             this.GroupReferences.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SplitReferenceControls)).BeginInit();
+            this.SplitReferenceControls.Panel1.SuspendLayout();
+            this.SplitReferenceControls.Panel2.SuspendLayout();
+            this.SplitReferenceControls.SuspendLayout();
             this.SuspendLayout();
             // 
             // GroupPatternEditor
@@ -83,7 +91,7 @@
             // 
             this.SplitPatternEditor.Panel2.Controls.Add(this.SplitPatternReferences);
             this.SplitPatternEditor.Size = new System.Drawing.Size(701, 312);
-            this.SplitPatternEditor.SplitterDistance = 200;
+            this.SplitPatternEditor.SplitterDistance = 208;
             this.SplitPatternEditor.TabIndex = 0;
             // 
             // GroupPatternDetail
@@ -102,7 +110,7 @@
             this.GroupPatternDetail.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GroupPatternDetail.Location = new System.Drawing.Point(0, 0);
             this.GroupPatternDetail.Name = "GroupPatternDetail";
-            this.GroupPatternDetail.Size = new System.Drawing.Size(200, 312);
+            this.GroupPatternDetail.Size = new System.Drawing.Size(208, 312);
             this.GroupPatternDetail.TabIndex = 2;
             this.GroupPatternDetail.TabStop = false;
             this.GroupPatternDetail.Text = "Pattern Details";
@@ -147,6 +155,7 @@
             this.ButtonDelete.Size = new System.Drawing.Size(29, 23);
             this.ButtonDelete.TabIndex = 7;
             this.ButtonDelete.UseVisualStyleBackColor = true;
+            this.ButtonDelete.Click += new System.EventHandler(this.ButtonDelete_Click);
             // 
             // ButtonRefresh
             // 
@@ -156,6 +165,7 @@
             this.ButtonRefresh.Size = new System.Drawing.Size(29, 23);
             this.ButtonRefresh.TabIndex = 6;
             this.ButtonRefresh.UseVisualStyleBackColor = true;
+            this.ButtonRefresh.Click += new System.EventHandler(this.ButtonRefresh_Click);
             // 
             // ButtonSave
             // 
@@ -165,6 +175,7 @@
             this.ButtonSave.Size = new System.Drawing.Size(29, 23);
             this.ButtonSave.TabIndex = 5;
             this.ButtonSave.UseVisualStyleBackColor = true;
+            this.ButtonSave.Click += new System.EventHandler(this.ButtonSave_Click);
             // 
             // TextBoxName
             // 
@@ -173,6 +184,7 @@
             this.TextBoxName.Name = "TextBoxName";
             this.TextBoxName.Size = new System.Drawing.Size(136, 20);
             this.TextBoxName.TabIndex = 4;
+            this.TextBoxName.TextChanged += new System.EventHandler(this.TextBoxName_TextChanged);
             // 
             // LabelName
             // 
@@ -210,17 +222,18 @@
             // SplitPatternReferences.Panel1
             // 
             this.SplitPatternReferences.Panel1.Controls.Add(this.GroupReferences);
-            this.SplitPatternReferences.Size = new System.Drawing.Size(497, 312);
-            this.SplitPatternReferences.SplitterDistance = 165;
+            this.SplitPatternReferences.Panel1MinSize = 165;
+            this.SplitPatternReferences.Size = new System.Drawing.Size(489, 312);
+            this.SplitPatternReferences.SplitterDistance = 173;
             this.SplitPatternReferences.TabIndex = 0;
             // 
             // GroupReferences
             // 
-            this.GroupReferences.Controls.Add(this.ListReferences);
+            this.GroupReferences.Controls.Add(this.SplitReferenceControls);
             this.GroupReferences.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GroupReferences.Location = new System.Drawing.Point(0, 0);
             this.GroupReferences.Name = "GroupReferences";
-            this.GroupReferences.Size = new System.Drawing.Size(165, 312);
+            this.GroupReferences.Size = new System.Drawing.Size(173, 312);
             this.GroupReferences.TabIndex = 0;
             this.GroupReferences.TabStop = false;
             this.GroupReferences.Text = "References";
@@ -229,10 +242,60 @@
             // 
             this.ListReferences.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ListReferences.FormattingEnabled = true;
-            this.ListReferences.Location = new System.Drawing.Point(3, 16);
+            this.ListReferences.Location = new System.Drawing.Point(0, 0);
             this.ListReferences.Name = "ListReferences";
-            this.ListReferences.Size = new System.Drawing.Size(159, 293);
+            this.ListReferences.Size = new System.Drawing.Size(167, 259);
             this.ListReferences.TabIndex = 0;
+            // 
+            // SplitReferenceControls
+            // 
+            this.SplitReferenceControls.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SplitReferenceControls.Location = new System.Drawing.Point(3, 16);
+            this.SplitReferenceControls.Name = "SplitReferenceControls";
+            this.SplitReferenceControls.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // SplitReferenceControls.Panel1
+            // 
+            this.SplitReferenceControls.Panel1.Controls.Add(this.ButtonReferenceDown);
+            this.SplitReferenceControls.Panel1.Controls.Add(this.ButtonReferenceUp);
+            this.SplitReferenceControls.Panel1.Controls.Add(this.ButtonNewReference);
+            this.SplitReferenceControls.Panel1MinSize = 30;
+            // 
+            // SplitReferenceControls.Panel2
+            // 
+            this.SplitReferenceControls.Panel2.Controls.Add(this.ListReferences);
+            this.SplitReferenceControls.Size = new System.Drawing.Size(167, 293);
+            this.SplitReferenceControls.SplitterDistance = 30;
+            this.SplitReferenceControls.TabIndex = 0;
+            // 
+            // ButtonReferenceDown
+            // 
+            this.ButtonReferenceDown.Image = global::TERG.Forms.Properties.Resources.arrow_down;
+            this.ButtonReferenceDown.Location = new System.Drawing.Point(127, 4);
+            this.ButtonReferenceDown.Name = "ButtonReferenceDown";
+            this.ButtonReferenceDown.Size = new System.Drawing.Size(29, 23);
+            this.ButtonReferenceDown.TabIndex = 16;
+            this.ButtonReferenceDown.UseVisualStyleBackColor = true;
+            this.ButtonReferenceDown.Click += new System.EventHandler(this.ButtonReferenceDown_Click);
+            // 
+            // ButtonReferenceUp
+            // 
+            this.ButtonReferenceUp.Image = global::TERG.Forms.Properties.Resources.arrow_up;
+            this.ButtonReferenceUp.Location = new System.Drawing.Point(92, 4);
+            this.ButtonReferenceUp.Name = "ButtonReferenceUp";
+            this.ButtonReferenceUp.Size = new System.Drawing.Size(29, 23);
+            this.ButtonReferenceUp.TabIndex = 15;
+            this.ButtonReferenceUp.UseVisualStyleBackColor = true;
+            this.ButtonReferenceUp.Click += new System.EventHandler(this.ButtonReferenceUp_Click);
+            // 
+            // ButtonNewReference
+            // 
+            this.ButtonNewReference.Location = new System.Drawing.Point(3, 3);
+            this.ButtonNewReference.Name = "ButtonNewReference";
+            this.ButtonNewReference.Size = new System.Drawing.Size(43, 24);
+            this.ButtonNewReference.TabIndex = 14;
+            this.ButtonNewReference.Text = "+ Ref";
+            this.ButtonNewReference.UseVisualStyleBackColor = true;
             // 
             // PatternEditor
             // 
@@ -253,6 +316,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.SplitPatternReferences)).EndInit();
             this.SplitPatternReferences.ResumeLayout(false);
             this.GroupReferences.ResumeLayout(false);
+            this.SplitReferenceControls.Panel1.ResumeLayout(false);
+            this.SplitReferenceControls.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.SplitReferenceControls)).EndInit();
+            this.SplitReferenceControls.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -276,5 +343,9 @@
         private System.Windows.Forms.SplitContainer SplitPatternReferences;
         private System.Windows.Forms.GroupBox GroupReferences;
         private System.Windows.Forms.ListBox ListReferences;
+        private System.Windows.Forms.SplitContainer SplitReferenceControls;
+        private System.Windows.Forms.Button ButtonReferenceDown;
+        private System.Windows.Forms.Button ButtonReferenceUp;
+        private System.Windows.Forms.Button ButtonNewReference;
     }
 }

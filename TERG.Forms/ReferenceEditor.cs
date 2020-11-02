@@ -22,7 +22,7 @@ namespace TERG.Forms
 
         private void ReferenceEditor_Load(object sender, EventArgs e)
         {
-            DTBLcomboReferenceType.Items.AddRange(ReferenceFactory.typeMap.Keys.ToArray<string>());
+            DTBLcomboReferenceType.Items.AddRange(ReferenceFactory.typeMap.Keys.ToArray());
         }
 
         /*
