@@ -31,6 +31,7 @@ namespace TERG.Forms.Controls
             ResetFields();
             TextBoxID.Text = CurrentPattern.ID.ToString();
             TextBoxName.Text = CurrentPattern.Name;
+            TextBoxName.Enabled = true;
             ListReferences.Items.AddRange(CurrentPattern.References.ToArray());
         }
 
@@ -38,6 +39,7 @@ namespace TERG.Forms.Controls
         {
             TextBoxID.Text = "";
             TextBoxName.Text = "";
+            TextBoxName.Enabled = false;
             ListReferences.Items.Clear();
         }
 
@@ -64,6 +66,7 @@ namespace TERG.Forms.Controls
 
         private void ButtonSave_Click(object sender, EventArgs e)
         {
+            CurrentPattern.Name = TextBoxName.Text.Trim();
             PatternSaved(this, CurrentPattern);
         }
 
@@ -76,11 +79,6 @@ namespace TERG.Forms.Controls
         {
             PatternDeleted(this, CurrentPattern);
             ResetFields();
-        }
-
-        private void TextBoxName_TextChanged(object sender, EventArgs e)
-        {
-            CurrentPattern.Name = TextBoxName.Text.Trim();
         }
 
         private void ButtonReferenceUp_Click(object sender, EventArgs e)

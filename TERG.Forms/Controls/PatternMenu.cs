@@ -61,5 +61,13 @@ namespace TERG.Forms.Controls
             ListPatterns.Items.AddRange(Patterns.ToArray());
             ListPatterns.SelectedIndex = oldId != -1 ? ListPatterns.Items.IndexOf(Engine.GetPatternByID(oldId)) : -1;
         }
+
+        private void ListPatterns_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ListPatterns.SelectedIndex >= 0)
+            {
+                _editor.LoadPattern(SelectedPattern);
+            }
+        }
     }
 }
