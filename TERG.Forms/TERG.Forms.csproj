@@ -80,6 +80,18 @@
     <Compile Include="Controls\PoolMenu.Designer.cs">
       <DependentUpon>PoolMenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ReferenceEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ReferenceEditor.Designer.cs">
+      <DependentUpon>ReferenceEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ReferenceEditors\DTBLEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ReferenceEditors\DTBLEditor.Designer.cs">
+      <DependentUpon>DTBLEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dashboard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,6 +133,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\PoolMenu.resx">
       <DependentUpon>PoolMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ReferenceEditor.resx">
+      <DependentUpon>ReferenceEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ReferenceEditors\DTBLEditor.resx">
+      <DependentUpon>DTBLEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dashboard.resx">
       <DependentUpon>Dashboard.cs</DependentUpon>
@@ -182,6 +200,7 @@
   <ItemGroup>
     <None Include="Resources\table_delete.gif" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
