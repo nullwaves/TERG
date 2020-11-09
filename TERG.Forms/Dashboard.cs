@@ -11,7 +11,7 @@ namespace TERG.Forms
 {
     public partial class Dashboard : Form
     {
-        private Engine engine;
+        private static Engine engine;
 
         private IEnumerable<Pattern> Patterns => engine.GetPatterns();
         private IEnumerable<Pool> Pools => engine.GetPools();
@@ -19,6 +19,8 @@ namespace TERG.Forms
         private readonly string DBFileLocation = (string)Properties.Settings.Default["DatabaseFileLocation"];
         private PoolMenu PoolMenu;
         private PatternMenu PatternMenu;
+
+        public static Engine Engine => engine;
 
         public Dashboard()
         {

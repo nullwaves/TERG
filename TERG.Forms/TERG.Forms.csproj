@@ -92,6 +92,7 @@
     <Compile Include="Controls\ReferenceEditors\DTBLEditor.Designer.cs">
       <DependentUpon>DTBLEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ReferenceEditors\IReferenceTypeEditor.cs" />
     <Compile Include="Dashboard.cs">
       <SubType>Form</SubType>
     </Compile>

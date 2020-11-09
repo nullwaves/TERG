@@ -29,19 +29,18 @@
         private void InitializeComponent()
         {
             this.SplitDTBLEditor = new System.Windows.Forms.SplitContainer();
-            this.ListRows = new System.Windows.Forms.ListBox();
-            this.ComboReferenceType = new System.Windows.Forms.ComboBox();
-            this.ButtonDeleteRow = new System.Windows.Forms.Button();
-            this.ButtonAddRow = new System.Windows.Forms.Button();
-            this.ButtonOK = new System.Windows.Forms.Button();
-            this.CheckBoxUseReference = new System.Windows.Forms.CheckBox();
-            this.TextBoxRowValue = new System.Windows.Forms.TextBox();
-            this.LabelRowValue = new System.Windows.Forms.Label();
-            this.TextBoxRowEnd = new System.Windows.Forms.TextBox();
-            this.LabelRowEnd = new System.Windows.Forms.Label();
-            this.TextBoxRowStart = new System.Windows.Forms.TextBox();
-            this.LabelRowStart = new System.Windows.Forms.Label();
             this.ButtonEditReference = new System.Windows.Forms.Button();
+            this.LabelRowStart = new System.Windows.Forms.Label();
+            this.ComboReferenceType = new System.Windows.Forms.ComboBox();
+            this.TextBoxRowStart = new System.Windows.Forms.TextBox();
+            this.ButtonDeleteRow = new System.Windows.Forms.Button();
+            this.LabelRowEnd = new System.Windows.Forms.Label();
+            this.ButtonAddRow = new System.Windows.Forms.Button();
+            this.TextBoxRowEnd = new System.Windows.Forms.TextBox();
+            this.LabelRowValue = new System.Windows.Forms.Label();
+            this.TextBoxRowValue = new System.Windows.Forms.TextBox();
+            this.CheckBoxUseReference = new System.Windows.Forms.CheckBox();
+            this.ListRows = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.SplitDTBLEditor)).BeginInit();
             this.SplitDTBLEditor.Panel1.SuspendLayout();
             this.SplitDTBLEditor.Panel2.SuspendLayout();
@@ -64,7 +63,6 @@
             this.SplitDTBLEditor.Panel1.Controls.Add(this.LabelRowEnd);
             this.SplitDTBLEditor.Panel1.Controls.Add(this.ButtonAddRow);
             this.SplitDTBLEditor.Panel1.Controls.Add(this.TextBoxRowEnd);
-            this.SplitDTBLEditor.Panel1.Controls.Add(this.ButtonOK);
             this.SplitDTBLEditor.Panel1.Controls.Add(this.LabelRowValue);
             this.SplitDTBLEditor.Panel1.Controls.Add(this.TextBoxRowValue);
             this.SplitDTBLEditor.Panel1.Controls.Add(this.CheckBoxUseReference);
@@ -77,14 +75,23 @@
             this.SplitDTBLEditor.SplitterDistance = 140;
             this.SplitDTBLEditor.TabIndex = 1;
             // 
-            // ListRows
+            // ButtonEditReference
             // 
-            this.ListRows.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ListRows.FormattingEnabled = true;
-            this.ListRows.Location = new System.Drawing.Point(0, 0);
-            this.ListRows.Name = "ListRows";
-            this.ListRows.Size = new System.Drawing.Size(166, 285);
-            this.ListRows.TabIndex = 0;
+            this.ButtonEditReference.Location = new System.Drawing.Point(98, 93);
+            this.ButtonEditReference.Name = "ButtonEditReference";
+            this.ButtonEditReference.Size = new System.Drawing.Size(38, 23);
+            this.ButtonEditReference.TabIndex = 12;
+            this.ButtonEditReference.Text = "Edit";
+            this.ButtonEditReference.UseVisualStyleBackColor = true;
+            // 
+            // LabelRowStart
+            // 
+            this.LabelRowStart.AutoSize = true;
+            this.LabelRowStart.Location = new System.Drawing.Point(5, 6);
+            this.LabelRowStart.Name = "LabelRowStart";
+            this.LabelRowStart.Size = new System.Drawing.Size(57, 13);
+            this.LabelRowStart.TabIndex = 0;
+            this.LabelRowStart.Text = "Row Start:";
             // 
             // ComboReferenceType
             // 
@@ -93,6 +100,13 @@
             this.ComboReferenceType.Name = "ComboReferenceType";
             this.ComboReferenceType.Size = new System.Drawing.Size(129, 21);
             this.ComboReferenceType.TabIndex = 11;
+            // 
+            // TextBoxRowStart
+            // 
+            this.TextBoxRowStart.Location = new System.Drawing.Point(79, 3);
+            this.TextBoxRowStart.Name = "TextBoxRowStart";
+            this.TextBoxRowStart.Size = new System.Drawing.Size(57, 20);
+            this.TextBoxRowStart.TabIndex = 1;
             // 
             // ButtonDeleteRow
             // 
@@ -103,6 +117,15 @@
             this.ButtonDeleteRow.Text = "-";
             this.ButtonDeleteRow.UseVisualStyleBackColor = true;
             // 
+            // LabelRowEnd
+            // 
+            this.LabelRowEnd.AutoSize = true;
+            this.LabelRowEnd.Location = new System.Drawing.Point(4, 32);
+            this.LabelRowEnd.Name = "LabelRowEnd";
+            this.LabelRowEnd.Size = new System.Drawing.Size(54, 13);
+            this.LabelRowEnd.TabIndex = 2;
+            this.LabelRowEnd.Text = "Row End:";
+            // 
             // ButtonAddRow
             // 
             this.ButtonAddRow.Location = new System.Drawing.Point(5, 151);
@@ -112,14 +135,28 @@
             this.ButtonAddRow.Text = "+";
             this.ButtonAddRow.UseVisualStyleBackColor = true;
             // 
-            // ButtonOK
+            // TextBoxRowEnd
             // 
-            this.ButtonOK.Location = new System.Drawing.Point(5, 251);
-            this.ButtonOK.Name = "ButtonOK";
-            this.ButtonOK.Size = new System.Drawing.Size(131, 23);
-            this.ButtonOK.TabIndex = 8;
-            this.ButtonOK.Text = "OK";
-            this.ButtonOK.UseVisualStyleBackColor = true;
+            this.TextBoxRowEnd.Location = new System.Drawing.Point(79, 29);
+            this.TextBoxRowEnd.Name = "TextBoxRowEnd";
+            this.TextBoxRowEnd.Size = new System.Drawing.Size(57, 20);
+            this.TextBoxRowEnd.TabIndex = 3;
+            // 
+            // LabelRowValue
+            // 
+            this.LabelRowValue.AutoSize = true;
+            this.LabelRowValue.Location = new System.Drawing.Point(5, 54);
+            this.LabelRowValue.Name = "LabelRowValue";
+            this.LabelRowValue.Size = new System.Drawing.Size(37, 13);
+            this.LabelRowValue.TabIndex = 4;
+            this.LabelRowValue.Text = "Value:";
+            // 
+            // TextBoxRowValue
+            // 
+            this.TextBoxRowValue.Location = new System.Drawing.Point(5, 70);
+            this.TextBoxRowValue.Name = "TextBoxRowValue";
+            this.TextBoxRowValue.Size = new System.Drawing.Size(131, 20);
+            this.TextBoxRowValue.TabIndex = 5;
             // 
             // CheckBoxUseReference
             // 
@@ -131,62 +168,14 @@
             this.CheckBoxUseReference.Text = "Use Reference";
             this.CheckBoxUseReference.UseVisualStyleBackColor = true;
             // 
-            // TextBoxRowValue
+            // ListRows
             // 
-            this.TextBoxRowValue.Location = new System.Drawing.Point(5, 70);
-            this.TextBoxRowValue.Name = "TextBoxRowValue";
-            this.TextBoxRowValue.Size = new System.Drawing.Size(131, 20);
-            this.TextBoxRowValue.TabIndex = 5;
-            // 
-            // LabelRowValue
-            // 
-            this.LabelRowValue.AutoSize = true;
-            this.LabelRowValue.Location = new System.Drawing.Point(5, 54);
-            this.LabelRowValue.Name = "LabelRowValue";
-            this.LabelRowValue.Size = new System.Drawing.Size(37, 13);
-            this.LabelRowValue.TabIndex = 4;
-            this.LabelRowValue.Text = "Value:";
-            // 
-            // TextBoxRowEnd
-            // 
-            this.TextBoxRowEnd.Location = new System.Drawing.Point(79, 29);
-            this.TextBoxRowEnd.Name = "TextBoxRowEnd";
-            this.TextBoxRowEnd.Size = new System.Drawing.Size(57, 20);
-            this.TextBoxRowEnd.TabIndex = 3;
-            // 
-            // LabelRowEnd
-            // 
-            this.LabelRowEnd.AutoSize = true;
-            this.LabelRowEnd.Location = new System.Drawing.Point(4, 32);
-            this.LabelRowEnd.Name = "LabelRowEnd";
-            this.LabelRowEnd.Size = new System.Drawing.Size(54, 13);
-            this.LabelRowEnd.TabIndex = 2;
-            this.LabelRowEnd.Text = "Row End:";
-            // 
-            // TextBoxRowStart
-            // 
-            this.TextBoxRowStart.Location = new System.Drawing.Point(79, 3);
-            this.TextBoxRowStart.Name = "TextBoxRowStart";
-            this.TextBoxRowStart.Size = new System.Drawing.Size(57, 20);
-            this.TextBoxRowStart.TabIndex = 1;
-            // 
-            // LabelRowStart
-            // 
-            this.LabelRowStart.AutoSize = true;
-            this.LabelRowStart.Location = new System.Drawing.Point(5, 6);
-            this.LabelRowStart.Name = "LabelRowStart";
-            this.LabelRowStart.Size = new System.Drawing.Size(57, 13);
-            this.LabelRowStart.TabIndex = 0;
-            this.LabelRowStart.Text = "Row Start:";
-            // 
-            // ButtonEditReference
-            // 
-            this.ButtonEditReference.Location = new System.Drawing.Point(98, 93);
-            this.ButtonEditReference.Name = "ButtonEditReference";
-            this.ButtonEditReference.Size = new System.Drawing.Size(38, 23);
-            this.ButtonEditReference.TabIndex = 12;
-            this.ButtonEditReference.Text = "Edit";
-            this.ButtonEditReference.UseVisualStyleBackColor = true;
+            this.ListRows.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ListRows.FormattingEnabled = true;
+            this.ListRows.Location = new System.Drawing.Point(0, 0);
+            this.ListRows.Name = "ListRows";
+            this.ListRows.Size = new System.Drawing.Size(166, 285);
+            this.ListRows.TabIndex = 0;
             // 
             // DTBLEditor
             // 
@@ -211,7 +200,6 @@
         private System.Windows.Forms.ComboBox ComboReferenceType;
         private System.Windows.Forms.Button ButtonDeleteRow;
         private System.Windows.Forms.Button ButtonAddRow;
-        private System.Windows.Forms.Button ButtonOK;
         private System.Windows.Forms.CheckBox CheckBoxUseReference;
         private System.Windows.Forms.TextBox TextBoxRowValue;
         private System.Windows.Forms.Label LabelRowValue;
