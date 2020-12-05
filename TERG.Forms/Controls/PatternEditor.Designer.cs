@@ -47,6 +47,7 @@
             this.ButtonReferenceUp = new System.Windows.Forms.Button();
             this.ButtonNewReference = new System.Windows.Forms.Button();
             this.ListReferences = new System.Windows.Forms.ListBox();
+            this.ComboReferenceType = new System.Windows.Forms.ComboBox();
             this.GroupPatternEditor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SplitPatternEditor)).BeginInit();
             this.SplitPatternEditor.Panel1.SuspendLayout();
@@ -228,6 +229,7 @@
             // 
             // SplitReferenceControls.Panel1
             // 
+            this.SplitReferenceControls.Panel1.Controls.Add(this.ComboReferenceType);
             this.SplitReferenceControls.Panel1.Controls.Add(this.ButtonReferenceDown);
             this.SplitReferenceControls.Panel1.Controls.Add(this.ButtonReferenceUp);
             this.SplitReferenceControls.Panel1.Controls.Add(this.ButtonNewReference);
@@ -237,13 +239,13 @@
             // 
             this.SplitReferenceControls.Panel2.Controls.Add(this.ListReferences);
             this.SplitReferenceControls.Size = new System.Drawing.Size(165, 293);
-            this.SplitReferenceControls.SplitterDistance = 30;
+            this.SplitReferenceControls.SplitterDistance = 58;
             this.SplitReferenceControls.TabIndex = 0;
             // 
             // ButtonReferenceDown
             // 
             this.ButtonReferenceDown.Image = global::TERG.Forms.Properties.Resources.arrow_down;
-            this.ButtonReferenceDown.Location = new System.Drawing.Point(127, 4);
+            this.ButtonReferenceDown.Location = new System.Drawing.Point(87, 4);
             this.ButtonReferenceDown.Name = "ButtonReferenceDown";
             this.ButtonReferenceDown.Size = new System.Drawing.Size(29, 23);
             this.ButtonReferenceDown.TabIndex = 16;
@@ -253,7 +255,7 @@
             // ButtonReferenceUp
             // 
             this.ButtonReferenceUp.Image = global::TERG.Forms.Properties.Resources.arrow_up;
-            this.ButtonReferenceUp.Location = new System.Drawing.Point(92, 4);
+            this.ButtonReferenceUp.Location = new System.Drawing.Point(52, 4);
             this.ButtonReferenceUp.Name = "ButtonReferenceUp";
             this.ButtonReferenceUp.Size = new System.Drawing.Size(29, 23);
             this.ButtonReferenceUp.TabIndex = 15;
@@ -275,8 +277,16 @@
             this.ListReferences.FormattingEnabled = true;
             this.ListReferences.Location = new System.Drawing.Point(0, 0);
             this.ListReferences.Name = "ListReferences";
-            this.ListReferences.Size = new System.Drawing.Size(165, 259);
+            this.ListReferences.Size = new System.Drawing.Size(165, 231);
             this.ListReferences.TabIndex = 0;
+            // 
+            // ComboReferenceType
+            // 
+            this.ComboReferenceType.FormattingEnabled = true;
+            this.ComboReferenceType.Location = new System.Drawing.Point(3, 33);
+            this.ComboReferenceType.Name = "ComboReferenceType";
+            this.ComboReferenceType.Size = new System.Drawing.Size(113, 21);
+            this.ComboReferenceType.TabIndex = 17;
             // 
             // PatternEditor
             // 
@@ -324,5 +334,6 @@
         private System.Windows.Forms.Button ButtonReferenceDown;
         private System.Windows.Forms.Button ButtonReferenceUp;
         private System.Windows.Forms.Button ButtonNewReference;
+        private System.Windows.Forms.ComboBox ComboReferenceType;
     }
 }

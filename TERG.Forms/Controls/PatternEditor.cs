@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
+using TERG.Core;
 using TERG.Core.Interfaces;
 using TERG.Core.Models;
 
@@ -17,6 +19,8 @@ namespace TERG.Forms.Controls
         {
             CurrentPattern = null;
             InitializeComponent();
+            ComboReferenceType.DataSource = ReferenceFactory.typeMap.Keys.ToArray();
+            ResetFields();
         }
 
         internal bool LoadPattern(Pattern pattern)
@@ -32,6 +36,10 @@ namespace TERG.Forms.Controls
             TextBoxID.Text = CurrentPattern.ID.ToString();
             TextBoxName.Text = CurrentPattern.Name;
             TextBoxName.Enabled = true;
+            ComboReferenceType.Enabled = true;
+            ButtonNewReference.Enabled = true;
+            ButtonReferenceUp.Enabled = true;
+            ButtonReferenceDown.Enabled = true;
             ListReferences.Items.AddRange(CurrentPattern.References.ToArray());
         }
 
@@ -40,6 +48,10 @@ namespace TERG.Forms.Controls
             TextBoxID.Text = "";
             TextBoxName.Text = "";
             TextBoxName.Enabled = false;
+            ComboReferenceType.Enabled = false;
+            ButtonNewReference.Enabled = false;
+            ButtonReferenceUp.Enabled = false;
+            ButtonReferenceDown.Enabled = false;
             ListReferences.Items.Clear();
         }
 
