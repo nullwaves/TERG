@@ -17,7 +17,6 @@ namespace TERG.Forms.Controls.ReferenceEditors
             {"DTBL", typeof(DTBLEditor)}
         };
 
-        private IReference CurrentReference;
         private IReferenceTypeEditor CurrentEditor;
 
         public ReferenceEditor()
@@ -31,10 +30,11 @@ namespace TERG.Forms.Controls.ReferenceEditors
             {
                 return false;
             }
-            CurrentReference = reference;
-            CurrentEditor = (IReferenceTypeEditor)Activator.CreateInstance(TypeMap[CurrentReference.Type]);
-            CurrentEditor.LoadReference(CurrentReference);
+            CurrentEditor = (IReferenceTypeEditor)Activator.CreateInstance(TypeMap[reference.Type]);
+            CurrentEditor.LoadReference(reference);
             return true;
         }
+
+        public IReference GetReference() => CurrentEditor.GetReference();
     }
 }
