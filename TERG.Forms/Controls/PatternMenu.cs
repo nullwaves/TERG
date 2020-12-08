@@ -42,6 +42,7 @@ namespace TERG.Forms.Controls
         {
             if (Engine.RemovePattern(p.ID))
             {
+                ListPatterns.SelectedIndex = -1;
                 RefreshPatternList();
             }
         }

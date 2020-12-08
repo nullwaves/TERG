@@ -120,5 +120,18 @@ namespace TERG.Forms.Controls
                 PatternSaved(this, CurrentPattern);
             }
         }
+
+        private void ButtonNewReference_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                IReference newReference = ReferenceFactory.Create(ComboReferenceType.Text);
+                newReference = EditorBox.ShowEditor($"New Reference @{CurrentPattern.References.Count} in {CurrentPattern}", newReference);
+                CurrentPattern.References.Add(newReference);
+                RefreshPattern();
+                PatternSaved(this, CurrentPattern);
+            }
+            catch { }
+        }
     }
 }

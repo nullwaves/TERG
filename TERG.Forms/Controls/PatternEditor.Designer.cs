@@ -43,11 +43,11 @@
             this.LabelID = new System.Windows.Forms.Label();
             this.GroupReferences = new System.Windows.Forms.GroupBox();
             this.SplitReferenceControls = new System.Windows.Forms.SplitContainer();
+            this.ComboReferenceType = new System.Windows.Forms.ComboBox();
             this.ButtonReferenceDown = new System.Windows.Forms.Button();
             this.ButtonReferenceUp = new System.Windows.Forms.Button();
             this.ButtonNewReference = new System.Windows.Forms.Button();
             this.ListReferences = new System.Windows.Forms.ListBox();
-            this.ComboReferenceType = new System.Windows.Forms.ComboBox();
             this.GroupPatternEditor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SplitPatternEditor)).BeginInit();
             this.SplitPatternEditor.Panel1.SuspendLayout();
@@ -242,6 +242,14 @@
             this.SplitReferenceControls.SplitterDistance = 58;
             this.SplitReferenceControls.TabIndex = 0;
             // 
+            // ComboReferenceType
+            // 
+            this.ComboReferenceType.FormattingEnabled = true;
+            this.ComboReferenceType.Location = new System.Drawing.Point(3, 33);
+            this.ComboReferenceType.Name = "ComboReferenceType";
+            this.ComboReferenceType.Size = new System.Drawing.Size(113, 21);
+            this.ComboReferenceType.TabIndex = 17;
+            // 
             // ButtonReferenceDown
             // 
             this.ButtonReferenceDown.Image = global::TERG.Forms.Properties.Resources.arrow_down;
@@ -270,6 +278,7 @@
             this.ButtonNewReference.TabIndex = 14;
             this.ButtonNewReference.Text = "+ Ref";
             this.ButtonNewReference.UseVisualStyleBackColor = true;
+            this.ButtonNewReference.Click += new System.EventHandler(this.ButtonNewReference_Click);
             // 
             // ListReferences
             // 
@@ -279,14 +288,6 @@
             this.ListReferences.Name = "ListReferences";
             this.ListReferences.Size = new System.Drawing.Size(165, 231);
             this.ListReferences.TabIndex = 0;
-            // 
-            // ComboReferenceType
-            // 
-            this.ComboReferenceType.FormattingEnabled = true;
-            this.ComboReferenceType.Location = new System.Drawing.Point(3, 33);
-            this.ComboReferenceType.Name = "ComboReferenceType";
-            this.ComboReferenceType.Size = new System.Drawing.Size(113, 21);
-            this.ComboReferenceType.TabIndex = 17;
             // 
             // PatternEditor
             // 
