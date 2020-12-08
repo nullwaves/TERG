@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using TERG.Core.Interfaces;
 using TERG.Forms.Controls.ReferenceEditors;
 
@@ -19,10 +20,17 @@ namespace TERG.Forms
                 {
                     Dock = DockStyle.Fill
                 };
+                referenceEditor.ReferenceSaved += new EventHandler(editor.EditorBox_ReferenceSaved);
                 editor.Controls.Add(referenceEditor);
                 DialogResult result = editor.ShowDialog();
                 return result == DialogResult.OK ? referenceEditor.GetReference() : reference;
             }
+        }
+
+        private void EditorBox_ReferenceSaved(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.OK;
+            Close();
         }
     }
 }

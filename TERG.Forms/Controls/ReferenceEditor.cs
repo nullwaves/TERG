@@ -17,6 +17,8 @@ namespace TERG.Forms.Controls.ReferenceEditors
             {"DTBL", typeof(DTBLEditor)}
         };
 
+        public event EventHandler ReferenceSaved;
+
         private IReferenceTypeEditor CurrentEditor;
 
         public ReferenceEditor()
@@ -36,5 +38,10 @@ namespace TERG.Forms.Controls.ReferenceEditors
         }
 
         public IReference GetReference() => CurrentEditor.GetReference();
+
+        private void ButtonSave_Click(object sender, EventArgs e)
+        {
+            ReferenceSaved(sender, e);
+        }
     }
 }

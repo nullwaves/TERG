@@ -30,11 +30,11 @@
         {
             this.GroupReferenceEditor = new System.Windows.Forms.GroupBox();
             this.SplitReferenceEditor = new System.Windows.Forms.SplitContainer();
+            this.ButtonSave = new System.Windows.Forms.Button();
             this.TextBoxName = new System.Windows.Forms.TextBox();
             this.LabelName = new System.Windows.Forms.Label();
             this.ComboReferenceType = new System.Windows.Forms.ComboBox();
             this.LabelReferenceType = new System.Windows.Forms.Label();
-            this.ButtonSave = new System.Windows.Forms.Button();
             this.GroupReferenceEditor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SplitReferenceEditor)).BeginInit();
             this.SplitReferenceEditor.Panel1.SuspendLayout();
@@ -72,6 +72,16 @@
             this.SplitReferenceEditor.SplitterDistance = 58;
             this.SplitReferenceEditor.TabIndex = 0;
             // 
+            // ButtonSave
+            // 
+            this.ButtonSave.Image = global::TERG.Forms.Properties.Resources.action_save;
+            this.ButtonSave.Location = new System.Drawing.Point(193, 28);
+            this.ButtonSave.Name = "ButtonSave";
+            this.ButtonSave.Size = new System.Drawing.Size(29, 23);
+            this.ButtonSave.TabIndex = 6;
+            this.ButtonSave.UseVisualStyleBackColor = true;
+            this.ButtonSave.Click += new System.EventHandler(this.ButtonSave_Click);
+            // 
             // TextBoxName
             // 
             this.TextBoxName.Location = new System.Drawing.Point(43, 30);
@@ -104,15 +114,6 @@
             this.LabelReferenceType.Size = new System.Drawing.Size(34, 13);
             this.LabelReferenceType.TabIndex = 0;
             this.LabelReferenceType.Text = "Type:";
-            // 
-            // ButtonSave
-            // 
-            this.ButtonSave.Image = global::TERG.Forms.Properties.Resources.action_save;
-            this.ButtonSave.Location = new System.Drawing.Point(193, 28);
-            this.ButtonSave.Name = "ButtonSave";
-            this.ButtonSave.Size = new System.Drawing.Size(29, 23);
-            this.ButtonSave.TabIndex = 6;
-            this.ButtonSave.UseVisualStyleBackColor = true;
             // 
             // ReferenceEditor
             // 
