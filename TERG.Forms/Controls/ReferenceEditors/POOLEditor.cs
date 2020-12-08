@@ -1,7 +1,7 @@
 ﻿using System.Windows.Forms;
-using System.Linq;
 using TERG.Core.Interfaces;
 using TERG.Core.Models.References;
+using TERG.Core.Models;
 
 namespace TERG.Forms.Controls.ReferenceEditors
 {
@@ -17,13 +17,29 @@ namespace TERG.Forms.Controls.ReferenceEditors
 
         public IReference GetReference()
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                CurrentReference.PoolID = ((Pool)ComboPools.SelectedItem).ID;
+            }
+            catch
+            {
+                CurrentReference.PoolID = -1;
+            }
+            return CurrentReference;
         }
 
         public bool LoadReference(IReference reference)
         {
-            CurrentReference = (PoolReference)reference;
+            try
+            {
+                CurrentReference = (PoolReference)reference;
+            }
+            catch
+            {
+                return false;
+            }
             ComboPools.SelectedIndex = ComboPools.Items.IndexOf(Dashboard.Engine.GetPoolByID(CurrentReference.PoolID));
+            return true;
         }
     }
 }

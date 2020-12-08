@@ -30,10 +30,11 @@
         {
             this.GroupReferenceEditor = new System.Windows.Forms.GroupBox();
             this.SplitReferenceEditor = new System.Windows.Forms.SplitContainer();
+            this.TextBoxName = new System.Windows.Forms.TextBox();
+            this.LabelName = new System.Windows.Forms.Label();
             this.ComboReferenceType = new System.Windows.Forms.ComboBox();
             this.LabelReferenceType = new System.Windows.Forms.Label();
-            this.LabelName = new System.Windows.Forms.Label();
-            this.TextBoxName = new System.Windows.Forms.TextBox();
+            this.ButtonSave = new System.Windows.Forms.Button();
             this.GroupReferenceEditor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SplitReferenceEditor)).BeginInit();
             this.SplitReferenceEditor.Panel1.SuspendLayout();
@@ -46,7 +47,7 @@
             this.GroupReferenceEditor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GroupReferenceEditor.Location = new System.Drawing.Point(0, 0);
             this.GroupReferenceEditor.Name = "GroupReferenceEditor";
-            this.GroupReferenceEditor.Size = new System.Drawing.Size(197, 263);
+            this.GroupReferenceEditor.Size = new System.Drawing.Size(238, 263);
             this.GroupReferenceEditor.TabIndex = 0;
             this.GroupReferenceEditor.TabStop = false;
             this.GroupReferenceEditor.Text = "Reference Editor";
@@ -61,14 +62,31 @@
             // 
             // SplitReferenceEditor.Panel1
             // 
+            this.SplitReferenceEditor.Panel1.Controls.Add(this.ButtonSave);
             this.SplitReferenceEditor.Panel1.Controls.Add(this.TextBoxName);
             this.SplitReferenceEditor.Panel1.Controls.Add(this.LabelName);
             this.SplitReferenceEditor.Panel1.Controls.Add(this.ComboReferenceType);
             this.SplitReferenceEditor.Panel1.Controls.Add(this.LabelReferenceType);
             this.SplitReferenceEditor.Panel1MinSize = 58;
-            this.SplitReferenceEditor.Size = new System.Drawing.Size(191, 244);
+            this.SplitReferenceEditor.Size = new System.Drawing.Size(232, 244);
             this.SplitReferenceEditor.SplitterDistance = 58;
             this.SplitReferenceEditor.TabIndex = 0;
+            // 
+            // TextBoxName
+            // 
+            this.TextBoxName.Location = new System.Drawing.Point(43, 30);
+            this.TextBoxName.Name = "TextBoxName";
+            this.TextBoxName.Size = new System.Drawing.Size(144, 20);
+            this.TextBoxName.TabIndex = 3;
+            // 
+            // LabelName
+            // 
+            this.LabelName.AutoSize = true;
+            this.LabelName.Location = new System.Drawing.Point(3, 33);
+            this.LabelName.Name = "LabelName";
+            this.LabelName.Size = new System.Drawing.Size(38, 13);
+            this.LabelName.TabIndex = 2;
+            this.LabelName.Text = "Name:";
             // 
             // ComboReferenceType
             // 
@@ -87,21 +105,14 @@
             this.LabelReferenceType.TabIndex = 0;
             this.LabelReferenceType.Text = "Type:";
             // 
-            // LabelName
+            // ButtonSave
             // 
-            this.LabelName.AutoSize = true;
-            this.LabelName.Location = new System.Drawing.Point(3, 33);
-            this.LabelName.Name = "LabelName";
-            this.LabelName.Size = new System.Drawing.Size(38, 13);
-            this.LabelName.TabIndex = 2;
-            this.LabelName.Text = "Name:";
-            // 
-            // TextBoxName
-            // 
-            this.TextBoxName.Location = new System.Drawing.Point(43, 30);
-            this.TextBoxName.Name = "TextBoxName";
-            this.TextBoxName.Size = new System.Drawing.Size(144, 20);
-            this.TextBoxName.TabIndex = 3;
+            this.ButtonSave.Image = global::TERG.Forms.Properties.Resources.action_save;
+            this.ButtonSave.Location = new System.Drawing.Point(193, 28);
+            this.ButtonSave.Name = "ButtonSave";
+            this.ButtonSave.Size = new System.Drawing.Size(29, 23);
+            this.ButtonSave.TabIndex = 6;
+            this.ButtonSave.UseVisualStyleBackColor = true;
             // 
             // ReferenceEditor
             // 
@@ -109,7 +120,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.GroupReferenceEditor);
             this.Name = "ReferenceEditor";
-            this.Size = new System.Drawing.Size(197, 263);
+            this.Size = new System.Drawing.Size(238, 263);
             this.GroupReferenceEditor.ResumeLayout(false);
             this.SplitReferenceEditor.Panel1.ResumeLayout(false);
             this.SplitReferenceEditor.Panel1.PerformLayout();
@@ -127,5 +138,6 @@
         private System.Windows.Forms.Label LabelReferenceType;
         private System.Windows.Forms.TextBox TextBoxName;
         private System.Windows.Forms.Label LabelName;
+        private System.Windows.Forms.Button ButtonSave;
     }
 }
