@@ -1,6 +1,6 @@
 ﻿namespace TERG.Forms
 {
-    partial class ReferenceEditor
+    partial class LegacyReferenceEditor
     {
         /// <summary>
         /// Required designer variable.

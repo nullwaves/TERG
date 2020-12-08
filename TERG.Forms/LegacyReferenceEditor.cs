@@ -9,13 +9,13 @@ using TERG.Core.Models.References;
 
 namespace TERG.Forms
 {
-    public partial class ReferenceEditor : Form
+    public partial class LegacyReferenceEditor : Form
     {
         private List<DistributionRow> DTBLRows = new List<DistributionRow>();
         private int DTBLIndexInEditor = -1;
         private Engine engine;
 
-        public ReferenceEditor()
+        public LegacyReferenceEditor()
         {
             InitializeComponent();
         }
@@ -34,7 +34,7 @@ namespace TERG.Forms
 
         public static IReference Show(bool newFlag, Engine e, IReference r)
         {
-            using (ReferenceEditor form = new ReferenceEditor())
+            using (LegacyReferenceEditor form = new LegacyReferenceEditor())
             {
                 DialogResult result;
                 form.SetPage(r.Type);
