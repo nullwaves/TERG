@@ -17,7 +17,7 @@ namespace TERG.Core.Models.References
             }
         }
 
-        public new string Type
+        public override string Type
         {
             get
             {

@@ -22,6 +22,7 @@ namespace TERG.Forms
                 };
                 referenceEditor.ReferenceSaved += new EventHandler(editor.EditorBox_ReferenceSaved);
                 editor.Controls.Add(referenceEditor);
+                referenceEditor.LoadReference(reference);
                 DialogResult result = editor.ShowDialog();
                 return result == DialogResult.OK ? referenceEditor.GetReference() : reference;
             }

@@ -82,7 +82,7 @@ namespace TERG.Core.Managers
                 {
                     full.AddRange(p.List);
                 }
-                retval = full[Engine.RNG.Next(0, full.Count)];
+                retval = full.Count > 0 ? full[Engine.RNG.Next(0, full.Count)] : $"!!EMPTY POOL {parent}";
             }
             return retval;
         }

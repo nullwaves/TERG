@@ -2,7 +2,7 @@
 {
     public class PoolReference : BaseReference
     {
-        public new string Type
+        public override string Type
         {
             get
             {

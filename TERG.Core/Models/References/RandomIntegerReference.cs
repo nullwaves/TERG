@@ -4,7 +4,7 @@ namespace TERG.Core.Models.References
 {
     public class RandomIntegerReference : BaseReference
     {
-        public new string Type
+        public override string Type
         {
             get
             {

@@ -7,7 +7,7 @@ namespace TERG.Core.Models.References
     {
         public List<DistributionRow> Rows;
 
-        public new string Type
+        public override string Type
         {
             get
             {

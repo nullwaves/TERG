@@ -6,7 +6,7 @@ namespace TERG.Core.Models.References
     {
         public string Name { get; set; }
 
-        public string Type { get; }
+        public virtual string Type { get; }
 
         public abstract string Pull(Engine e);
 

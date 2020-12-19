@@ -34,6 +34,8 @@ namespace TERG.Forms.Controls.ReferenceEditors
             }
             CurrentEditor = (IReferenceTypeEditor)Activator.CreateInstance(TypeMap[reference.Type]);
             CurrentEditor.LoadReference(reference);
+            SplitReferenceEditor.Panel2.Controls.Clear();
+            SplitReferenceEditor.Panel2.Controls.Add((UserControl)CurrentEditor);
             return true;
         }
 

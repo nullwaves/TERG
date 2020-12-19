@@ -38,7 +38,7 @@ namespace TERG.Forms.Controls.ReferenceEditors
             {
                 return false;
             }
-            ComboPools.SelectedIndex = ComboPools.Items.IndexOf(Dashboard.Engine.GetPoolByID(CurrentReference.PoolID));
+            ComboPools.SelectedIndex = CurrentReference.PoolID == -1 ? -1 : ComboPools.Items.IndexOf(Dashboard.Engine.GetPoolByID(CurrentReference.PoolID));
             return true;
         }
     }
